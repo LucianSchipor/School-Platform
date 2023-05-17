@@ -1,0 +1,49 @@
+﻿<Window x:Class="School_Platform.Views.Student_View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:School_Platform.Views"
+        mc:Ignorable="d"
+        Title="Admin" Height="450" Width="800">
+    <Grid Background="CornflowerBlue" >
+        <WrapPanel Orientation="Horizontal">
+            <TextBlock Text="Your role is: "/>
+            <TextBlock Text=" HIS ROLE" FontWeight="Bold"/>
+        </WrapPanel>
+
+        <Grid Background="White" Height="350" Width="600">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center"  Background="White">
+                <TextBlock Text="STUDENT MENU" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
+                <TextBlock  HorizontalAlignment="Center" FontSize="6" Foreground="Gray" Text="You will only see the classes where you are a teacher"/>
+                <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
+
+                    <TextBlock Text="Choose Subject" Margin="0,20,0,0"/>
+                    <ComboBox Width="150" Margin="0,5,0,0"/>
+
+                    <TextBlock Text="Choose Action" Margin="0,20,0,0"/>
+                    <ComboBox Width="150" Margin="0,5,0,0">
+                        <ComboBoxItem Content="Absences"/>
+                        <ComboBoxItem Content="Materials"/>
+                        <ComboBoxItem Content="Grades"/>
+                        <ComboBoxItem Content="Average"/>
+                    </ComboBox>
+                </WrapPanel>
+            </StackPanel>
+            <Grid Grid.Column="1">
+                <ListBox Grid.Column="1">
+                    <ListBoxItem Content="Toti elevii rezultati in functie de (selectie + permisiuni)"/>
+                </ListBox>
+                <WrapPanel VerticalAlignment="Bottom">
+                    <Button Width="75" Height="20" VerticalAlignment="Bottom" Content="View"/>
+                </WrapPanel>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

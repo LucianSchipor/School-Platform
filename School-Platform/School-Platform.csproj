@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>School_Platform</RootNamespace>
     <AssemblyName>School-Platform</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -32,6 +32,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -85,18 +86,57 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Helpers\BaseVM.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Models\Entities\Admin.cs" />
+    <Compile Include="Models\Entities\Class.cs" />
+    <Compile Include="Models\DB_Context.cs" />
+    <Compile Include="Models\Entities\Professor.cs" />
+    <Compile Include="Models\Entities\Student.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Services\Class_Service.cs" />
+    <Compile Include="Services\Student_Service.cs" />
+    <Compile Include="Services\User_Service.cs" />
+    <Compile Include="ViewModels\LogIn_VM.cs" />
+    <Compile Include="Views\Admin_View.xaml.cs">
+      <DependentUpon>Admin_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogIn_View.xaml.cs">
+      <DependentUpon>LogIn_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Master_View.xaml.cs">
+      <DependentUpon>Master_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Professor_View.xaml.cs">
+      <DependentUpon>Professor_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Student_VIew.xaml.cs">
+      <DependentUpon>Student_VIew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Views\Admin_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogIn_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Master_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Professor_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Student_VIew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Elevi.cs">

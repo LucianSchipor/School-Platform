@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace School_Platform
+namespace School_Platform.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Student.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Student_View : Window
     {
-        public MainWindow()
+        public Student_View()
         {
             InitializeComponent();
         }

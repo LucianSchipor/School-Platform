@@ -1,0 +1,57 @@
+﻿<Window x:Class="School_Platform.Views.Admin_View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:School_Platform.Views"
+        mc:Ignorable="d"
+        Title="Admin" Height="450" Width="800">
+
+    <Grid Background="CornflowerBlue" >
+        <WrapPanel Orientation="Horizontal">
+            <TextBlock Text="Your role is: "/>
+            <TextBlock Text=" HIS ROLE" FontWeight="Bold"/>
+        </WrapPanel>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Height="400" Width="500">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+                    <TextBlock Text="ADMINISTRATOR MENU" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
+                    <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
+                        <TextBlock Text="Choose Year." />
+                        <ComboBox Width="150" Margin="0,5,0,0"/>
+
+                        <TextBlock Text="Choose Specialization" Margin="0,20,0,0"/>
+                        <ComboBox Width="150" Margin="0,5,0,0"/>
+
+                        <TextBlock Text="Choose Class" Margin="0,20,0,0"/>
+                        <ComboBox Width="150" Margin="0,5,0,0"/>
+                    </WrapPanel>
+
+
+                    
+                </StackPanel>
+
+                <StackPanel Grid.Column ="1" Background="White">
+
+                </StackPanel>
+                <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"> 
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Modify Class" IsEnabled="False"/>
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Associations" IsEnabled="False"/>
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Modify Person" IsEnabled="False"/>
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View" />
+                </WrapPanel>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Window>
