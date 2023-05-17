@@ -13,6 +13,7 @@ namespace School_Platform.Models
         public string Name { get; set; }
         public string Email { get; set; }   
 
+        public string UserRole { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
 
@@ -20,6 +21,8 @@ namespace School_Platform.Models
         {
             UserName = "new user";
             Password = "password";
+            Name = "New User";
+            Email = "new_user@student.unitbv.ro";
         }
     }
 }

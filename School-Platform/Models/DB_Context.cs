@@ -28,18 +28,32 @@ namespace School_Platform.Models
 
             user.UserName = "lucian";
             user.Password = "pass";
+            user.UserRole = "admin";
             _users.Add(user);
+
+            Admin admin = _users[0] as Admin;
 
             classes = new ObservableCollection<Class>();
             classes.Add(new Class { ID = "A", Specialization = "Stiinte-Sociale", YearOfStudy = "9" });
-            classes.Add(new Class { ID = "B", Specialization = "Filologie", YearOfStudy = "9" });
-            classes.Add(new Class { ID = "C", Specialization = "Stiinte-ale-Naturii", YearOfStudy = "9" });
-            classes.Add(new Class { ID = "D", Specialization = "Matematica-Informatica", YearOfStudy = "9" });
+            classes.Add(new Class { ID = "B", Specialization = "Stiinte-Sociale", YearOfStudy = "9" });
+            classes.Add(new Class { ID = "C", Specialization = "Stiinte-Sociale", YearOfStudy = "9" });
+            classes.Add(new Class { ID = "D", Specialization = "Stiinte-Sociale", YearOfStudy = "9" });
             classes.Add(new Class { ID = "A", Specialization = "Stiinte-Sociale", YearOfStudy = "10" });
             classes.Add(new Class { ID = "B", Specialization = "Stiinte-Sociale", YearOfStudy = "10" });
-            classes.Add(new Class { ID = "C", Specialization = "Matematica-Informatica", YearOfStudy = "10" });
+            classes.Add(new Class { ID = "C", Specialization = "Stiinte-Sociale", YearOfStudy = "10" });
             classes.Add(new Class { ID = "D", Specialization = "Stiinte-Sociale", YearOfStudy = "10" });
-            classes.Add(new Class { ID = "A", Specialization = "Stiinte-ale-Naturii", YearOfStudy = "11" });
+            classes.Add(new Class { ID = "A", Specialization = "Stiinte-Sociale", YearOfStudy = "11" });
+
+            classes.Add(new Class { ID = "A", Specialization = "Matematica-Informatica", YearOfStudy = "9" });
+            classes.Add(new Class { ID = "B", Specialization = "Matematica-Informatica", YearOfStudy = "9" });
+            classes.Add(new Class { ID = "C", Specialization = "Matematica-Informatica", YearOfStudy = "9" });
+            classes.Add(new Class { ID = "D", Specialization = "Matematica-Informatica", YearOfStudy = "9" });
+            classes.Add(new Class { ID = "A", Specialization = "Matematica-Informatica", YearOfStudy = "10" });
+            classes.Add(new Class { ID = "B", Specialization = "Matematica-Informatica", YearOfStudy = "10" });
+            classes.Add(new Class { ID = "C", Specialization = "Matematica-Informatica", YearOfStudy = "10" });
+            classes.Add(new Class { ID = "D", Specialization = "Matematica-Informatica", YearOfStudy = "10" });
+            classes.Add(new Class { ID = "A", Specialization = "Matematica-Informatica", YearOfStudy = "11" });
+
         }
     }
 }

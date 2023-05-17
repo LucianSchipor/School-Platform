@@ -88,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\BaseVM.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Helpers\RelayCommandGeneric.cs" />
     <Compile Include="Models\Entities\Admin.cs" />
     <Compile Include="Models\Entities\Class.cs" />
     <Compile Include="Models\DB_Context.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Services\Class_Service.cs" />
     <Compile Include="Services\Student_Service.cs" />
     <Compile Include="Services\User_Service.cs" />
+    <Compile Include="ViewModels\Admin_VM.cs" />
     <Compile Include="ViewModels\LogIn_VM.cs" />
     <Compile Include="Views\Admin_View.xaml.cs">
       <DependentUpon>Admin_View.xaml</DependentUpon>

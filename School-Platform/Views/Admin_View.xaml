@@ -3,14 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:behavior="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
         xmlns:local="clr-namespace:School_Platform.Views"
+        xmlns:context ="clr-namespace:School_Platform.ViewModels"
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800">
+
+    <Window.DataContext>
+        <context:Admin_VM />
+    </Window.DataContext>
 
     <Grid Background="CornflowerBlue" >
         <WrapPanel Orientation="Horizontal">
             <TextBlock Text="Your role is: "/>
-            <TextBlock Text=" HIS ROLE" FontWeight="Bold"/>
+            <TextBlock Text="{Binding}" FontWeight="Bold"/>
         </WrapPanel>
 
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Height="400" Width="500">
@@ -28,30 +34,75 @@
                     <TextBlock Text="ADMINISTRATOR MENU" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
                     <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
                         <TextBlock Text="Choose Year." />
-                        <ComboBox Width="150" Margin="0,5,0,0"/>
+                        <ComboBox Width="150" Margin="0,5,0,0"
+                                  x:Name="YearCombo"
+                                  behavior:CommandBehavior.Command="{Binding SelectYearCommand}"
+                                  behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=YearCombo}"
+                                  behavior:CommandBehavior.Event="SelectionChanged">
+                            <ComboBoxItem Content="9" />
+                            <ComboBoxItem Content="10" />
+                            <ComboBoxItem Content="11" />
+                            <ComboBoxItem Content="12" />
+                        </ComboBox>
 
                         <TextBlock Text="Choose Specialization" Margin="0,20,0,0"/>
-                        <ComboBox Width="150" Margin="0,5,0,0"/>
+                        <ComboBox Width="150" Margin="0,5,0,0"
+                                x:Name="SpecComboBox"
+                                 behavior:CommandBehavior.Command="{Binding SelectSpecializationCommand}"
+                                  behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=SpecComboBox}"
+                                  behavior:CommandBehavior.Event="SelectionChanged">
+
+                            <ComboBoxItem Content="Matematica-Informatica"/>
+                            <ComboBoxItem Content="Stiinte ale naturii"/>
+                            <ComboBoxItem Content="Stiinte sociale"/>
+                            <ComboBoxItem Content="Filologie"/>
+                        </ComboBox>
 
                         <TextBlock Text="Choose Class" Margin="0,20,0,0"/>
-                        <ComboBox Width="150" Margin="0,5,0,0"/>
+                        <ComboBox Width="150" Margin="0,5,0,0" x:Name="ClassComboBox"
+                                  behavior:CommandBehavior.Command="{Binding SelectIDCommand}"
+                                  behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=ClassComboBox}"
+                                  behavior:CommandBehavior.Event="SelectionChanged">
+                            <ComboBoxItem Content="A"/>
+                            <ComboBoxItem Content="B"/>
+                            <ComboBoxItem Content="C"/>
+                            <ComboBoxItem Content="D"/>
+                            <ComboBoxItem Content="E"/>
+                            <ComboBoxItem Content="F"/>
+                        </ComboBox>
                     </WrapPanel>
 
 
-                    
+
                 </StackPanel>
 
                 <StackPanel Grid.Column ="1" Background="White">
 
                 </StackPanel>
-                <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"> 
+                <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Modify Class" IsEnabled="False"/>
                     <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Associations" IsEnabled="False"/>
                     <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Modify Person" IsEnabled="False"/>
-                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View" />
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View" Command="{Binding ViewStudentsCommand}"/>
                 </WrapPanel>
             </Grid>
-        </Grid>
+            <Grid Grid.Row="1" Background="LightGray">
+                <ListBox Margin="5" ItemsSource="{Binding Classes}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="Student: "/>
+                                <TextBlock Text="{Binding YearOfStudy}"/>
+                                <TextBlock Text="{Binding ID}"/>
+                                <TextBlock Text=" "/>
+                                <TextBlock Text="{Binding Specialization}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
+            </Grid>
+
+        </Grid>
     </Grid>
 </Window>

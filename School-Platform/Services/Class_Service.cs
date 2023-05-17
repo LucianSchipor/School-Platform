@@ -16,8 +16,8 @@ namespace School_Platform.Services
         Student_Service student_Service { get; set; }
 
         public Class_Service(Class _class)
-        :base()
-        {   
+        : base()
+        {
             this._class = _class;
         }
 
@@ -31,30 +31,52 @@ namespace School_Platform.Services
             student_Service.GetStudent(name);
         }
 
-        public ObservableCollection<Class> GetClasses(string YearOfStudy, string Specialization, string ID = null)
+        public List<Class> GetClasses(string YearOfStudy = "new", string Specialization = "new", string ID = "new")
         {
-            if (YearOfStudy != null)
+
+            var result = new List<Class>();
+
+            if (YearOfStudy != "new")
             {
-                    if (ID != null)
+                result = DB_Context.classes
+                           .Where(classToFind =>
+                           classToFind.YearOfStudy == YearOfStudy).ToList();
+                if (Specialization != "new")
+                {
+                    result = result.Where(classToFind =>
+                    classToFind.Specialization == Specialization).ToList();
+
+                    if (ID != "new")
                     {
-                        return DB_Context.classes
-                            .Where(classToFind =>
-                            classToFind.YearOfStudy == YearOfStudy
-                        && classToFind.ID == ID) as ObservableCollection<Class>;
+                        result = result.Where(classToFind =>
+                        classToFind.ID == ID).ToList();
                     }
-                    else
-                    {
-                        return DB_Context.classes
-                            .Where(classToFind =>
-                            classToFind.YearOfStudy == YearOfStudy
-                        && classToFind.ID == ID) as ObservableCollection<Class>;
-                    }
+                }
             }
             else
             {
-                MessageBox.Show("You didn't selected anything. There are all classes");
-                return DB_Context.classes;
+                if (Specialization != "new")
+                {
+                   var resultAUX = DB_Context.classes
+                           .Where(classToFind =>
+                       classToFind.Specialization == Specialization);
+                    result = resultAUX.ToList();
+                    if (ID != "new")
+                    {
+                        result = (result.Where(classToFind =>
+                        classToFind.ID == ID)).ToList();
+                    }
+                }
+                else
+                {
+                    if (ID == "new")
+                    {
+                        result = DB_Context.classes.Where(classToFind =>
+                        classToFind.ID == ID).ToList();
+                    }
+                }
             }
+            return result;
         }
     }
 }
