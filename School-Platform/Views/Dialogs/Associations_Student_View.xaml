@@ -1,0 +1,57 @@
+﻿<Window x:Class="School_Platform.Views.Associations_Student_View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:School_Platform.Views.Dialogs"
+        xmlns:ctx ="clr-namespace:School_Platform.ViewModels"
+        mc:Ignorable="d"
+        Title="Associations_View" Height="450" Width="400">
+
+    <Window.DataContext>
+        <ctx:Associations_Student_VM />
+    </Window.DataContext>
+
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Width="210">
+            <TextBlock Text="ASSOCIATIONS FOR" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
+            <WrapPanel HorizontalAlignment="Center">
+                <TextBlock Text="{Binding SelectedUser.UserRole}" FontSize="15" HorizontalAlignment="Center" Foreground="LightGray" Margin="0,5,0,0"/>
+                <TextBlock Text=" " FontSize="8" HorizontalAlignment="Center" Foreground="LightGray" Margin="0,5,0,0"/>
+                <TextBlock Text="{Binding SelectedUser.Name}" FontSize="15" HorizontalAlignment="Center" Foreground="LightGray" Margin="0,5,0,0"/>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
+                <TextBlock Text="Choose Year." />
+                <ComboBox Width="150" Margin="0,5,0,0"
+                                  x:Name="YearCombo">
+                    <ComboBoxItem Content="9" />
+                    <ComboBoxItem Content="10" />
+                    <ComboBoxItem Content="11" />
+                    <ComboBoxItem Content="12" />
+                </ComboBox>
+
+                <TextBlock Text="Choose Specialization" Margin="0,20,0,0"/>
+                <ComboBox Width="150" Margin="0,5,0,0"
+                                x:Name="SpecComboBox"
+>
+                    <ComboBoxItem Content="Matematica-Informatica"/>
+                    <ComboBoxItem Content="Stiinte ale naturii"/>
+                    <ComboBoxItem Content="Stiinte sociale"/>
+                    <ComboBoxItem Content="Filologie"/>
+                </ComboBox>
+
+                <TextBlock Text="Choose Class" Margin="0,20,0,0"/>
+                <ComboBox Width="150" Margin="0,5,0,0" x:Name="ClassComboBox">
+                    <ComboBoxItem Content="A"/>
+                    <ComboBoxItem Content="B"/>
+                    <ComboBoxItem Content="C"/>
+                    <ComboBoxItem Content="D"/>
+                    <ComboBoxItem Content="E"/>
+                    <ComboBoxItem Content="F"/>
+                </ComboBox>
+
+                <Button Margin="0,20,0,0" Height="40" Width="100" Background="LightCoral" Content="GO"/>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Window>

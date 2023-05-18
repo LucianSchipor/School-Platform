@@ -1,4 +1,5 @@
 ﻿<Window x:Class="School_Platform.Views.Admin_View"
+        x:Name="Admin_Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -80,14 +81,24 @@
 
                 </StackPanel>
                 <WrapPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Modify Class" IsEnabled="False"/>
-                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Associations" IsEnabled="False"/>
-                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="Modify Person" IsEnabled="False"/>
-                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View" Command="{Binding ViewStudentsCommand}"/>
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightGreen" Content="Modify Class" IsEnabled="{Binding IsButtonEnabled}"/>
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightGreen" Content="Associations" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding AssociationsCommand}" CommandParameter="{Binding ElementName=Admin_Window}"/>
+                    <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightGreen" Content="Modify Person" IsEnabled="{Binding IsButtonEnabled}" />
+
+                    <WrapPanel Orientation="Horizontal">
+                        <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View Students" Command="{Binding ViewStudentsCommand}"/>
+                        <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View Professors" Command="{Binding}"/>
+                    </WrapPanel>                    
                 </WrapPanel>
+
             </Grid>
             <Grid Grid.Row="1" Background="LightGray">
-                <ListBox Margin="5" ItemsSource="{Binding Students}">
+                <ListBox Margin="5" ItemsSource="{Binding Students}" 
+                         x:Name="ListBoxStudents"
+                         behavior:CommandBehavior.Command="{Binding SelectStudentCommand}" 
+                         behavior:CommandBehavior.Event="SelectionChanged"
+                         behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=ListBoxStudents}"
+                         >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>

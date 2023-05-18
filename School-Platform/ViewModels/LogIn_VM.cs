@@ -73,6 +73,9 @@ namespace School_Platform.ViewModels
         }
         public void LogInVerification(Window window)
         {
+            var view1 = new Admin_View();
+            view1.Show();
+            window.Close();
             if (Username != null && Password != null)
             {
                 userToLogIn.SetUsername(Username);

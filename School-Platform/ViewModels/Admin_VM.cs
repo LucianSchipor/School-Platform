@@ -2,12 +2,14 @@
 using School_Platform.Helpers;
 using School_Platform.Models;
 using School_Platform.Services;
+using School_Platform.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Security;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +20,17 @@ namespace School_Platform.ViewModels
 {
     public class Admin_VM : BaseVM
     {
+
+        private bool _isButtonEnabled;
+        public bool IsButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                _isButtonEnabled = value;
+                NotifyPropertyChanged(nameof(IsButtonEnabled));
+            }
+        }
         public List<List<string>> selectedList { get; set; }
         Class_Service class_Service { get; set; }
         private List<Class> classes;
@@ -55,9 +68,26 @@ namespace School_Platform.ViewModels
             }
         }
 
+        private Student selectedStudent;
+        public Student SelectedStudent
+        {
+            get
+            {
+                return selectedStudent;
+            }
+            set
+            {
+                if (selectedStudent != value)
+                {
+                    selectedStudent = value;
+                    NotifyPropertyChanged(nameof(selectedStudent));
+                }
+            }
+        }
         public Admin_VM()
         {
-
+            IsButtonEnabled = false;
+            selectedStudent = new Student();
             Students = new ObservableCollection<Student>();
             class_Service = new Class_Service();
             classes = GetClasses();
@@ -150,14 +180,68 @@ namespace School_Platform.ViewModels
             informations = selectedList;
             var result = new ObservableCollection<Student>();
             Classes = class_Service.GetClasses(informations[0][0], informations[1][0], informations[2][0]);
-            foreach(var index in Classes)
+            foreach (var index in Classes)
             {
-                foreach(var indexStudent in index.Students)
+                foreach (var indexStudent in index.Students)
                 {
                     result.Add(indexStudent);
                 }
             }
             Students = result;
         }
+
+
+        private ICommand selectStudentCommand;
+        public ICommand SelectStudentCommand
+        {
+            get
+            {
+                if (selectStudentCommand == null)
+                {
+                    selectStudentCommand = new RelayCommandGeneric<Student>(SelectStudent);
+                }
+                return selectStudentCommand;
+            }
+        }
+
+        public void SelectStudent(Student item)
+        {
+            if(item != null)
+            {
+                selectedStudent = item;
+                IsButtonEnabled = true;
+            }
+
+        }
+
+        private ICommand associationsCommand;
+        public ICommand AssociationsCommand
+        {
+            get
+            {
+                if (associationsCommand == null)
+                {
+                    associationsCommand = new RelayCommandGeneric<Window>(Associations);
+                }
+                return associationsCommand;
+            }
+        }
+
+        public void Associations(Window window)
+        {
+            var associations_window = new Associations_Student_View();
+            var context = new Associations_Student_VM();
+            var prevSelectedUser = (window.DataContext as Admin_VM).SelectedStudent;
+            context.SelectedUser = prevSelectedUser;
+            associations_window.DataContext = context;
+
+            associations_window.Show();
+        }
+
+        /*
+         * functionalitate sa fac asocieri intre ani
+         * functionalitate sa setez profesorul la o materie la o clasa
+         * de adaugat functionalitate de modificat clasa unui elev
+        */
     }
 }
