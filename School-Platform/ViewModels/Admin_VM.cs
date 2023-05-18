@@ -38,7 +38,7 @@ namespace School_Platform.ViewModels
             }
         }
 
-        public ObservableCollection<Student> students;
+        private ObservableCollection<Student> students;
         public ObservableCollection<Student> Students
         {
             get
@@ -57,6 +57,8 @@ namespace School_Platform.ViewModels
 
         public Admin_VM()
         {
+
+            Students = new ObservableCollection<Student>();
             class_Service = new Class_Service();
             classes = GetClasses();
             selectedList = new List<List<string>>();
@@ -146,8 +148,16 @@ namespace School_Platform.ViewModels
         public void GetStudents(List<List<string>> informations)
         {
             informations = selectedList;
-
+            var result = new ObservableCollection<Student>();
             Classes = class_Service.GetClasses(informations[0][0], informations[1][0], informations[2][0]);
+            foreach(var index in Classes)
+            {
+                foreach(var indexStudent in index.Students)
+                {
+                    result.Add(indexStudent);
+                }
+            }
+            Students = result;
         }
     }
 }

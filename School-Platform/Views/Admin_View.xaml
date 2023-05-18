@@ -87,15 +87,19 @@
                 </WrapPanel>
             </Grid>
             <Grid Grid.Row="1" Background="LightGray">
-                <ListBox Margin="5" ItemsSource="{Binding Classes}">
+                <ListBox Margin="5" ItemsSource="{Binding Students}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
                                 <TextBlock Text="Student: "/>
-                                <TextBlock Text="{Binding YearOfStudy}"/>
-                                <TextBlock Text="{Binding ID}"/>
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text=" Email: "/>
+                                <TextBlock Text="{Binding Email}"/>
+                                <TextBlock Text=" Info: "/>
+                                <TextBlock Text="{Binding StudentAssociatedClass.YearOfStudy}"/>
+                                <TextBlock Text="{Binding StudentAssociatedClass.ID}"/>
                                 <TextBlock Text=" "/>
-                                <TextBlock Text="{Binding Specialization}"/>
+                                <TextBlock Text="{Binding StudentAssociatedClass.Specialization}"/>
                             </WrapPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

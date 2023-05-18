@@ -14,8 +14,8 @@ namespace School_Platform.Models
         public string Email { get; set; }   
 
         public string UserRole { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string UserName { get; private set; }
+        public string Password { get; private set; }
 
         public User()
         {
@@ -23,6 +23,31 @@ namespace School_Platform.Models
             Password = "password";
             Name = "New User";
             Email = "new_user@student.unitbv.ro";
+        }
+
+        public void SetUsername(string username)
+        {
+            this.UserName = username;
+        }
+
+        public void SetPassword(string password)
+        {
+            this.Password = password;
+        }
+
+        public string GetUsername()
+        {
+            return this.UserName;
+        }
+
+        public string GetPassword()
+        {
+            return this.Password;
+        }
+
+        public void MakeAdmin()
+        {
+            this.UserRole = "admin";
         }
     }
 }

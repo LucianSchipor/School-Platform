@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace School_Platform.Models
 {
@@ -68,7 +69,7 @@ namespace School_Platform.Models
             {
                 return students;
             }
-            set
+            private set
             {
                 if(students != value)
                 {
@@ -85,7 +86,7 @@ namespace School_Platform.Models
             {
                 return master;
             }
-            set
+            private set
             {
                 if(master != value)
                 {
@@ -106,6 +107,20 @@ namespace School_Platform.Models
         public ObservableCollection<Student> GetStudents()
         {
             return Students;
+        }
+
+        public void AddStudent(Student newStudent)
+        {
+            if(students != null)
+            {
+                newStudent.ChangeAssociatedClass(this);
+                students.Add(newStudent);
+            }
+            else
+            {
+                MessageBox.Show("newStudent a fost null!");
+                return;
+            }
         }
     }
 }

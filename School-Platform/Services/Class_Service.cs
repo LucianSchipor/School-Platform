@@ -28,7 +28,11 @@ namespace School_Platform.Services
         }
         public void AssociateStudentWithClass(string name, string classID, string classYearOfStudy)
         {
-            student_Service.GetStudent(name);
+            var student = student_Service.GetStudent(name);
+            if(_class != null)
+            {
+                _class.Students.Add(student);
+            }
         }
 
         public List<Class> GetClasses(string YearOfStudy = "new", string Specialization = "new", string ID = "new")

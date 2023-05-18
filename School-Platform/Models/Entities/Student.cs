@@ -10,8 +10,8 @@ namespace School_Platform.Models
 {
     public class Student : User
     {
-        Class studentAssociatedClass;
-        Class StudentAssociatedClass
+        public Class studentAssociatedClass;
+        public Class StudentAssociatedClass
         {
             get
             {
@@ -25,10 +25,11 @@ namespace School_Platform.Models
                 }
             }
         }
-        public Student(Class studentAssociatedClass)
+        public Student()
         : base()
         {
-            this.studentAssociatedClass = studentAssociatedClass;
+            this.studentAssociatedClass = new Class();
+            this.UserRole = "Student";
         }
 
         public Class GetAssociatedClass()

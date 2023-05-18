@@ -66,17 +66,17 @@ namespace School_Platform.ViewModels
             {
                 if (logInCommand == null)
                 {
-                    logInCommand = new RelayCommand(LogInVerification);
+                    logInCommand = new RelayCommandGeneric<Window>(LogInVerification);
                 }
                 return logInCommand;
             }
         }
-        public void LogInVerification(object obj)
+        public void LogInVerification(Window window)
         {
             if (Username != null && Password != null)
             {
-                userToLogIn.UserName = Username;
-                userToLogIn.Password = Password.ToString();
+                userToLogIn.SetUsername(Username);
+                userToLogIn.SetPassword(Password.ToString());
             }
             else
             {
@@ -90,7 +90,11 @@ namespace School_Platform.ViewModels
                 if(user1.UserRole == "admin")
                 {
                     var view = new Admin_View();
-                    view.Show();
+                    if(window != null)
+                    {
+                        view.Show();
+                        window.Close();
+                    }
                 }
             }
             else
@@ -98,7 +102,5 @@ namespace School_Platform.ViewModels
                 MessageBox.Show("User or password is incorect!");
             }
         }
-
-
     }
 }

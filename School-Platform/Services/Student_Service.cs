@@ -41,6 +41,7 @@ namespace School_Platform.Services
             var student = GetStudent(name);
             student.ChangeAssociatedClass(class_Service.GetClasses(YearOfStudy, ID)[0]);
         }
+
     }
 
 }

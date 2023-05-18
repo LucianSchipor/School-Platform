@@ -1,4 +1,5 @@
 ﻿<Window x:Class="School_Platform.Views.LogIn_View"
+        x:Name="LogIn_Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -20,7 +21,7 @@
                 <TextBox Text="{Binding Username}" x:Name="usernameBox" Width="200" Margin="0,0,0,20"/>
                 <TextBlock Text="Password" FontSize="20"/>
                 <TextBox x:Name="passwordBox" Text="{Binding Password}"/>
-                <Button Content="LOGIN" Background="LightCoral" Margin="0,20,0,0" Command="{Binding LogInCommand}"/>
+                <Button Content="LOGIN" Background="LightCoral" Margin="0,20,0,0" Command="{Binding LogInCommand}" CommandParameter="{Binding ElementName=LogIn_Window}" />
             </WrapPanel>
         </WrapPanel>
     </Grid>
