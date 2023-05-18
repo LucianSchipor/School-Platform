@@ -104,11 +104,8 @@
     <Compile Include="Views\Admin_View.xaml.cs">
       <DependentUpon>Admin_View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\Associations_Student_View.xaml.cs">
+    <Compile Include="Views\Associations_Student_View.xaml.cs">
       <DependentUpon>Associations_Student_View.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Dialogs\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LogIn_View.xaml.cs">
       <DependentUpon>LogIn_View.xaml</DependentUpon>
@@ -116,7 +113,7 @@
     <Compile Include="Views\Master_View.xaml.cs">
       <DependentUpon>Master_View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Dialogs\ModifyPerson_View.xaml.cs">
+    <Compile Include="Views\ModifyPerson_View.xaml.cs">
       <DependentUpon>ModifyPerson_View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Professor_View.xaml.cs">
@@ -133,11 +130,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\Associations_Student_View.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Dialogs\Window1.xaml">
+    <Page Include="Views\Associations_Student_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,7 +142,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Dialogs\ModifyPerson_View.xaml">
+    <Page Include="Views\ModifyPerson_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,7 +207,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Dialogs\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

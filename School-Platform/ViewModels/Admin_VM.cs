@@ -90,7 +90,7 @@ namespace School_Platform.ViewModels
             selectedStudent = new Student();
             Students = new ObservableCollection<Student>();
             class_Service = new Class_Service();
-            classes = GetClasses();
+            Classes = GetClasses();
             selectedList = new List<List<string>>();
 
             selectedList.Add(new List<string>());
@@ -234,7 +234,6 @@ namespace School_Platform.ViewModels
             var prevSelectedUser = (window.DataContext as Admin_VM).SelectedStudent;
             context.SelectedUser = prevSelectedUser;
             associations_window.DataContext = context;
-
             associations_window.Show();
         }
 

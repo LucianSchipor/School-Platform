@@ -55,7 +55,7 @@
 
                             <ComboBoxItem Content="Matematica-Informatica"/>
                             <ComboBoxItem Content="Stiinte ale naturii"/>
-                            <ComboBoxItem Content="Stiinte sociale"/>
+                            <ComboBoxItem Content="Stiinte-Sociale"/>
                             <ComboBoxItem Content="Filologie"/>
                         </ComboBox>
 

@@ -16,7 +16,7 @@ namespace School_Platform.Services
         Student_Service student_Service { get; set; }
 
         public Class_Service(Class _class)
-        : base()
+        : this()
         {
             this._class = _class;
         }
@@ -26,13 +26,14 @@ namespace School_Platform.Services
             DB_Context = new DB_Context();
             student_Service = new Student_Service();
         }
-        public void AssociateStudentWithClass(string name, string classID, string classYearOfStudy)
+        public void AssociateStudentWithClass(Student student, string classYearOfStudy, string classID)
         {
-            var student = student_Service.GetStudent(name);
-            if(_class != null)
+            if (_class != null)
             {
+                student.StudentAssociatedClass.Students.Remove(student);
                 _class.Students.Add(student);
             }
+            student.ChangeAssociatedClass(_class);
         }
 
         public List<Class> GetClasses(string YearOfStudy = "new", string Specialization = "new", string ID = "new")
@@ -56,14 +57,22 @@ namespace School_Platform.Services
                         classToFind.ID == ID).ToList();
                     }
                 }
+                else
+                {
+                    if (ID != "new")
+                    {
+                        result = result.Where(classToFind =>
+                        classToFind.ID == ID).ToList();
+                    }
+                }
             }
             else
             {
                 if (Specialization != "new")
                 {
-                   var resultAUX = DB_Context.classes
-                           .Where(classToFind =>
-                       classToFind.Specialization == Specialization);
+                    var resultAUX = DB_Context.classes
+                            .Where(classToFind =>
+                        classToFind.Specialization == Specialization);
                     result = resultAUX.ToList();
                     if (ID != "new")
                     {

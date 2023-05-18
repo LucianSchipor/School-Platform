@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:School_Platform.Views.Dialogs"
+        xmlns:local="clr-namespace:School_Platform.Views"
         xmlns:ctx ="clr-namespace:School_Platform.ViewModels"
+        xmlns:behavior ="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
         mc:Ignorable="d"
         Title="Associations_View" Height="450" Width="400">
 
@@ -23,34 +24,28 @@
             <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
                 <TextBlock Text="Choose Year." />
                 <ComboBox Width="150" Margin="0,5,0,0"
-                                  x:Name="YearCombo">
+                                  x:Name="YearCombo"
+                         behavior:CommandBehavior.Command="{Binding SelectYearCommand}"
+                          behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=YearCombo}"
+                          behavior:CommandBehavior.Event="SelectionChanged">
                     <ComboBoxItem Content="9" />
                     <ComboBoxItem Content="10" />
                     <ComboBoxItem Content="11" />
                     <ComboBoxItem Content="12" />
                 </ComboBox>
 
-                <TextBlock Text="Choose Specialization" Margin="0,20,0,0"/>
-                <ComboBox Width="150" Margin="0,5,0,0"
-                                x:Name="SpecComboBox"
->
-                    <ComboBoxItem Content="Matematica-Informatica"/>
-                    <ComboBoxItem Content="Stiinte ale naturii"/>
-                    <ComboBoxItem Content="Stiinte sociale"/>
-                    <ComboBoxItem Content="Filologie"/>
-                </ComboBox>
-
                 <TextBlock Text="Choose Class" Margin="0,20,0,0"/>
-                <ComboBox Width="150" Margin="0,5,0,0" x:Name="ClassComboBox">
-                    <ComboBoxItem Content="A"/>
-                    <ComboBoxItem Content="B"/>
-                    <ComboBoxItem Content="C"/>
-                    <ComboBoxItem Content="D"/>
-                    <ComboBoxItem Content="E"/>
-                    <ComboBoxItem Content="F"/>
+                <ComboBox Width="150" Margin="0,5,0,0" x:Name="ClassComboBox"
+                          behavior:CommandBehavior.Command="{Binding SelectClassCommand}"
+                          behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=ClassComboBox}"
+                          behavior:CommandBehavior.Event="SelectionChanged">
+                    <ComboBoxItem Content="A Matematica-Informatica"/>
+                    <ComboBoxItem Content="B Stiinte ale naturii" />
+                    <ComboBoxItem Content="C Stiinte-Sociale"/>
+                    <ComboBoxItem Content="D Filologie"/>
                 </ComboBox>
 
-                <Button Margin="0,20,0,0" Height="40" Width="100" Background="LightCoral" Content="GO"/>
+                <Button Margin="0,20,0,0" Height="40" Width="100" Background="LightCoral" Content="Move to class" Command="{Binding MoveToClassCommand}"/>
             </WrapPanel>
         </StackPanel>
     </Grid>

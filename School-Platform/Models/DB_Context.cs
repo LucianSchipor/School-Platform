@@ -47,7 +47,7 @@ namespace School_Platform.Models
             classes.Add(new Class { ID = "B", Specialization = "Stiinte ale naturii", YearOfStudy = "10" });
             classes.Add(new Class { ID = "C", Specialization = "Stiinte-Sociale", YearOfStudy = "10" });
             classes.Add(new Class { ID = "D", Specialization = "Filologie", YearOfStudy = "10" });
-            classes.Add(new Class { ID = "A", Specialization = "Stiinte ale naturii", YearOfStudy = "11" });
+            classes.Add(new Class { ID = "A", Specialization = "Matematica-Informatica", YearOfStudy = "11" });
 
             Student student = new Student{ Name = "Lucian", Email ="lucian@unitbv.ro"};
             _students.Add(student);

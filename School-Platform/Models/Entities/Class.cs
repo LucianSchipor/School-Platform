@@ -74,7 +74,7 @@ namespace School_Platform.Models
                 if(students != value)
                 {
                     students = value;
-                    NotifyPropertyChanged(nameof(students));
+                    NotifyPropertyChanged(nameof(Students));
                 }
             }
         }
