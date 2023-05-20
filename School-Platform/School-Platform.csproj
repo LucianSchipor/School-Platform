@@ -89,12 +89,36 @@
     <Compile Include="Helpers\BaseVM.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\RelayCommandGeneric.cs" />
-    <Compile Include="Models\Entities\Admin.cs" />
-    <Compile Include="Models\Entities\Class.cs" />
+    <Compile Include="Models\DataAcces_Layer\SchoolDataBase.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolDataBase.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAcces_Layer\SchoolDataBase.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolDataBase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataAcces_Layer\SchoolDataBase.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolDataBase.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dbos_Layer\GetAllMasters_dbo.cs" />
+    <Compile Include="Models\Dbos_Layer\GetAllUsers_Result.cs" />
     <Compile Include="Models\DB_Context.cs" />
-    <Compile Include="Models\Entities\Professor.cs" />
-    <Compile Include="Models\Entities\Student.cs" />
-    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities_Layer\Absence.cs" />
+    <Compile Include="Models\Entities_Layer\Admin.cs" />
+    <Compile Include="Models\Entities_Layer\Class.cs" />
+    <Compile Include="Models\Entities_Layer\Grade.cs" />
+    <Compile Include="Models\Entities_Layer\Specialization.cs" />
+    <Compile Include="Models\Entities_Layer\Specializations_Subjects.cs" />
+    <Compile Include="Models\Entities_Layer\Student.cs" />
+    <Compile Include="Models\Entities_Layer\Subject.cs" />
+    <Compile Include="Models\Entities_Layer\Teacher.cs" />
+    <Compile Include="Models\Entities_Layer\Teachers_Subjects.cs" />
+    <Compile Include="Models\Entities_Layer\User.cs" />
+    <Compile Include="Repositories\User_Repository.cs" />
     <Compile Include="Services\Class_Service.cs" />
     <Compile Include="Services\Student_Service.cs" />
     <Compile Include="Services\User_Service.cs" />
@@ -116,15 +140,15 @@
     <Compile Include="Views\ModifyPerson_View.xaml.cs">
       <DependentUpon>ModifyPerson_View.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Professor_View.xaml.cs">
-      <DependentUpon>Professor_View.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Student_View.xaml.cs">
       <DependentUpon>Student_View.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Teacher_View.xaml.cs">
+      <DependentUpon>Teacher_View.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Admin_View.xaml">
       <SubType>Designer</SubType>
@@ -146,34 +170,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Professor_View.xaml">
+    <Page Include="Views\Student_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Student_View.xaml">
+    <Page Include="Views\Teacher_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Elevi.cs">
-      <DependentUpon>School.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\School.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>School.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\School.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>School.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\School.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>School.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -191,12 +197,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\School.edmx">
+    <EntityDeploy Include="Models\DataAcces_Layer\SchoolDataBase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>School.Designer.cs</LastGenOutput>
+      <LastGenOutput>SchoolDataBase.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\School.edmx.diagram">
-      <DependentUpon>School.edmx</DependentUpon>
+    <None Include="Models\DataAcces_Layer\SchoolDataBase.edmx.diagram">
+      <DependentUpon>SchoolDataBase.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -223,19 +229,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\School.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>School.edmx</DependentUpon>
-      <LastGenOutput>School.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\School.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>School.edmx</DependentUpon>
-      <LastGenOutput>School.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Models\DataAcces_Layer\SchoolDataBase.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SchoolDataBase.edmx</DependentUpon>
+      <LastGenOutput>SchoolDataBase.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataAcces_Layer\SchoolDataBase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SchoolDataBase.edmx</DependentUpon>
+      <LastGenOutput>SchoolDataBase.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

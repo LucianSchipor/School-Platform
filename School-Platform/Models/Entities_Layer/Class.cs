@@ -79,8 +79,8 @@ namespace School_Platform.Models
             }
         }
 
-        private Professor master;
-        public Professor Master
+        private Teacher master;
+        public Teacher Master
         {
             get
             {
@@ -101,7 +101,7 @@ namespace School_Platform.Models
             Specialization = "New Class Created";
             ID = "New Class Created";
             Students = new ObservableCollection<Student>();
-            Master = new Professor();
+            Master = new Teacher();
         }
 
         public ObservableCollection<Student> GetStudents()

@@ -1,0 +1,739 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Absences">
+          <Key>
+            <PropertyRef Name="Absence_ID" />
+          </Key>
+          <Property Name="Absence_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_ID" Type="int" />
+          <Property Name="Teacher_ID" Type="int" />
+          <Property Name="Is_Motivated" Type="varchar" MaxLength="10" />
+          <Property Name="Absence_Date" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Class_Name" Type="varchar" MaxLength="5" />
+          <Property Name="Specialization" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Grades">
+          <Key>
+            <PropertyRef Name="Grade_ID" />
+          </Key>
+          <Property Name="Grade_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_ID" Type="int" />
+          <Property Name="Teacher_ID" Type="int" />
+          <Property Name="Grade_Value" Type="float" />
+          <Property Name="Grade_Date" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Specializations">
+          <Key>
+            <PropertyRef Name="Specialization_Name" />
+          </Key>
+          <Property Name="Specialization_Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specializations_Subjects">
+          <Key>
+            <PropertyRef Name="Specializations_Subjects_ID" />
+          </Key>
+          <Property Name="Specializations_Subjects_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Specialization_Name" Type="varchar" MaxLength="20" />
+          <Property Name="Year_Of_Study" Type="int" />
+          <Property Name="Subject_Name" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="Student_ID" />
+          </Key>
+          <Property Name="Student_ID" Type="int" Nullable="false" />
+          <Property Name="Class_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="Subject_Name" />
+          </Key>
+          <Property Name="Subject_Name" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teacher_Subjects">
+          <Key>
+            <PropertyRef Name="Teacher_Subject_ID" />
+          </Key>
+          <Property Name="Teacher_Subject_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Teacher_ID" Type="int" />
+          <Property Name="Subject_Name" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="Teacher_ID" />
+          </Key>
+          <Property Name="Teacher_ID" Type="int" Nullable="false" />
+          <Property Name="Mastered_Class_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+          <Property Name="Username" Type="varchar" MaxLength="20" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
+          <Property Name="Role" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__Absences__Studen__412EB0B6">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Absences" Type="Self.Absences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="Student_ID" />
+            </Principal>
+            <Dependent Role="Absences">
+              <PropertyRef Name="Student_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Absences__Teache__4222D4EF">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Absences" Type="Self.Absences" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Teacher_ID" />
+            </Principal>
+            <Dependent Role="Absences">
+              <PropertyRef Name="Teacher_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__Student___44FF419A">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="Student_ID" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="Student_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__Teacher___45F365D3">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Teacher_ID" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="Teacher_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Specializ__Speci__4CA06362">
+          <End Role="Specializations" Type="Self.Specializations" Multiplicity="0..1" />
+          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specializations">
+              <PropertyRef Name="Specialization_Name" />
+            </Principal>
+            <Dependent Role="Specializations_Subjects">
+              <PropertyRef Name="Specialization_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Specializ__Subje__4D94879B">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Principal>
+            <Dependent Role="Specializations_Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Students__Class___3E52440B">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teacher_S__Subje__5165187F">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
+          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Principal>
+            <Dependent Role="Teacher_Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teacher_S__Teach__5070F446">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
+          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Teacher_ID" />
+            </Principal>
+            <Dependent Role="Teacher_Subjects">
+              <PropertyRef Name="Teacher_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teachers__Master__3B75D760">
+          <End Role="Classes" Type="Self.Classes" Multiplicity="0..1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="Mastered_Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AdaugaDiriginte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProfesorID" Type="int" Mode="In" />
+          <Parameter Name="ClasaID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddMasterToClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProfesorID" Type="int" Mode="In" />
+          <Parameter Name="ClasaID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllMasters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllTeachers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="GetAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="SchoolModelStoreContainer">
+          <EntitySet Name="Absences" EntityType="Self.Absences" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grades" EntityType="Self.Grades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specializations" EntityType="Self.Specializations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specializations_Subjects" EntityType="Self.Specializations_Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher_Subjects" EntityType="Self.Teacher_Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Absences__Studen__412EB0B6" Association="Self.FK__Absences__Studen__412EB0B6">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Absences" EntitySet="Absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Absences__Teache__4222D4EF" Association="Self.FK__Absences__Teache__4222D4EF">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Absences" EntitySet="Absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__Student___44FF419A" Association="Self.FK__Grades__Student___44FF419A">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__Teacher___45F365D3" Association="Self.FK__Grades__Teacher___45F365D3">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specializ__Speci__4CA06362" Association="Self.FK__Specializ__Speci__4CA06362">
+            <End Role="Specializations" EntitySet="Specializations" />
+            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specializ__Subje__4D94879B" Association="Self.FK__Specializ__Subje__4D94879B">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Students__Class___3E52440B" Association="Self.FK__Students__Class___3E52440B">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher_S__Subje__5165187F" Association="Self.FK__Teacher_S__Subje__5165187F">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher_S__Teach__5070F446" Association="Self.FK__Teacher_S__Teach__5070F446">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teachers__Master__3B75D760" Association="Self.FK__Teachers__Master__3B75D760">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Absence">
+          <Key>
+            <PropertyRef Name="Absence_ID" />
+          </Key>
+          <Property Name="Absence_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_ID" Type="Int32" />
+          <Property Name="Teacher_ID" Type="Int32" />
+          <Property Name="Is_Motivated" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Absence_Date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Absences__Studen__412EB0B6" FromRole="Absences" ToRole="Students" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK__Absences__Teache__4222D4EF" FromRole="Absences" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Class_ID" />
+          </Key>
+          <Property Name="Class_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Class_Name" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Specialization" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__Students__Class___3E52440B" FromRole="Classes" ToRole="Students" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK__Teachers__Master__3B75D760" FromRole="Classes" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="Grade_ID" />
+          </Key>
+          <Property Name="Grade_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_ID" Type="Int32" />
+          <Property Name="Teacher_ID" Type="Int32" />
+          <Property Name="Grade_Value" Type="Double" />
+          <Property Name="Grade_Date" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Grades__Student___44FF419A" FromRole="Grades" ToRole="Students" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK__Grades__Teacher___45F365D3" FromRole="Grades" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="Specialization_Name" />
+          </Key>
+          <Property Name="Specialization_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Specializations_Subjects" Relationship="Self.FK__Specializ__Speci__4CA06362" FromRole="Specializations" ToRole="Specializations_Subjects" />
+        </EntityType>
+        <EntityType Name="Specializations_Subjects">
+          <Key>
+            <PropertyRef Name="Specializations_Subjects_ID" />
+          </Key>
+          <Property Name="Specializations_Subjects_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Specialization_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Year_Of_Study" Type="Int32" />
+          <Property Name="Subject_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Specialization" Relationship="Self.FK__Specializ__Speci__4CA06362" FromRole="Specializations_Subjects" ToRole="Specializations" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Specializ__Subje__4D94879B" FromRole="Specializations_Subjects" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Student_ID" />
+          </Key>
+          <Property Name="Student_ID" Type="Int32" Nullable="false" />
+          <Property Name="Class_ID" Type="Int32" />
+          <NavigationProperty Name="Absences" Relationship="Self.FK__Absences__Studen__412EB0B6" FromRole="Students" ToRole="Absences" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Students__Class___3E52440B" FromRole="Students" ToRole="Classes" />
+          <NavigationProperty Name="Grades" Relationship="Self.FK__Grades__Student___44FF419A" FromRole="Students" ToRole="Grades" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Subject_Name" />
+          </Key>
+          <Property Name="Subject_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Specializations_Subjects" Relationship="Self.FK__Specializ__Subje__4D94879B" FromRole="Subjects" ToRole="Specializations_Subjects" />
+          <NavigationProperty Name="Teacher_Subjects" Relationship="Self.FK__Teacher_S__Subje__5165187F" FromRole="Subjects" ToRole="Teacher_Subjects" />
+        </EntityType>
+        <EntityType Name="Teacher_Subjects">
+          <Key>
+            <PropertyRef Name="Teacher_Subject_ID" />
+          </Key>
+          <Property Name="Teacher_Subject_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Teacher_ID" Type="Int32" />
+          <Property Name="Subject_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Subject" Relationship="Self.FK__Teacher_S__Subje__5165187F" FromRole="Teacher_Subjects" ToRole="Subjects" />
+          <NavigationProperty Name="Teacher" Relationship="Self.FK__Teacher_S__Teach__5070F446" FromRole="Teacher_Subjects" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Teacher_ID" />
+          </Key>
+          <Property Name="Teacher_ID" Type="Int32" Nullable="false" />
+          <Property Name="Mastered_Class_ID" Type="Int32" />
+          <NavigationProperty Name="Absences" Relationship="Self.FK__Absences__Teache__4222D4EF" FromRole="Teachers" ToRole="Absences" />
+          <NavigationProperty Name="Class" Relationship="Self.FK__Teachers__Master__3B75D760" FromRole="Teachers" ToRole="Classes" />
+          <NavigationProperty Name="Grades" Relationship="Self.FK__Grades__Teacher___45F365D3" FromRole="Teachers" ToRole="Grades" />
+          <NavigationProperty Name="Teacher_Subjects" Relationship="Self.FK__Teacher_S__Teach__5070F446" FromRole="Teachers" ToRole="Teacher_Subjects" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__Absences__Studen__412EB0B6">
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Absences" Type="Self.Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="Student_ID" />
+            </Principal>
+            <Dependent Role="Absences">
+              <PropertyRef Name="Student_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Absences__Teache__4222D4EF">
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Absences" Type="Self.Absence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Teacher_ID" />
+            </Principal>
+            <Dependent Role="Absences">
+              <PropertyRef Name="Teacher_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Students__Class___3E52440B">
+          <End Role="Classes" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Students" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teachers__Master__3B75D760">
+          <End Role="Classes" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="Class_ID" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="Mastered_Class_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__Student___44FF419A">
+          <End Role="Students" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="Student_ID" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="Student_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Grades__Teacher___45F365D3">
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Grades" Type="Self.Grade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Teacher_ID" />
+            </Principal>
+            <Dependent Role="Grades">
+              <PropertyRef Name="Teacher_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Specializ__Speci__4CA06362">
+          <End Role="Specializations" Type="Self.Specialization" Multiplicity="0..1" />
+          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specializations">
+              <PropertyRef Name="Specialization_Name" />
+            </Principal>
+            <Dependent Role="Specializations_Subjects">
+              <PropertyRef Name="Specialization_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Specializ__Subje__4D94879B">
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Principal>
+            <Dependent Role="Specializations_Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teacher_S__Subje__5165187F">
+          <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Principal>
+            <Dependent Role="Teacher_Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Teacher_S__Teach__5070F446">
+          <End Role="Teachers" Type="Self.Teacher" Multiplicity="0..1" />
+          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="Teacher_ID" />
+            </Principal>
+            <Dependent Role="Teacher_Subjects">
+              <PropertyRef Name="Teacher_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Absences" EntityType="Self.Absence" />
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="Grades" EntityType="Self.Grade" />
+          <EntitySet Name="Specializations" EntityType="Self.Specialization" />
+          <EntitySet Name="Specializations_Subjects" EntityType="Self.Specializations_Subjects" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="Teacher_Subjects" EntityType="Self.Teacher_Subjects" />
+          <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Absences__Studen__412EB0B6" Association="Self.FK__Absences__Studen__412EB0B6">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Absences" EntitySet="Absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Absences__Teache__4222D4EF" Association="Self.FK__Absences__Teache__4222D4EF">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Absences" EntitySet="Absences" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Students__Class___3E52440B" Association="Self.FK__Students__Class___3E52440B">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teachers__Master__3B75D760" Association="Self.FK__Teachers__Master__3B75D760">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__Student___44FF419A" Association="Self.FK__Grades__Student___44FF419A">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Grades__Teacher___45F365D3" Association="Self.FK__Grades__Teacher___45F365D3">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Grades" EntitySet="Grades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specializ__Speci__4CA06362" Association="Self.FK__Specializ__Speci__4CA06362">
+            <End Role="Specializations" EntitySet="Specializations" />
+            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specializ__Subje__4D94879B" Association="Self.FK__Specializ__Subje__4D94879B">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher_S__Subje__5165187F" Association="Self.FK__Teacher_S__Subje__5165187F">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Teacher_S__Teach__5070F446" Association="Self.FK__Teacher_S__Teach__5070F446">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
+          </AssociationSet>
+          <FunctionImport Name="AdaugaDiriginte">
+            <Parameter Name="ProfesorID" Mode="In" Type="Int32" />
+            <Parameter Name="ClasaID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddMasterToClass">
+            <Parameter Name="ProfesorID" Mode="In" Type="Int32" />
+            <Parameter Name="ClasaID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllMasters" ReturnType="Collection(SchoolModel.GetAllMasters_Result)" />
+          <FunctionImport Name="GetAllStudents" ReturnType="Collection(SchoolModel.GetAllStudents_Result)" />
+          <FunctionImport Name="GetAllTeachers" ReturnType="Collection(SchoolModel.GetAllTeachers_Result)" />
+          <FunctionImport Name="GetAllUsers" ReturnType="Collection(SchoolModel.GetAllUsers_Result)" />
+        </EntityContainer>
+        <ComplexType Name="GetAllMasters_Result">
+          <Property Type="Int32" Name="Teacher_ID" Nullable="false" />
+          <Property Type="Int32" Name="Mastered_Class_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllStudents_Result">
+          <Property Type="Int32" Name="Student_ID" Nullable="false" />
+          <Property Type="Int32" Name="Class_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllTeachers_Result">
+          <Property Type="Int32" Name="Teacher_ID" Nullable="false" />
+          <Property Type="Int32" Name="Mastered_Class_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetAllUsers_Result">
+          <Property Type="Int32" Name="User_ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Role" Nullable="true" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SchoolModelStoreContainer" CdmEntityContainer="SchoolEntities">
+          <EntitySetMapping Name="Absences">
+            <EntityTypeMapping TypeName="SchoolModel.Absence">
+              <MappingFragment StoreEntitySet="Absences">
+                <ScalarProperty Name="Absence_ID" ColumnName="Absence_ID" />
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+                <ScalarProperty Name="Is_Motivated" ColumnName="Is_Motivated" />
+                <ScalarProperty Name="Absence_Date" ColumnName="Absence_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="SchoolModel.Class">
+              <MappingFragment StoreEntitySet="Classes">
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="Class_Name" ColumnName="Class_Name" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="SchoolModel.Grade">
+              <MappingFragment StoreEntitySet="Grades">
+                <ScalarProperty Name="Grade_ID" ColumnName="Grade_ID" />
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+                <ScalarProperty Name="Grade_Value" ColumnName="Grade_Value" />
+                <ScalarProperty Name="Grade_Date" ColumnName="Grade_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specializations">
+            <EntityTypeMapping TypeName="SchoolModel.Specialization">
+              <MappingFragment StoreEntitySet="Specializations">
+                <ScalarProperty Name="Specialization_Name" ColumnName="Specialization_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specializations_Subjects">
+            <EntityTypeMapping TypeName="SchoolModel.Specializations_Subjects">
+              <MappingFragment StoreEntitySet="Specializations_Subjects">
+                <ScalarProperty Name="Specializations_Subjects_ID" ColumnName="Specializations_Subjects_ID" />
+                <ScalarProperty Name="Specialization_Name" ColumnName="Specialization_Name" />
+                <ScalarProperty Name="Year_Of_Study" ColumnName="Year_Of_Study" />
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="SchoolModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="SchoolModel.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teacher_Subjects">
+            <EntityTypeMapping TypeName="SchoolModel.Teacher_Subjects">
+              <MappingFragment StoreEntitySet="Teacher_Subjects">
+                <ScalarProperty Name="Teacher_Subject_ID" ColumnName="Teacher_Subject_ID" />
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="SchoolModel.Teacher">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+                <ScalarProperty Name="Mastered_Class_ID" ColumnName="Mastered_Class_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SchoolModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AdaugaDiriginte" FunctionName="SchoolModel.Store.AdaugaDiriginte" />
+          <FunctionImportMapping FunctionImportName="AddMasterToClass" FunctionName="SchoolModel.Store.AddMasterToClass" />
+          <FunctionImportMapping FunctionImportName="GetAllMasters" FunctionName="SchoolModel.Store.GetAllMasters">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.GetAllMasters_Result">
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+                <ScalarProperty Name="Mastered_Class_ID" ColumnName="Mastered_Class_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllStudents" FunctionName="SchoolModel.Store.GetAllStudents">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.GetAllStudents_Result">
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllTeachers" FunctionName="SchoolModel.Store.GetAllTeachers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.GetAllTeachers_Result">
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+                <ScalarProperty Name="Mastered_Class_ID" ColumnName="Mastered_Class_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllUsers" FunctionName="SchoolModel.Store.GetAllUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.GetAllUsers_Result">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

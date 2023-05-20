@@ -74,6 +74,8 @@ namespace School_Platform.ViewModels
         public void LogInVerification(Window window)
         {
             var view1 = new Admin_View();
+            var service = users_service;
+            (view1.DataContext as Admin_VM).user_service = service;
             view1.Show();
             window.Close();
             if (Username != null && Password != null)
@@ -86,11 +88,11 @@ namespace School_Platform.ViewModels
                 MessageBox.Show("Trebuie sa introduci valorile pentru username si password.");
             }
 
-            var user1 = users_service.GetAllUsers().Where(user => user.UserName == Username && user.Password == Password.ToString()).FirstOrDefault();
+            var user1 = users_service.GetAllUsers().Where(user => user.Username == Username && user.Password == Password.ToString()).FirstOrDefault();
             if (user1 != null)
             {
                 MessageBox.Show("Login succesfully!");
-                if(user1.UserRole == "admin")
+                if(user1.Role == "admin")
                 {
                     var view = new Admin_View();
                     if(window != null)

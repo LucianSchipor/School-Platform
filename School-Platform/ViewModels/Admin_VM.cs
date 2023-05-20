@@ -1,6 +1,7 @@
 ﻿using School_Platform.Commands;
 using School_Platform.Helpers;
 using School_Platform.Models;
+using School_Platform.Models.Dbos_Layer;
 using School_Platform.Services;
 using School_Platform.Views;
 using System;
@@ -21,6 +22,7 @@ namespace School_Platform.ViewModels
     public class Admin_VM : BaseVM
     {
 
+        public User_Service user_service;
         private bool _isButtonEnabled;
         public bool IsButtonEnabled
         {
@@ -68,6 +70,23 @@ namespace School_Platform.ViewModels
             }
         }
 
+        private List<GetAllUsers_Result> users;
+        public List<GetAllUsers_Result> Users
+        {
+            get
+            {
+                return users;
+            }
+            set
+            {
+                if (users != value)
+                {
+                    users = value;
+                    NotifyPropertyChanged(nameof(Users));
+                }
+            }
+        }
+
         private Student selectedStudent;
         public Student SelectedStudent
         {
@@ -86,9 +105,11 @@ namespace School_Platform.ViewModels
         }
         public Admin_VM()
         {
+            user_service = new User_Service();
             IsButtonEnabled = false;
             selectedStudent = new Student();
             Students = new ObservableCollection<Student>();
+            Users = new List<GetAllUsers_Result>();
             class_Service = new Class_Service();
             Classes = GetClasses();
             selectedList = new List<List<string>>();
@@ -177,17 +198,21 @@ namespace School_Platform.ViewModels
 
         public void GetStudents(List<List<string>> informations)
         {
-            informations = selectedList;
-            var result = new ObservableCollection<Student>();
-            Classes = class_Service.GetClasses(informations[0][0], informations[1][0], informations[2][0]);
-            foreach (var index in Classes)
-            {
-                foreach (var indexStudent in index.Students)
-                {
-                    result.Add(indexStudent);
-                }
-            }
-            Students = result;
+            //informations = selectedList;
+            //var result = new ObservableCollection<Student>();
+            //Classes = class_Service.GetClasses(informations[0][0], informations[1][0], informations[2][0]);
+            //foreach (var index in Classes)
+            //{
+            //    foreach (var indexStudent in index.Students)
+            //    {
+            //        result.Add(indexStudent);
+            //    }
+            //}
+            //Students = result;
+
+            var ListUsers = user_service.GetAllUsersDB().ToList();
+
+            Users = ListUsers;   
         }
 
 
@@ -235,6 +260,7 @@ namespace School_Platform.ViewModels
             context.SelectedUser = prevSelectedUser;
             associations_window.DataContext = context;
             associations_window.Show();
+            window.Close();
         }
 
         /*

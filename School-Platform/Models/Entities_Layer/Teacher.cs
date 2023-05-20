@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace School_Platform.Models
 {
-    public class Professor
+    public class Teacher
     {
     }
 }

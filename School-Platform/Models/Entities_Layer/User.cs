@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,24 +11,29 @@ namespace School_Platform.Models
 {
     public class User
     {
-        public string Name { get; set; }
-        public string Email { get; set; }   
+        public int User_ID { get; set; }
 
-        public string UserRole { get; set; }
-        public string UserName { get; private set; }
-        public string Password { get; private set; }
+        public string Name { get; set; }    
+
+        public string Password { get; set; }
+
+        public string Username { get; set; }
+
+        public string Role { get; set; }
+
 
         public User()
         {
-            UserName = "new user";
+            User_ID = 0;
+            Username = "newuser";
             Password = "password";
             Name = "New User";
-            Email = "new_user@student.unitbv.ro";
+            Role = "User";
         }
 
         public void SetUsername(string username)
         {
-            this.UserName = username;
+            this.Username = username;
         }
 
         public void SetPassword(string password)
@@ -37,7 +43,7 @@ namespace School_Platform.Models
 
         public string GetUsername()
         {
-            return this.UserName;
+            return this.Username;
         }
 
         public string GetPassword()
@@ -47,7 +53,7 @@ namespace School_Platform.Models
 
         public void MakeAdmin()
         {
-            this.UserRole = "admin";
+            this.Role = "admin";
         }
     }
 }

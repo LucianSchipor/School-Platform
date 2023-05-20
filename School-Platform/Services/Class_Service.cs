@@ -26,14 +26,17 @@ namespace School_Platform.Services
             DB_Context = new DB_Context();
             student_Service = new Student_Service();
         }
-        public void AssociateStudentWithClass(Student student, string classYearOfStudy, string classID)
+        public void AssociateStudentWithClass(Student student, Class @class)
         {
-            if (_class != null)
+            _class = @class; //??
+
+            if (_class != null) //??
             {
                 student.StudentAssociatedClass.Students.Remove(student);
                 _class.Students.Add(student);
+                student.studentAssociatedClass = _class;
+
             }
-            student.ChangeAssociatedClass(_class);
         }
 
         public List<Class> GetClasses(string YearOfStudy = "new", string Specialization = "new", string ID = "new")

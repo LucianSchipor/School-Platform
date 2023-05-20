@@ -29,7 +29,7 @@ namespace School_Platform.Models
         : base()
         {
             this.studentAssociatedClass = new Class();
-            this.UserRole = "Student";
+            this.Role = "Student";
         }
 
         public Class GetAssociatedClass()

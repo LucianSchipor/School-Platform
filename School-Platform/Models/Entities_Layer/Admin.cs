@@ -13,7 +13,7 @@ namespace School_Platform.Models
         public Admin()
         : base()
         {
-            this.UserRole = "Admin";
+            this.Role = "Admin";
             view = new Admin_View();
         }
 

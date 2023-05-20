@@ -2,12 +2,14 @@
 using School_Platform.Helpers;
 using School_Platform.Models;
 using School_Platform.Services;
+using School_Platform.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -49,7 +51,6 @@ namespace School_Platform.ViewModels
             info[1].Add("new");
             info[2].Add("new");
         }
-
         private ICommand moveToClassCommand;
         public ICommand MoveToClassCommand
         {
@@ -57,7 +58,7 @@ namespace School_Platform.ViewModels
             {
                 if (moveToClassCommand == null)
                 {
-                    moveToClassCommand = new RelayCommand(Associate);
+                    moveToClassCommand = new RelayCommandGeneric<Window>(Associate);
                 }
                 return moveToClassCommand;
 
@@ -90,11 +91,21 @@ namespace School_Platform.ViewModels
 
             }
         }
-        private void Associate(object obj)
+        private void Associate(Window window)
         {
             var newClass = class_Service.GetClasses(info[0][0], info[1][0], info[2][0])[0];
 
-            class_Service.AssociateStudentWithClass(SelectedUser, info[0][0], info[2][0]);
+            class_Service.AssociateStudentWithClass(SelectedUser, newClass);
+
+            var nextAdminWindow = new Admin_View();
+            var context = window.DataContext as Associations_Student_VM;
+            (nextAdminWindow.DataContext as Admin_VM).SelectedStudent = context.SelectedUser;
+            (nextAdminWindow.DataContext as Admin_VM).Classes= context.class_Service.GetClasses();
+            (nextAdminWindow.DataContext as Admin_VM).IsButtonEnabled = false;
+            nextAdminWindow.DataContext = context;
+            nextAdminWindow.Show();
+            window.Close();
+            //??
         }
         private void SelectYear(ComboBoxItem year)
         {

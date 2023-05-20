@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace School_Platform.Views
 {
     /// <summary>
-    /// Interaction logic for Professor.xaml
+    /// Interaction logic for Teacher_View.xaml
     /// </summary>
-    public partial class Professor_View : Window
+    public partial class Teacher_View : Window
     {
-        public Professor_View()
+        public Teacher_View()
         {
             InitializeComponent();
         }

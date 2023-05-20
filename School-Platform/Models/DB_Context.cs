@@ -49,57 +49,6 @@ namespace School_Platform.Models
             classes.Add(new Class { ID = "D", Specialization = "Filologie", YearOfStudy = "10" });
             classes.Add(new Class { ID = "A", Specialization = "Matematica-Informatica", YearOfStudy = "11" });
 
-            Student student = new Student{ Name = "Lucian", Email ="lucian@unitbv.ro"};
-            _students.Add(student);
-
-            student = new Student();
-            student.Name = "Alexandru";
-            student.Email = "alexandru@unitbv.ro";
-            _students.Add(student);
-
-            student = new Student();
-            student.Name = "Mihai";
-            student.Email = "mihai@unitbv.ro";
-            _students.Add(student);
-            student = new Student();
-            student.Name = "Ioana";
-            student.Email = "ioana@unitbv.ro";
-            _students.Add(student);
-            student = new Student();
-            student.Name = "Adriana";
-            student.Email = "adriana@unitbv.ro";
-            _students.Add(student);
-            student = new Student();
-            student.Name = "Ionica";
-            student.Email = "ionica@unitbv.ro";
-            _students.Add(student);
-            student = new Student();
-            student.Name = "MGK";
-            student.Email = "mgk@unitbv.ro";
-            _students.Add(student);
-            student = new Student();
-            student.Name = "Sebi";
-            student.Email = "sebi@unitbv.ro";
-            _students.Add(student);
-            student = new Student();
-            student.Name = "Rares";
-            student.Email = "rares@unitbv.ro";
-            _students.Add(student);
-            student = new Student();
-            student.Name = "Alexia";
-            student.Email = "alexia@unitbv.ro";
-            _students.Add(student);
-
-            classes[0].AddStudent(_students[0]);
-            classes[1].AddStudent(_students[1]);
-            classes[2].AddStudent(_students[2]);
-            classes[2].AddStudent(_students[3]);
-            classes[3].AddStudent(_students[4]);
-            classes[3].AddStudent(_students[5]);
-            classes[4].AddStudent(_students[6]);
-            classes[5].AddStudent(_students[7]);
-            classes[6].AddStudent(_students[8]);
-            classes[6].AddStudent(_students[9]);
         }
     }
 }
