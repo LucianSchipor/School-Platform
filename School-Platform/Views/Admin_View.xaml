@@ -87,7 +87,7 @@
 
                     <WrapPanel Orientation="Horizontal">
                         <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View Students" Command="{Binding ViewStudentsCommand}"/>
-                        <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View Professors" Command="{Binding}"/>
+                        <Button Margin="0,20,0,0" Width="100" Height="40" Background="LightCoral" Content="View Professors" Command="{Binding ViewTeachersCommand}"/>
                     </WrapPanel>                    
                 </WrapPanel>
 
@@ -102,15 +102,17 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <WrapPanel>
-                                <TextBlock Text="User_ID: "/>
+                                <TextBlock Text="Student_ID: "/>
                                 <TextBlock Text="{Binding User_ID}"/>
+                                <TextBlock Text=" Username: "/>
+                                <TextBlock Text="{Binding Username}"/>
                                 <TextBlock Text=" Name: "/>
                                 <TextBlock Text="{Binding Name}"/>
-                                <TextBlock Text=" Info: "/>
-                                <TextBlock Text="{Binding Username}"/>
-                                <TextBlock Text="{Binding Password}"/>
-                                <TextBlock Text=" "/>
-                                <TextBlock Text="{Binding Role}"/>
+                                <TextBlock Text=" Class: "/>
+                                <TextBlock Text="{Binding Class_ID}"/>
+                                <TextBlock Text=" Class: "/>
+                                <TextBlock Text="{Binding Class_ID}"/>
+
                             </WrapPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
