@@ -88,24 +88,6 @@ namespace School_Platform.ViewModels
                 MessageBox.Show("Trebuie sa introduci valorile pentru username si password.");
             }
 
-            var user1 = users_service.GetAllUsers().Where(user => user.Username == Username && user.Password == Password.ToString()).FirstOrDefault();
-            if (user1 != null)
-            {
-                MessageBox.Show("Login succesfully!");
-                if(user1.Role == "admin")
-                {
-                    var view = new Admin_View();
-                    if(window != null)
-                    {
-                        view.Show();
-                        window.Close();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("User or password is incorect!");
-            }
         }
     }
 }

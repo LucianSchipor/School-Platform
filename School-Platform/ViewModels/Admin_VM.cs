@@ -1,7 +1,7 @@
 ﻿using School_Platform.Commands;
 using School_Platform.Helpers;
 using School_Platform.Models;
-using School_Platform.Models.Dbos_Layer;
+using School_Platform.Models.DataAcces_Layer;
 using School_Platform.Services;
 using School_Platform.Views;
 using System;
@@ -53,8 +53,8 @@ namespace School_Platform.ViewModels
             }
         }
 
-        private ObservableCollection<Student> students;
-        public ObservableCollection<Student> Students
+        private List<Admin_GetAllStudents_Result> students;
+        public List<Admin_GetAllStudents_Result> Students
         {
             get
             {
@@ -70,8 +70,8 @@ namespace School_Platform.ViewModels
             }
         }
 
-        private List<GetAllUsers_Result> users;
-        public List<GetAllUsers_Result> Users
+        private List<User> users;
+        public List<User> Users
         {
             get
             {
@@ -108,8 +108,8 @@ namespace School_Platform.ViewModels
             user_service = new User_Service();
             IsButtonEnabled = false;
             selectedStudent = new Student();
-            Students = new ObservableCollection<Student>();
-            Users = new List<GetAllUsers_Result>();
+            Students = new List<Admin_GetAllStudents_Result>();
+            Users = new List<User>();
             class_Service = new Class_Service();
             Classes = GetClasses();
             selectedList = new List<List<string>>();
@@ -125,7 +125,7 @@ namespace School_Platform.ViewModels
 
         public List<Class> GetClasses()
         {
-            return class_Service.GetClasses();
+            return null;
         }
 
         private ICommand selectYearCommand;
@@ -210,9 +210,9 @@ namespace School_Platform.ViewModels
             //}
             //Students = result;
 
-            var ListUsers = user_service.GetAllUsersDB().ToList();
+            Student_Service ss = new Student_Service();
+            Students = ss.GetAllStudents();
 
-            Users = ListUsers;   
         }
 
 
@@ -256,8 +256,6 @@ namespace School_Platform.ViewModels
         {
             var associations_window = new Associations_Student_View();
             var context = new Associations_Student_VM();
-            var prevSelectedUser = (window.DataContext as Admin_VM).SelectedStudent;
-            context.SelectedUser = prevSelectedUser;
             associations_window.DataContext = context;
             associations_window.Show();
             window.Close();

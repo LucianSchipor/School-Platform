@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace School_Platform.Models.Entities_Layer
+namespace School_Platform.Models
 {
-    public class Teachers_Subjects
+    public class Teacher_Subjects
     {
         int Teachers_Subjects_ID { get; set; }
         int Teacher_ID { get; set; }    
         string Subject_Name { get; set; }
 
-        public Teachers_Subjects()
+        public Teacher_Subjects()
         {
             Teachers_Subjects_ID = 0;
             Teacher_ID = 0;

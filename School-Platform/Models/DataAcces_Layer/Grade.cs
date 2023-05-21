@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace School_Platform.Models.Entities_Layer
+namespace School_Platform.Models
 {
     public class Grade
     {

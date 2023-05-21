@@ -113,7 +113,6 @@ namespace School_Platform.Models
         {
             if(students != null)
             {
-                newStudent.ChangeAssociatedClass(this);
                 students.Add(newStudent);
             }
             else

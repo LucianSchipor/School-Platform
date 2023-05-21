@@ -53,9 +53,9 @@
                                   behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=SpecComboBox}"
                                   behavior:CommandBehavior.Event="SelectionChanged">
 
-                            <ComboBoxItem Content="Matematica-Informatica"/>
+                            <ComboBoxItem Content="Mate-Info"/>
                             <ComboBoxItem Content="Stiinte ale naturii"/>
-                            <ComboBoxItem Content="Stiinte-Sociale"/>
+                            <ComboBoxItem Content="Stiinte sociale"/>
                             <ComboBoxItem Content="Filologie"/>
                         </ComboBox>
 
@@ -93,7 +93,7 @@
 
             </Grid>
             <Grid Grid.Row="1" Background="LightGray">
-                <ListBox Margin="5" ItemsSource="{Binding Users}" 
+                <ListBox Margin="5" ItemsSource="{Binding Students}" 
                          x:Name="ListBoxStudents"
                          behavior:CommandBehavior.Command="{Binding SelectStudentCommand}" 
                          behavior:CommandBehavior.Event="SelectionChanged"

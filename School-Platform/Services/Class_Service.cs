@@ -1,98 +1,21 @@
-﻿using School_Platform.Models;
+﻿using School_Platform.Models.DataAcces_Layer;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace School_Platform.Services
 {
     public class Class_Service
     {
-        Class _class { get; set; }
-        DB_Context DB_Context { get; set; }
-        Student_Service student_Service { get; set; }
 
-        public Class_Service(Class _class)
-        : this()
+        SchoolEntities SchoolDataBase { get; set; }
+        public Class_Service() 
         {
-            this._class = _class;
-        }
+            SchoolDataBase = new SchoolEntities();  
+        } 
 
-        public Class_Service()
-        {
-            DB_Context = new DB_Context();
-            student_Service = new Student_Service();
-        }
-        public void AssociateStudentWithClass(Student student, Class @class)
-        {
-            _class = @class; //??
-
-            if (_class != null) //??
-            {
-                student.StudentAssociatedClass.Students.Remove(student);
-                _class.Students.Add(student);
-                student.studentAssociatedClass = _class;
-
-            }
-        }
-
-        public List<Class> GetClasses(string YearOfStudy = "new", string Specialization = "new", string ID = "new")
-        {
-
-            var result = new List<Class>();
-
-            if (YearOfStudy != "new")
-            {
-                result = DB_Context.classes
-                           .Where(classToFind =>
-                           classToFind.YearOfStudy == YearOfStudy).ToList();
-                if (Specialization != "new")
-                {
-                    result = result.Where(classToFind =>
-                    classToFind.Specialization == Specialization).ToList();
-
-                    if (ID != "new")
-                    {
-                        result = result.Where(classToFind =>
-                        classToFind.ID == ID).ToList();
-                    }
-                }
-                else
-                {
-                    if (ID != "new")
-                    {
-                        result = result.Where(classToFind =>
-                        classToFind.ID == ID).ToList();
-                    }
-                }
-            }
-            else
-            {
-                if (Specialization != "new")
-                {
-                    var resultAUX = DB_Context.classes
-                            .Where(classToFind =>
-                        classToFind.Specialization == Specialization);
-                    result = resultAUX.ToList();
-                    if (ID != "new")
-                    {
-                        result = (result.Where(classToFind =>
-                        classToFind.ID == ID)).ToList();
-                    }
-                }
-                else
-                {
-                    if (ID == "new")
-                    {
-                        result = DB_Context.classes.Where(classToFind =>
-                        classToFind.ID == ID).ToList();
-                    }
-                }
-            }
-            return result;
-        }
+     
     }
 }

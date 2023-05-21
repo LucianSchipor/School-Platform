@@ -38,7 +38,7 @@ namespace School_Platform.ViewModels
         {
 
             SelectedUser = new Student();
-            class_Service = new Class_Service(SelectedUser.studentAssociatedClass);
+            class_Service = new Class_Service();
             info = new List<List<string>>();
             info.Add(new List<string>());
             info.Add(new List<string>());
@@ -93,19 +93,18 @@ namespace School_Platform.ViewModels
         }
         private void Associate(Window window)
         {
-            var newClass = class_Service.GetClasses(info[0][0], info[1][0], info[2][0])[0];
+            //class_Service.AssociateStudentWithClass(SelectedUser, newClass);
 
-            class_Service.AssociateStudentWithClass(SelectedUser, newClass);
-
-            var nextAdminWindow = new Admin_View();
-            var context = window.DataContext as Associations_Student_VM;
-            (nextAdminWindow.DataContext as Admin_VM).SelectedStudent = context.SelectedUser;
-            (nextAdminWindow.DataContext as Admin_VM).Classes= context.class_Service.GetClasses();
-            (nextAdminWindow.DataContext as Admin_VM).IsButtonEnabled = false;
-            nextAdminWindow.DataContext = context;
-            nextAdminWindow.Show();
-            window.Close();
-            //??
+            //var nextAdminWindow = new Admin_View();
+            //var context = window.DataContext as Associations_Student_VM;
+            ////(nextAdminWindow.DataContext as Admin_VM).SelectedStudent = context.SelectedUser;
+            //(nextAdminWindow.DataContext as Admin_VM).Classes= context.class_Service.GetClasses();
+            //(nextAdminWindow.DataContext as Admin_VM).IsButtonEnabled = false;
+            //nextAdminWindow.DataContext = context;
+            //nextAdminWindow.Show();
+            //window.Close();
+            ////??
+            return;
         }
         private void SelectYear(ComboBoxItem year)
         {
