@@ -1,4 +1,6 @@
-﻿using School_Platform.Models.DataAcces_Layer;
+﻿using School_Platform.Models;
+using School_Platform.Models.DataAcces_Layer;
+using School_Platform.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,15 @@ namespace School_Platform.Services
     public class Class_Service
     {
 
-        SchoolEntities SchoolDataBase { get; set; }
+        Class_Repository classRepository { get; set; }
         public Class_Service() 
         {
-            SchoolDataBase = new SchoolEntities();  
+            classRepository = new Class_Repository();
         } 
 
-     
+        public List<Admin_GetAllClasses_Result> GetAllClasses()
+        {
+           return classRepository.GetAllClasses();
+        }
     }
 }

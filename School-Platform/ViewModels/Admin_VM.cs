@@ -3,7 +3,9 @@ using School_Platform.Helpers;
 using School_Platform.Models;
 using School_Platform.Models.DataAcces_Layer;
 using School_Platform.Services;
+using School_Platform.ViewModels.Dialogs_VM;
 using School_Platform.Views;
+using School_Platform.Views.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,8 +37,8 @@ namespace School_Platform.ViewModels
         }
         public List<List<string>> selectedList { get; set; }
         Class_Service class_Service { get; set; }
-        private List<Class> classes;
-        public List<Class> Classes
+        private List<Admin_GetAllClasses_Result> classes;
+        public List<Admin_GetAllClasses_Result> Classes
         {
             get
             {
@@ -87,6 +89,17 @@ namespace School_Platform.ViewModels
             }
         }
 
+        private List<object> currentEntities;
+        public List<object> CurrentEntities
+        {
+            get { return currentEntities; }
+            set
+            {
+                currentEntities = value;
+                NotifyPropertyChanged(nameof(CurrentEntities));
+            }
+        }
+
         private Student selectedStudent;
         public Student SelectedStudent
         {
@@ -111,7 +124,6 @@ namespace School_Platform.ViewModels
             Students = new List<Admin_GetAllStudents_Result>();
             Users = new List<User>();
             class_Service = new Class_Service();
-            Classes = GetClasses();
             selectedList = new List<List<string>>();
 
             selectedList.Add(new List<string>());
@@ -121,11 +133,6 @@ namespace School_Platform.ViewModels
             selectedList[0].Add("new");
             selectedList[1].Add("new");
             selectedList[2].Add("new");
-        }
-
-        public List<Class> GetClasses()
-        {
-            return null;
         }
 
         private ICommand selectYearCommand;
@@ -190,13 +197,13 @@ namespace School_Platform.ViewModels
             {
                 if (viewStudentsCommand == null)
                 {
-                    viewStudentsCommand = new RelayCommandGeneric<List<List<string>>>(GetStudents);
+                    viewStudentsCommand = new RelayCommandGeneric<List<List<string>>>(GetAllStudents);
                 }
                 return viewStudentsCommand;
             }
         }
 
-        public void GetStudents(List<List<string>> informations)
+        public void GetAllStudents(List<List<string>> informations)
         {
             //informations = selectedList;
             //var result = new ObservableCollection<Student>();
@@ -213,6 +220,9 @@ namespace School_Platform.ViewModels
             Student_Service ss = new Student_Service();
             Students = ss.GetAllStudents();
 
+            var window = new ViewStudents_Result();
+            (window.DataContext as ViewStudents_Result_VM).Students = Students;
+            window.Show();
         }
 
 
@@ -223,17 +233,23 @@ namespace School_Platform.ViewModels
             {
                 if (selectStudentCommand == null)
                 {
-                    selectStudentCommand = new RelayCommandGeneric<Student>(SelectStudent);
+                    selectStudentCommand = new RelayCommandGeneric<Admin_GetAllStudents_Result>(SelectStudent);
                 }
                 return selectStudentCommand;
             }
         }
 
-        public void SelectStudent(Student item)
+        public void SelectStudent(Admin_GetAllStudents_Result item)
         {
+
+            Student student_cast = new Student();
+            student_cast.Student_ID = item.User_ID;
+            student_cast.Class_ID = item.Class_ID;
+            student_cast.AbsencesCount = item.AbsencesCount;
+
             if(item != null)
             {
-                selectedStudent = item;
+                selectedStudent = student_cast;
                 IsButtonEnabled = true;
             }
 
@@ -261,6 +277,29 @@ namespace School_Platform.ViewModels
             window.Close();
         }
 
+        private ICommand viewClassesCommand;
+        public ICommand ViewClassesCommand
+        {
+            get
+            {
+                if (viewClassesCommand == null)
+                {
+                    viewClassesCommand = new RelayCommandGeneric<ListBox>(GetAllClasses);
+                }
+                return viewClassesCommand;
+            }
+        }
+
+        private void GetAllClasses(ListBox c)
+        {
+            var cs = new Class_Service();
+            Classes = cs.GetAllClasses();
+
+            var window = new ViewClasses_Result();
+            var context = (window.DataContext as ViewClasses_Result_VM);
+            context.Classes = Classes;
+            window.Show();
+        }
         /*
          * functionalitate sa fac asocieri intre ani
          * functionalitate sa setez profesorul la o materie la o clasa

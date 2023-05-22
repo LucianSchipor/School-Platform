@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace School_Platform.Models
 {
-    public partial class Student
+    public partial class Student : User
     {
 
         public int Student_ID { get; set; }
@@ -16,5 +16,11 @@ namespace School_Platform.Models
         public int Class_ID { get; set; }
 
         public int AbsencesCount { get; set; }
+
+        public Student()
+            :base()
+        {
+            Role = "Student";
+        }
     }
 }

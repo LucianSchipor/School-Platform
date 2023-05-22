@@ -4,27 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="46e27941d2f84944858703c17979aef8" Name="Diagram1">
-        <EntityTypeShape EntityType="SchoolModel.Absence" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Class" Width="1.5" PointX="1.5" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Grade" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Specialization" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Specializations_Subjects" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Student" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Subject" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Subjects_Theisis" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Teacher_Subjects" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Teacher" Width="1.5" PointX="3.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.User" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="b6250dafa3a84ab79ec574d3a86942fe" Name="Diagram1">
+        <EntityTypeShape EntityType="SchoolModel.Absence" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Class" Width="1.5" PointX="1.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Grade" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Specialization" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Specializations_Subjects" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Student" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Subject" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Subjects_Theisis" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Teacher_Subjects" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.Teacher" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="SchoolModel.User" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SchoolModel.FK__Absences__Studen__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Absences__Subjec__5FB337D6" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Students__Class___3E52440B" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Teachers__Master__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Grades__Student___44FF419A" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Grades__Subject___6383C8BA" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.FK__Specializ__Speci__4CA06362" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Subject_T__Speci__6E01572D" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.FK__Specializ__Subje__4D94879B" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Subject_T__Subje__6D0D32F4" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Teacher_S__Subje__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Teacher_S__Teach__5070F446" ManuallyRouted="false" />

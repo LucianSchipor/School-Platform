@@ -89,7 +89,12 @@
     <Compile Include="Helpers\BaseVM.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\RelayCommandGeneric.cs" />
+    <Compile Include="Models\DataAcces_Layer\Admin_GetAllClasses_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\Admin_GetAllStudents_Result.cs" />
+    <Compile Include="Models\DataAcces_Layer\Absence.cs" />
+    <Compile Include="Models\DataAcces_Layer\Admin.cs" />
+    <Compile Include="Models\DataAcces_Layer\Class.cs" />
+    <Compile Include="Models\DataAcces_Layer\Grade.cs" />
     <Compile Include="Models\DataAcces_Layer\SchoolDataBase.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -105,10 +110,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SchoolDataBase.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataAcces_Layer\Absence.cs" />
-    <Compile Include="Models\DataAcces_Layer\Admin.cs" />
-    <Compile Include="Models\DataAcces_Layer\Class.cs" />
-    <Compile Include="Models\DataAcces_Layer\Grade.cs" />
     <Compile Include="Models\DataAcces_Layer\Specialization.cs" />
     <Compile Include="Models\DataAcces_Layer\Specializations_Subjects.cs" />
     <Compile Include="Models\DataAcces_Layer\Student.cs" />
@@ -117,6 +118,8 @@
     <Compile Include="Models\DataAcces_Layer\Teacher.cs" />
     <Compile Include="Models\DataAcces_Layer\Teacher_Subjects.cs" />
     <Compile Include="Models\DataAcces_Layer\User.cs" />
+    <Compile Include="Models\ListHelper.cs" />
+    <Compile Include="Repositories\Class_Repository.cs" />
     <Compile Include="Repositories\Student_Repository.cs" />
     <Compile Include="Repositories\User_Repository.cs" />
     <Compile Include="Services\Class_Service.cs" />
@@ -124,12 +127,20 @@
     <Compile Include="Services\User_Service.cs" />
     <Compile Include="ViewModels\Admin_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\Associations_Student_VM.cs" />
+    <Compile Include="ViewModels\Dialogs_VM\ViewClasses_Result_VM.cs" />
+    <Compile Include="ViewModels\Dialogs_VM\ViewStudents_Result_VM.cs" />
     <Compile Include="ViewModels\LogIn_VM.cs" />
     <Compile Include="Views\Admin_View.xaml.cs">
       <DependentUpon>Admin_View.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Associations_Student_View.xaml.cs">
       <DependentUpon>Associations_Student_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\ViewClasses_Result.xaml.cs">
+      <DependentUpon>ViewClasses_Result.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\ViewStudents_Result.xaml.cs">
+      <DependentUpon>ViewStudents_Result.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LogIn_View.xaml.cs">
       <DependentUpon>LogIn_View.xaml</DependentUpon>
@@ -155,6 +166,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Associations_Student_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\ViewClasses_Result.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\ViewStudents_Result.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,7 +233,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Dialogs\" />
+    <Folder Include="Models\Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

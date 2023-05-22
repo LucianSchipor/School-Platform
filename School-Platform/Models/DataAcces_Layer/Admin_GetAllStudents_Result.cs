@@ -13,5 +13,11 @@ namespace School_Platform.Models.DataAcces_Layer
         public string Name { get; set; }
         public int Class_ID { get; set; }
         public int AbsencesCount { get; set; }
+
+
+        Admin_GetAllStudents_Result()
+        {
+            Class_ID = 0;
+        }
     }
 }

@@ -112,14 +112,45 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Admin_ChangeStudentClass", year_Of_StudyParameter, class_LetterParameter, studentIDParameter);
         }
     
-        public virtual ObjectResult<Teacher> Admin_GetAllMasters()
+        public virtual int Admin_CreateStudent(string name, string username, string password)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher>("Admin_GetAllMasters");
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var usernameParameter = username != null ?
+                new ObjectParameter("Username", username) :
+                new ObjectParameter("Username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Admin_CreateStudent", nameParameter, usernameParameter, passwordParameter);
         }
     
-        public virtual ObjectResult<Teacher> Admin_GetAllMasters(MergeOption mergeOption)
+        public virtual int Admin_DeleteStudent(Nullable<int> student_ID)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher>("Admin_GetAllMasters", mergeOption);
+            var student_IDParameter = student_ID.HasValue ?
+                new ObjectParameter("Student_ID", student_ID) :
+                new ObjectParameter("Student_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Admin_DeleteStudent", student_IDParameter);
+        }
+    
+        public virtual ObjectResult<Admin_GetAllClasses_Result> Admin_GetAllClasses()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetAllClasses_Result>("Admin_GetAllClasses");
+        }
+    
+        public virtual ObjectResult<Absence> Admin_GetAllMasters()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllMasters");
+        }
+    
+        public virtual ObjectResult<Absence> Admin_GetAllMasters(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllMasters", mergeOption);
         }
     
         public virtual ObjectResult<Admin_GetAllStudents_Result> Admin_GetAllStudents()
@@ -127,14 +158,14 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetAllStudents_Result>("Admin_GetAllStudents");
         }
     
-        public virtual ObjectResult<Teacher> Admin_GetAllTeachers()
+        public virtual ObjectResult<Absence> Admin_GetAllTeachers()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher>("Admin_GetAllTeachers");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllTeachers");
         }
     
-        public virtual ObjectResult<Teacher> Admin_GetAllTeachers(MergeOption mergeOption)
+        public virtual ObjectResult<Absence> Admin_GetAllTeachers(MergeOption mergeOption)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher>("Admin_GetAllTeachers", mergeOption);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllTeachers", mergeOption);
         }
     
         public virtual ObjectResult<User> Admin_GetAllUsers()
@@ -147,25 +178,25 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<User>("Admin_GetAllUsers", mergeOption);
         }
     
-        public virtual ObjectResult<Teacher_Subjects> Admin_GetTeacherSubjects(Nullable<int> teacher_ID)
+        public virtual ObjectResult<Absence> Admin_GetTeacherSubjects(Nullable<int> teacher_ID)
         {
             var teacher_IDParameter = teacher_ID.HasValue ?
                 new ObjectParameter("Teacher_ID", teacher_ID) :
                 new ObjectParameter("Teacher_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher_Subjects>("Admin_GetTeacherSubjects", teacher_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetTeacherSubjects", teacher_IDParameter);
         }
     
-        public virtual ObjectResult<Teacher_Subjects> Admin_GetTeacherSubjects(Nullable<int> teacher_ID, MergeOption mergeOption)
+        public virtual ObjectResult<Absence> Admin_GetTeacherSubjects(Nullable<int> teacher_ID, MergeOption mergeOption)
         {
             var teacher_IDParameter = teacher_ID.HasValue ?
                 new ObjectParameter("Teacher_ID", teacher_ID) :
                 new ObjectParameter("Teacher_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher_Subjects>("Admin_GetTeacherSubjects", mergeOption, teacher_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetTeacherSubjects", mergeOption, teacher_IDParameter);
         }
     
-        public virtual ObjectResult<Grade> Master_ViewClassHierarchyByGrade(Nullable<int> year_Of_Study, string class_Letter)
+        public virtual ObjectResult<Class> Master_ViewClassHierarchyByGrade(Nullable<int> year_Of_Study, string class_Letter)
         {
             var year_Of_StudyParameter = year_Of_Study.HasValue ?
                 new ObjectParameter("Year_Of_Study", year_Of_Study) :
@@ -175,10 +206,10 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Class_Letter", class_Letter) :
                 new ObjectParameter("Class_Letter", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Master_ViewClassHierarchyByGrade", year_Of_StudyParameter, class_LetterParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Master_ViewClassHierarchyByGrade", year_Of_StudyParameter, class_LetterParameter);
         }
     
-        public virtual ObjectResult<Grade> Master_ViewClassHierarchyByGrade(Nullable<int> year_Of_Study, string class_Letter, MergeOption mergeOption)
+        public virtual ObjectResult<Class> Master_ViewClassHierarchyByGrade(Nullable<int> year_Of_Study, string class_Letter, MergeOption mergeOption)
         {
             var year_Of_StudyParameter = year_Of_Study.HasValue ?
                 new ObjectParameter("Year_Of_Study", year_Of_Study) :
@@ -188,10 +219,10 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Class_Letter", class_Letter) :
                 new ObjectParameter("Class_Letter", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Master_ViewClassHierarchyByGrade", mergeOption, year_Of_StudyParameter, class_LetterParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Master_ViewClassHierarchyByGrade", mergeOption, year_Of_StudyParameter, class_LetterParameter);
         }
     
-        public virtual ObjectResult<Student> Master_ViewSpecialCases(Nullable<int> year_Of_Study, string class_Letter)
+        public virtual ObjectResult<Absence> Master_ViewSpecialCases(Nullable<int> year_Of_Study, string class_Letter)
         {
             var year_Of_StudyParameter = year_Of_Study.HasValue ?
                 new ObjectParameter("Year_Of_Study", year_Of_Study) :
@@ -201,10 +232,10 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Class_Letter", class_Letter) :
                 new ObjectParameter("Class_Letter", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Master_ViewSpecialCases", year_Of_StudyParameter, class_LetterParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Master_ViewSpecialCases", year_Of_StudyParameter, class_LetterParameter);
         }
     
-        public virtual ObjectResult<Student> Master_ViewSpecialCases(Nullable<int> year_Of_Study, string class_Letter, MergeOption mergeOption)
+        public virtual ObjectResult<Absence> Master_ViewSpecialCases(Nullable<int> year_Of_Study, string class_Letter, MergeOption mergeOption)
         {
             var year_Of_StudyParameter = year_Of_Study.HasValue ?
                 new ObjectParameter("Year_Of_Study", year_Of_Study) :
@@ -214,61 +245,61 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Class_Letter", class_Letter) :
                 new ObjectParameter("Class_Letter", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Master_ViewSpecialCases", mergeOption, year_Of_StudyParameter, class_LetterParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Master_ViewSpecialCases", mergeOption, year_Of_StudyParameter, class_LetterParameter);
         }
     
-        public virtual ObjectResult<Grade> Master_ViewStudentGrades(Nullable<int> student_ID)
+        public virtual ObjectResult<Class> Master_ViewStudentGrades(Nullable<int> student_ID)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Master_ViewStudentGrades", student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Master_ViewStudentGrades", student_IDParameter);
         }
     
-        public virtual ObjectResult<Grade> Master_ViewStudentGrades(Nullable<int> student_ID, MergeOption mergeOption)
+        public virtual ObjectResult<Class> Master_ViewStudentGrades(Nullable<int> student_ID, MergeOption mergeOption)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Master_ViewStudentGrades", mergeOption, student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Master_ViewStudentGrades", mergeOption, student_IDParameter);
         }
     
-        public virtual ObjectResult<Absence> Student_ViewAbsences(Nullable<int> student_ID)
+        public virtual ObjectResult<Class> Student_ViewAbsences(Nullable<int> student_ID)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Student_ViewAbsences", student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Student_ViewAbsences", student_IDParameter);
         }
     
-        public virtual ObjectResult<Absence> Student_ViewAbsences(Nullable<int> student_ID, MergeOption mergeOption)
+        public virtual ObjectResult<Class> Student_ViewAbsences(Nullable<int> student_ID, MergeOption mergeOption)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Student_ViewAbsences", mergeOption, student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Student_ViewAbsences", mergeOption, student_IDParameter);
         }
     
-        public virtual ObjectResult<Grade> Student_ViewAverages(Nullable<int> student_ID)
+        public virtual ObjectResult<Class> Student_ViewAverages(Nullable<int> student_ID)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Student_ViewAverages", student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Student_ViewAverages", student_IDParameter);
         }
     
-        public virtual ObjectResult<Grade> Student_ViewAverages(Nullable<int> student_ID, MergeOption mergeOption)
+        public virtual ObjectResult<Class> Student_ViewAverages(Nullable<int> student_ID, MergeOption mergeOption)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Student_ViewAverages", mergeOption, student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Class>("Student_ViewAverages", mergeOption, student_IDParameter);
         }
     
         public virtual ObjectResult<Grade> Student_ViewGrades(Nullable<int> student_ID)
@@ -289,7 +320,7 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Student_ViewGrades", mergeOption, student_IDParameter);
         }
     
-        public virtual int Teacher_AddAbsence(Nullable<int> student_ID, string subject_Name, Nullable<System.DateTime> absence_Date)
+        public virtual ObjectResult<Specializations_Subjects> Teacher_AddAbsence(Nullable<int> student_ID, string subject_Name, Nullable<System.DateTime> absence_Date)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
@@ -303,10 +334,27 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Absence_Date", absence_Date) :
                 new ObjectParameter("Absence_Date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Teacher_AddAbsence", student_IDParameter, subject_NameParameter, absence_DateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Specializations_Subjects>("Teacher_AddAbsence", student_IDParameter, subject_NameParameter, absence_DateParameter);
         }
     
-        public virtual int Teacher_AddGrade(string subject_Name, Nullable<int> student_ID, Nullable<double> grade_Value)
+        public virtual ObjectResult<Specializations_Subjects> Teacher_AddAbsence(Nullable<int> student_ID, string subject_Name, Nullable<System.DateTime> absence_Date, MergeOption mergeOption)
+        {
+            var student_IDParameter = student_ID.HasValue ?
+                new ObjectParameter("Student_ID", student_ID) :
+                new ObjectParameter("Student_ID", typeof(int));
+    
+            var subject_NameParameter = subject_Name != null ?
+                new ObjectParameter("Subject_Name", subject_Name) :
+                new ObjectParameter("Subject_Name", typeof(string));
+    
+            var absence_DateParameter = absence_Date.HasValue ?
+                new ObjectParameter("Absence_Date", absence_Date) :
+                new ObjectParameter("Absence_Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Specializations_Subjects>("Teacher_AddAbsence", mergeOption, student_IDParameter, subject_NameParameter, absence_DateParameter);
+        }
+    
+        public virtual ObjectResult<Teacher> Teacher_AddGrade(string subject_Name, Nullable<int> student_ID, Nullable<double> grade_Value)
         {
             var subject_NameParameter = subject_Name != null ?
                 new ObjectParameter("Subject_Name", subject_Name) :
@@ -320,10 +368,27 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Grade_Value", grade_Value) :
                 new ObjectParameter("Grade_Value", typeof(double));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Teacher_AddGrade", subject_NameParameter, student_IDParameter, grade_ValueParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher>("Teacher_AddGrade", subject_NameParameter, student_IDParameter, grade_ValueParameter);
         }
     
-        public virtual ObjectResult<Grade> Teacher_CalculateClassAverage(string subject_Name, string class_Letter, Nullable<int> year_Of_Study)
+        public virtual ObjectResult<Teacher> Teacher_AddGrade(string subject_Name, Nullable<int> student_ID, Nullable<double> grade_Value, MergeOption mergeOption)
+        {
+            var subject_NameParameter = subject_Name != null ?
+                new ObjectParameter("Subject_Name", subject_Name) :
+                new ObjectParameter("Subject_Name", typeof(string));
+    
+            var student_IDParameter = student_ID.HasValue ?
+                new ObjectParameter("Student_ID", student_ID) :
+                new ObjectParameter("Student_ID", typeof(int));
+    
+            var grade_ValueParameter = grade_Value.HasValue ?
+                new ObjectParameter("Grade_Value", grade_Value) :
+                new ObjectParameter("Grade_Value", typeof(double));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher>("Teacher_AddGrade", mergeOption, subject_NameParameter, student_IDParameter, grade_ValueParameter);
+        }
+    
+        public virtual ObjectResult<Student> Teacher_CalculateClassAverage(string subject_Name, string class_Letter, Nullable<int> year_Of_Study)
         {
             var subject_NameParameter = subject_Name != null ?
                 new ObjectParameter("Subject_Name", subject_Name) :
@@ -337,10 +402,10 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Year_Of_Study", year_Of_Study) :
                 new ObjectParameter("Year_Of_Study", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Teacher_CalculateClassAverage", subject_NameParameter, class_LetterParameter, year_Of_StudyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Teacher_CalculateClassAverage", subject_NameParameter, class_LetterParameter, year_Of_StudyParameter);
         }
     
-        public virtual ObjectResult<Grade> Teacher_CalculateClassAverage(string subject_Name, string class_Letter, Nullable<int> year_Of_Study, MergeOption mergeOption)
+        public virtual ObjectResult<Student> Teacher_CalculateClassAverage(string subject_Name, string class_Letter, Nullable<int> year_Of_Study, MergeOption mergeOption)
         {
             var subject_NameParameter = subject_Name != null ?
                 new ObjectParameter("Subject_Name", subject_Name) :
@@ -354,7 +419,7 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Year_Of_Study", year_Of_Study) :
                 new ObjectParameter("Year_Of_Study", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Teacher_CalculateClassAverage", mergeOption, subject_NameParameter, class_LetterParameter, year_Of_StudyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Teacher_CalculateClassAverage", mergeOption, subject_NameParameter, class_LetterParameter, year_Of_StudyParameter);
         }
     
         public virtual int Teacher_DeleteGrade(string subject_Name, Nullable<int> student_ID, Nullable<System.DateTime> grade_Date)
@@ -391,7 +456,7 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Teacher_JustifyAbsence", student_IDParameter, subject_NameParameter, absence_DateParameter);
         }
     
-        public virtual ObjectResult<Absence> Teacher_ViewAbsences(Nullable<int> student_ID, string subject_Name)
+        public virtual ObjectResult<Grade> Teacher_ViewAbsences(Nullable<int> student_ID, string subject_Name)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
@@ -401,10 +466,10 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Subject_Name", subject_Name) :
                 new ObjectParameter("Subject_Name", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Teacher_ViewAbsences", student_IDParameter, subject_NameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Teacher_ViewAbsences", student_IDParameter, subject_NameParameter);
         }
     
-        public virtual ObjectResult<Absence> Teacher_ViewAbsences(Nullable<int> student_ID, string subject_Name, MergeOption mergeOption)
+        public virtual ObjectResult<Grade> Teacher_ViewAbsences(Nullable<int> student_ID, string subject_Name, MergeOption mergeOption)
         {
             var student_IDParameter = student_ID.HasValue ?
                 new ObjectParameter("Student_ID", student_ID) :
@@ -414,10 +479,10 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Subject_Name", subject_Name) :
                 new ObjectParameter("Subject_Name", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Teacher_ViewAbsences", mergeOption, student_IDParameter, subject_NameParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Teacher_ViewAbsences", mergeOption, student_IDParameter, subject_NameParameter);
         }
     
-        public virtual ObjectResult<Grade> Teacher_ViewGrades(string subject_Name, Nullable<int> student_ID)
+        public virtual ObjectResult<Student> Teacher_ViewGrades(string subject_Name, Nullable<int> student_ID)
         {
             var subject_NameParameter = subject_Name != null ?
                 new ObjectParameter("Subject_Name", subject_Name) :
@@ -427,10 +492,10 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Teacher_ViewGrades", subject_NameParameter, student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Teacher_ViewGrades", subject_NameParameter, student_IDParameter);
         }
     
-        public virtual ObjectResult<Grade> Teacher_ViewGrades(string subject_Name, Nullable<int> student_ID, MergeOption mergeOption)
+        public virtual ObjectResult<Student> Teacher_ViewGrades(string subject_Name, Nullable<int> student_ID, MergeOption mergeOption)
         {
             var subject_NameParameter = subject_Name != null ?
                 new ObjectParameter("Subject_Name", subject_Name) :
@@ -440,7 +505,7 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Student_ID", student_ID) :
                 new ObjectParameter("Student_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Grade>("Teacher_ViewGrades", mergeOption, subject_NameParameter, student_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Teacher_ViewGrades", mergeOption, subject_NameParameter, student_IDParameter);
         }
     }
 }

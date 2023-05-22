@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Absences">
           <Key>
             <PropertyRef Name="Absence_ID" />
@@ -42,12 +42,13 @@
         </EntityType>
         <EntityType Name="Specializations_Subjects">
           <Key>
-            <PropertyRef Name="Specializations_Subjects_ID" />
+            <PropertyRef Name="Subject_Name" />
+            <PropertyRef Name="Specialization_Name" />
+            <PropertyRef Name="Year_Of_Study" />
           </Key>
-          <Property Name="Specializations_Subjects_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Specialization_Name" Type="varchar" MaxLength="20" />
-          <Property Name="Year_Of_Study" Type="int" />
-          <Property Name="Subject_Name" Type="varchar" MaxLength="15" />
+          <Property Name="Subject_Name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Specialization_Name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Year_Of_Study" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Students">
           <Key>
@@ -140,30 +141,6 @@
               <PropertyRef Name="Subject_Name" />
             </Principal>
             <Dependent Role="Grades">
-              <PropertyRef Name="Subject_Name" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Specializ__Speci__4CA06362">
-          <End Role="Specializations" Type="Self.Specializations" Multiplicity="0..1" />
-          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Specializations">
-              <PropertyRef Name="Specialization_Name" />
-            </Principal>
-            <Dependent Role="Specializations_Subjects">
-              <PropertyRef Name="Specialization_Name" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Specializ__Subje__4D94879B">
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
-          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="Subject_Name" />
-            </Principal>
-            <Dependent Role="Specializations_Subjects">
               <PropertyRef Name="Subject_Name" />
             </Dependent>
           </ReferentialConstraint>
@@ -262,6 +239,15 @@
           <Parameter Name="Class_Letter" Type="nvarchar" Mode="In" />
           <Parameter Name="StudentID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Admin_CreateStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar" Mode="In" />
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Admin_DeleteStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Student_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Admin_GetAllClasses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllMasters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllTeachers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -350,14 +336,6 @@
             <End Role="Subjects" EntitySet="Subjects" />
             <End Role="Grades" EntitySet="Grades" />
           </AssociationSet>
-          <AssociationSet Name="FK__Specializ__Speci__4CA06362" Association="Self.FK__Specializ__Speci__4CA06362">
-            <End Role="Specializations" EntitySet="Specializations" />
-            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Specializ__Subje__4D94879B" Association="Self.FK__Specializ__Subje__4D94879B">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
-          </AssociationSet>
           <AssociationSet Name="FK__Students__Class___3E52440B" Association="Self.FK__Students__Class___3E52440B">
             <End Role="Classes" EntitySet="Classes" />
             <End Role="Students" EntitySet="Students" />
@@ -383,7 +361,8 @@
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -427,19 +406,17 @@
             <PropertyRef Name="Specialization_Name" />
           </Key>
           <Property Name="Specialization_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Specializations_Subjects" Relationship="Self.FK__Specializ__Speci__4CA06362" FromRole="Specializations" ToRole="Specializations_Subjects" />
           <NavigationProperty Name="Subjects_Theisis" Relationship="Self.FK__Subject_T__Speci__6E01572D" FromRole="Specializations" ToRole="Subjects_Theisis" />
         </EntityType>
         <EntityType Name="Specializations_Subjects">
           <Key>
-            <PropertyRef Name="Specializations_Subjects_ID" />
+            <PropertyRef Name="Subject_Name" />
+            <PropertyRef Name="Specialization_Name" />
+            <PropertyRef Name="Year_Of_Study" />
           </Key>
-          <Property Name="Specializations_Subjects_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Specialization_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Year_Of_Study" Type="Int32" />
-          <Property Name="Subject_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Specialization" Relationship="Self.FK__Specializ__Speci__4CA06362" FromRole="Specializations_Subjects" ToRole="Specializations" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Specializ__Subje__4D94879B" FromRole="Specializations_Subjects" ToRole="Subjects" />
+          <Property Name="Subject_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Specialization_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Year_Of_Study" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Student">
           <Key>
@@ -459,7 +436,6 @@
           <Property Name="Subject_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Absences" Relationship="Self.FK__Absences__Subjec__5FB337D6" FromRole="Subjects" ToRole="Absences" />
           <NavigationProperty Name="Grades" Relationship="Self.FK__Grades__Subject___6383C8BA" FromRole="Subjects" ToRole="Grades" />
-          <NavigationProperty Name="Specializations_Subjects" Relationship="Self.FK__Specializ__Subje__4D94879B" FromRole="Subjects" ToRole="Specializations_Subjects" />
           <NavigationProperty Name="Subjects_Theisis" Relationship="Self.FK__Subject_T__Subje__6D0D32F4" FromRole="Subjects" ToRole="Subjects_Theisis" />
           <NavigationProperty Name="Teacher_Subjects" Relationship="Self.FK__Teacher_S__Subje__5165187F" FromRole="Subjects" ToRole="Teacher_Subjects" />
         </EntityType>
@@ -574,18 +550,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Specializ__Speci__4CA06362">
-          <End Role="Specializations" Type="Self.Specialization" Multiplicity="0..1" />
-          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Specializations">
-              <PropertyRef Name="Specialization_Name" />
-            </Principal>
-            <Dependent Role="Specializations_Subjects">
-              <PropertyRef Name="Specialization_Name" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Subject_T__Speci__6E01572D">
           <End Role="Specializations" Type="Self.Specialization" Multiplicity="0..1" />
           <End Role="Subjects_Theisis" Type="Self.Subjects_Theisis" Multiplicity="*" />
@@ -595,18 +559,6 @@
             </Principal>
             <Dependent Role="Subjects_Theisis">
               <PropertyRef Name="Specialization_where_has_theisis" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Specializ__Subje__4D94879B">
-          <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
-          <End Role="Specializations_Subjects" Type="Self.Specializations_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="Subject_Name" />
-            </Principal>
-            <Dependent Role="Specializations_Subjects">
-              <PropertyRef Name="Subject_Name" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -682,17 +634,9 @@
             <End Role="Subjects" EntitySet="Subjects" />
             <End Role="Grades" EntitySet="Grades" />
           </AssociationSet>
-          <AssociationSet Name="FK__Specializ__Speci__4CA06362" Association="Self.FK__Specializ__Speci__4CA06362">
-            <End Role="Specializations" EntitySet="Specializations" />
-            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
-          </AssociationSet>
           <AssociationSet Name="FK__Subject_T__Speci__6E01572D" Association="Self.FK__Subject_T__Speci__6E01572D">
             <End Role="Specializations" EntitySet="Specializations" />
             <End Role="Subjects_Theisis" EntitySet="Subjects_Theisis" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Specializ__Subje__4D94879B" Association="Self.FK__Specializ__Subje__4D94879B">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="Specializations_Subjects" EntitySet="Specializations_Subjects" />
           </AssociationSet>
           <AssociationSet Name="FK__Subject_T__Subje__6D0D32F4" Association="Self.FK__Subject_T__Subje__6D0D32F4">
             <End Role="Subjects" EntitySet="Subjects" />
@@ -728,44 +672,53 @@
             <Parameter Name="Class_Letter" Mode="In" Type="String" />
             <Parameter Name="StudentID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Admin_GetAllMasters" EntitySet="Teachers" ReturnType="Collection(SchoolModel.Teacher)" />
+          <FunctionImport Name="Admin_CreateStudent">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Admin_DeleteStudent">
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Admin_GetAllClasses" ReturnType="Collection(SchoolModel.Admin_GetAllClasses_Result)" />
+          <FunctionImport Name="Admin_GetAllMasters" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)" />
           <FunctionImport Name="Admin_GetAllStudents" ReturnType="Collection(SchoolModel.Admin_GetAllStudents_Result)" />
-          <FunctionImport Name="Admin_GetAllTeachers" EntitySet="Teachers" ReturnType="Collection(SchoolModel.Teacher)" />
+          <FunctionImport Name="Admin_GetAllTeachers" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)" />
           <FunctionImport Name="Admin_GetAllUsers" EntitySet="Users" ReturnType="Collection(SchoolModel.User)" />
-          <FunctionImport Name="Admin_GetTeacherSubjects" EntitySet="Teacher_Subjects" ReturnType="Collection(SchoolModel.Teacher_Subjects)">
-          <Parameter Name="Teacher_ID" Mode="In" Type="Int32" />
+          <FunctionImport Name="Admin_GetTeacherSubjects" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
+            <Parameter Name="Teacher_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Master_ViewClassHierarchyByGrade" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
+          <FunctionImport Name="Master_ViewClassHierarchyByGrade" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
             <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
             <Parameter Name="Class_Letter" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Master_ViewSpecialCases" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
+          <FunctionImport Name="Master_ViewSpecialCases" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
             <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
             <Parameter Name="Class_Letter" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Master_ViewStudentGrades" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
-          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <FunctionImport Name="Master_ViewStudentGrades" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Student_ViewAbsences" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
-          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <FunctionImport Name="Student_ViewAbsences" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Student_ViewAverages" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
-          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <FunctionImport Name="Student_ViewAverages" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Student_ViewGrades" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
-          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Teacher_AddAbsence">
+          <FunctionImport Name="Teacher_AddAbsence" EntitySet="Specializations_Subjects" ReturnType="Collection(SchoolModel.Specializations_Subjects)">
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Absence_Date" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="Teacher_AddGrade">
+          <FunctionImport Name="Teacher_AddGrade" EntitySet="Teachers" ReturnType="Collection(SchoolModel.Teacher)">
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
             <Parameter Name="Grade_Value" Mode="In" Type="Double" />
           </FunctionImport>
-          <FunctionImport Name="Teacher_CalculateClassAverage" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
+          <FunctionImport Name="Teacher_CalculateClassAverage" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Class_Letter" Mode="In" Type="String" />
             <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
@@ -780,23 +733,29 @@
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Absence_Date" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="Teacher_ViewAbsences" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
+          <FunctionImport Name="Teacher_ViewAbsences" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Teacher_ViewGrades" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
+          <FunctionImport Name="Teacher_ViewGrades" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="Admin_GetAllClasses_Result">
+          <Property Type="Int32" Name="Class_ID" Nullable="false" />
+          <Property Type="String" Name="Class_Name" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="Specialization" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Year_Of_Study" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="Admin_GetAllMasters_Result">
           <Property Type="Int32" Name="Teacher_ID" Nullable="false" />
           <Property Type="Int32" Name="Mastered_Class_ID" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Admin_GetAllStudents_Result">
           <Property Type="Int32" Name="User_ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Username" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="Class_ID" Nullable="true" />
           <Property Type="Int32" Name="AbsencesCount" Nullable="true" />
         </ComplexType>
@@ -904,10 +863,9 @@
           <EntitySetMapping Name="Specializations_Subjects">
             <EntityTypeMapping TypeName="SchoolModel.Specializations_Subjects">
               <MappingFragment StoreEntitySet="Specializations_Subjects">
-                <ScalarProperty Name="Specializations_Subjects_ID" ColumnName="Specializations_Subjects_ID" />
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
                 <ScalarProperty Name="Specialization_Name" ColumnName="Specialization_Name" />
                 <ScalarProperty Name="Year_Of_Study" ColumnName="Year_Of_Study" />
-                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -969,14 +927,26 @@
           <FunctionImportMapping FunctionImportName="Admin_AddSubjectToTeacher" FunctionName="SchoolModel.Store.Admin_AddSubjectToTeacher" />
           <FunctionImportMapping FunctionImportName="Admin_ChangeClassSpecialization" FunctionName="SchoolModel.Store.Admin_ChangeClassSpecialization" />
           <FunctionImportMapping FunctionImportName="Admin_ChangeStudentClass" FunctionName="SchoolModel.Store.Admin_ChangeStudentClass" />
+          <FunctionImportMapping FunctionImportName="Admin_CreateStudent" FunctionName="SchoolModel.Store.Admin_CreateStudent" />
+          <FunctionImportMapping FunctionImportName="Admin_DeleteStudent" FunctionName="SchoolModel.Store.Admin_DeleteStudent" />
+          <FunctionImportMapping FunctionImportName="Admin_GetAllClasses" FunctionName="SchoolModel.Store.Admin_GetAllClasses">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.Admin_GetAllClasses_Result">
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="Class_Name" ColumnName="Class_Name" />
+                <ScalarProperty Name="Specialization" ColumnName="Specialization" />
+                <ScalarProperty Name="Year_Of_Study" ColumnName="Year_Of_Study" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_GetAllMasters" FunctionName="SchoolModel.Store.Admin_GetAllMasters">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_GetAllStudents" FunctionName="SchoolModel.Store.Admin_GetAllStudents">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SchoolModel.Admin_GetAllStudents_Result">
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
                 <ScalarProperty Name="AbsencesCount" ColumnName="AbsencesCount" />
               </ComplexTypeMapping>

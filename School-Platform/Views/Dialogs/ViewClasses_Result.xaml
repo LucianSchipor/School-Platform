@@ -1,0 +1,60 @@
+﻿<Window x:Class="School_Platform.Views.Dialogs.ViewClasses_Result"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:context ="clr-namespace:School_Platform.ViewModels.Dialogs_VM"
+      xmlns:behavior ="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
+      xmlns:local="clr-namespace:School_Platform.Views.Dialogs"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ViewClasses_Result">
+
+    <Window.DataContext>
+        <context:ViewClasses_Result_VM />
+    </Window.DataContext>
+    <Grid Background="CornflowerBlue">
+        <Grid Background="White" Margin="100,40,100,100">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <TextBlock Text="Students" FontSize="30" HorizontalAlignment="Center"/>
+                <ListBox  ItemsSource="{Binding Classes}"
+                  x:Name="ListBoxStudents"
+                         behavior:CommandBehavior.Command="{Binding SelectClassCommand}" 
+                         behavior:CommandBehavior.Event="SelectionChanged"
+                         behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=ListBoxStudents}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal">
+                                <TextBlock Text="Class_ID: "/>
+                                <TextBlock Text="{Binding Class_ID}"/>
+                                <TextBlock Text=" Class: "/>
+                                <TextBlock Text="{Binding Year_Of_Study}"/>
+                                <TextBlock Text="{Binding Class_Name}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </Grid>
+            <Grid Grid.Column="1" Background="White">
+                <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,0">
+                    <Button Margin="0,0,0,0" Width="70" Height="40" Background="LightGreen" Content="Add" IsEnabled="True"/>
+                    <Button Margin="0,0,0,0" Width="70" Height="40" Background="LightGreen" Content="Change" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding AssociationsCommand}" CommandParameter="{Binding ElementName=Admin_Window}"/>
+                    <Button Margin="0,0,0,0" Width="70" Height="40" Background="LightGreen" Content="Delete" IsEnabled="{Binding IsButtonEnabled}" />
+                </WrapPanel>
+
+                <WrapPanel Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                    <Button Margin="0,0,0,0" Width="110" Height="40" Background="LightGreen" Content="Associations" IsEnabled="{Binding IsButtonEnabled}" />
+                    <Button Margin="0,0,0,0" Width="110" Height="40" Background="LightGreen" Content="Remove class" IsEnabled="{Binding IsButtonEnabled}" />
+                </WrapPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Window>

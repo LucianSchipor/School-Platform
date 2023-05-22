@@ -17,10 +17,10 @@
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Width="210">
             <TextBlock Text="ASSOCIATIONS FOR" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
-            <WrapPanel HorizontalAlignment="Center">
-                <TextBlock Text="{Binding SelectedUser.UserRole}" FontSize="15" HorizontalAlignment="Center" Foreground="LightGray" Margin="0,5,0,0"/>
-                <TextBlock Text=" " FontSize="8" HorizontalAlignment="Center" Foreground="LightGray" Margin="0,5,0,0"/>
-                <TextBlock Text="{Binding SelectedUser.Name}" FontSize="15" HorizontalAlignment="Center" Foreground="LightGray" Margin="0,5,0,0"/>
+            <WrapPanel HorizontalAlignment="Center" Orientation="Vertical">
+                <TextBlock Text="{Binding SelectedUser.Role}" FontSize="20" HorizontalAlignment="Center" Foreground="LightGray"/>
+                <TextBlock Text=" " HorizontalAlignment="Center" Foreground="LightGray" Margin="0,0,0,0"/>
+                <TextBlock Text="{Binding SelectedUser.Name}" FontSize="10" HorizontalAlignment="Center" Foreground="LightGray" />
             </WrapPanel>
             <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
                 <TextBlock Text="Choose Year." />
