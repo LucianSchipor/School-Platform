@@ -93,6 +93,7 @@
     <Compile Include="Models\DataAcces_Layer\Admin_GetAllStudents_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\Absence.cs" />
     <Compile Include="Models\DataAcces_Layer\Admin.cs" />
+    <Compile Include="Models\DataAcces_Layer\Admin_GetAllTeachers_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\Class.cs" />
     <Compile Include="Models\DataAcces_Layer\Grade.cs" />
     <Compile Include="Models\DataAcces_Layer\SchoolDataBase.Context.cs">
@@ -121,6 +122,7 @@
     <Compile Include="Models\ListHelper.cs" />
     <Compile Include="Repositories\Class_Repository.cs" />
     <Compile Include="Repositories\Student_Repository.cs" />
+    <Compile Include="Repositories\Teacher_Repository.cs" />
     <Compile Include="Repositories\User_Repository.cs" />
     <Compile Include="Services\Class_Service.cs" />
     <Compile Include="Services\Student_Service.cs" />

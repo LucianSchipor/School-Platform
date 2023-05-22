@@ -713,7 +713,7 @@
           <FunctionImport Name="Admin_GetAllClasses" ReturnType="Collection(SchoolModel.Admin_GetAllClasses_Result)" />
           <FunctionImport Name="Admin_GetAllMasters" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)" />
           <FunctionImport Name="Admin_GetAllStudents" ReturnType="Collection(SchoolModel.Admin_GetAllStudents_Result)" />
-          <FunctionImport Name="Admin_GetAllTeachers" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)" />
+          <FunctionImport Name="Admin_GetAllTeachers" ReturnType="Collection(SchoolModel.Admin_GetAllTeachers_Result)" />
           <FunctionImport Name="Admin_GetAllUsers" EntitySet="Users" ReturnType="Collection(SchoolModel.User)" />
           <FunctionImport Name="Admin_GetTeacherSubjects" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
           <Parameter Name="Teacher_ID" Mode="In" Type="Int32" />
@@ -807,8 +807,10 @@
           <Property Type="Int32" Name="AbsencesCount" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Admin_GetAllTeachers_Result">
-          <Property Type="Int32" Name="Teacher_ID" Nullable="false" />
           <Property Type="Int32" Name="Mastered_Class_ID" Nullable="true" />
+          <Property Type="Int32" Name="User_ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="Admin_GetAllUsers_Result">
           <Property Type="Int32" Name="User_ID" Nullable="false" />
@@ -1017,6 +1019,14 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_GetAllTeachers" FunctionName="SchoolModel.Store.Admin_GetAllTeachers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.Admin_GetAllTeachers_Result">
+                <ScalarProperty Name="Mastered_Class_ID" ColumnName="Mastered_Class_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_GetAllUsers" FunctionName="SchoolModel.Store.Admin_GetAllUsers">
           </FunctionImportMapping>

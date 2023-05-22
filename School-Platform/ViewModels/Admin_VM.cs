@@ -2,6 +2,7 @@
 using School_Platform.Helpers;
 using School_Platform.Models;
 using School_Platform.Models.DataAcces_Layer;
+using School_Platform.Repositories;
 using School_Platform.Services;
 using School_Platform.ViewModels.Dialogs_VM;
 using School_Platform.Views;
@@ -68,6 +69,23 @@ namespace School_Platform.ViewModels
                 {
                     students = value;
                     NotifyPropertyChanged(nameof(students));
+                }
+            }
+        }
+
+        private List<Admin_GetAllTeachers_Result> teachers;
+        public List<Admin_GetAllTeachers_Result> Teachers
+        {
+            get
+            {
+                return teachers;
+            }
+            set
+            {
+                if (teachers != value)
+                {
+                    teachers = value;
+                    NotifyPropertyChanged(nameof(teachers));
                 }
             }
         }
@@ -311,5 +329,25 @@ namespace School_Platform.ViewModels
          * functionalitate sa setez profesorul la o materie la o clasa
          * de adaugat functionalitate de modificat clasa unui elev
         */
+
+
+        private ICommand viewTeachersCommand;
+        public ICommand ViewTeachersCommand
+        {
+            get
+            {
+                if (viewTeachersCommand == null)
+                {
+                    viewTeachersCommand = new RelayCommandGeneric<Admin_GetAllTeachers_Result>(GetAllTeachers);
+                }
+                return viewTeachersCommand  ;
+            }
+        }
+
+        public void GetAllTeachers(Admin_GetAllTeachers_Result e)
+        {
+            var tr = new Teacher_Repository();
+            Teachers = tr.GetAllTeachers();
+        }
     }
 }

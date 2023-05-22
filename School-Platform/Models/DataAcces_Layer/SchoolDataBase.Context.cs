@@ -158,14 +158,9 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetAllStudents_Result>("Admin_GetAllStudents");
         }
     
-        public virtual ObjectResult<Absence> Admin_GetAllTeachers()
+        public virtual ObjectResult<Admin_GetAllTeachers_Result> Admin_GetAllTeachers()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllTeachers");
-        }
-    
-        public virtual ObjectResult<Absence> Admin_GetAllTeachers(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllTeachers", mergeOption);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetAllTeachers_Result>("Admin_GetAllTeachers");
         }
     
         public virtual ObjectResult<User> Admin_GetAllUsers()
