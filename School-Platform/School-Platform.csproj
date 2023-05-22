@@ -119,6 +119,7 @@
     <Compile Include="Models\DataAcces_Layer\Teacher.cs" />
     <Compile Include="Models\DataAcces_Layer\Teacher_Subjects.cs" />
     <Compile Include="Models\DataAcces_Layer\User.cs" />
+    <Compile Include="Models\Interfaces\ITeacher.cs" />
     <Compile Include="Models\ListHelper.cs" />
     <Compile Include="Repositories\Class_Repository.cs" />
     <Compile Include="Repositories\Student_Repository.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="ViewModels\Dialogs_VM\AddClass_Dialog_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\AddStudentDialog_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\Associations_Student_VM.cs" />
+    <Compile Include="ViewModels\Teacher_VM.cs" />
     <Compile Include="Views\Dialogs\Change_Teacher_Subjects_Dialog.xaml.cs">
       <DependentUpon>Change_Teacher_Subjects_Dialog.xaml</DependentUpon>
     </Compile>

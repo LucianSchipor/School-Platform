@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace School_Platform.Models
+namespace School_Platform.Models.DataAcces_Layer
 {
     public class Absence
     {
-        int Absence_ID { get; set; }
-        int Student_ID { get; set; }
-        int Teacher_ID { get; set; }
-        bool isMotivated { get; set; }
-        string Absence_Date { get; set; }
+        public int Absence_ID { get; set; }
+        public int Student_ID { get; set; }
+        public int Teacher_ID { get; set; }
+        public bool isMotivated { get; set; }
+        public string Absence_Date { get; set; }
 
-        Absence()
+        public Absence()
         {
             Absence_ID = 0;
             Student_ID = 0;

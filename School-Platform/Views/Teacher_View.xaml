@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:ctx ="clr-namespace:School_Platform.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:types="clr-namespace:School_Platform.Models.DataAcces_Layer"
         xmlns:local="clr-namespace:School_Platform.Views"
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800">
     <Window.DataContext>
-        <ctx: />
+        <ctx:Teacher_VM />
     </Window.DataContext>
-    
+
     <Grid Background="CornflowerBlue" >
         <WrapPanel Orientation="Horizontal">
             <TextBlock Text="Your role is: "/>
@@ -27,37 +28,59 @@
                 <TextBlock Text="PROFESSOR MENU" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
                 <TextBlock  HorizontalAlignment="Center" FontSize="6" Foreground="Gray" Text="You will only see the classes where you are a teacher"/>
                 <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
-                    <TextBlock Text="Choose Year." />
-                    <ComboBox Width="150" Margin="0,5,0,0"/>
-                    <TextBlock Text="Choose Specialization" Margin="0,20,0,0"/>
-                    <ComboBox Width="150" Margin="0,5,0,0"/>
-
+                    <TextBlock Text="Choose Year.">
+                    </TextBlock>
+                    <ComboBox Width="150" Margin="0,5,0,0" SelectedItem="{Binding SelectedYear}">
+                        <ComboBoxItem Content="9" />
+                        <ComboBoxItem Content="10" />
+                        <ComboBoxItem Content="11" />
+                        <ComboBoxItem Content="12" />
+                    </ComboBox>
                     <TextBlock Text="Choose Class" Margin="0,20,0,0"/>
-                    <ComboBox Width="150" Margin="0,5,0,0"/>
-
+                    <ComboBox Width="150" Margin="0,5,0,0" ItemsSource="{Binding Classes}" SelectedItem="{Binding SelectedClass}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock  Text="ID: "/>
+                                    <TextBlock  Text="{Binding Class_ID}"/>
+                                    <TextBlock  Text=" class: "/>
+                                    <TextBlock  Text="{Binding Year_Of_Study}"/>
+                                    <TextBlock  Text="{Binding Class_Name}"/>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                     <TextBlock Text="Choose Subject" Margin="0,20,0,0"/>
                     <ComboBox Width="150" Margin="0,5,0,0"/>
 
-                    <TextBlock Text="Choose Action" Margin="0,20,0,0"/>
-                    <ComboBox Width="150" Margin="0,5,0,0">
-                        <ComboBoxItem Content="Absences"/>
-                        <ComboBoxItem Content="Materials"/>
-                        <ComboBoxItem Content="Grades"/>
-                        <ComboBoxItem Content="Average"/>
-                    </ComboBox>
                 </WrapPanel>
             </StackPanel>
             <Grid Grid.Column="1">
-                <ListBox Grid.Column="1">
-                    <ListBoxItem Content=""/>
+                <ListBox Margin="0,80,0,0" x:Name="resultListBox" ItemsSource="{Binding Grades}">
+                    <ItemsControl.Resources>
+                        <DataTemplate DataType="{x:Type types:Absence}">
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Student_ID}"/>
+                                <TextBlock Text="{Binding Absence_Date}"/>
+                                <TextBlock Text="{Binding Teacher_ID}"/>
+                                <TextBlock Text="{Binding isMotivated}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type types:Grade}">
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Grade_Value}"/>
+                                <TextBlock Text="{Binding Subject_Name}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
                 </ListBox>
                 <WrapPanel>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="View Absences"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="Add Absence"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="Justify Absence" IsEnabled="False"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="View Grades" IsEnabled="False"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="Add Grade" IsEnabled="False"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="Remove Grade" IsEnabled="False"/>
+                    <Button Width="100" Height="20"  VerticalAlignment="Bottom" Content="View Absences" Command="{Binding ViewAbsencesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Add Absence"/>
+                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Justify Absence" />
+                    <Button Width="100" Height="20"  VerticalAlignment="Bottom" Content="View Grades" />
+                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Add Grade" />
+                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Remove Grade"/>
                     <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="Calculate average" IsEnabled="False"/>
                     <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="View materials" IsEnabled="False"/>
                 </WrapPanel>

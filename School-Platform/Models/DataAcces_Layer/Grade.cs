@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace School_Platform.Models
+namespace School_Platform.Models.DataAcces_Layer
 {
     public class Grade
     {
-        int Grade_ID { get; set; }
-        int Student_ID { get; set; }
-        int Teacher_ID { get; set; }
-        float Grade_Value { get; set; }
-        string Grade_Date { get; set; }
+        public int Grade_ID { get; set; }
+        public int Student_ID { get; set; }
+        public int Teacher_ID { get; set; }
+        public float Grade_Value { get; set; }
+        public string Subject_Name { get; set; }
+        public string Grade_Date { get; set; }
 
         public Grade()
         {
