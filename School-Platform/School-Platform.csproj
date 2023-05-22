@@ -131,6 +131,13 @@
     <Compile Include="ViewModels\Dialogs_VM\AddClass_Dialog_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\AddStudentDialog_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\Associations_Student_VM.cs" />
+    <Compile Include="Views\Dialogs\Change_Teacher_Subjects_Dialog.xaml.cs">
+      <DependentUpon>Change_Teacher_Subjects_Dialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\GetAllTeachers_Result.xaml.cs">
+      <DependentUpon>GetAllTeachers_Result.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Dialogs_VM\GetAllTeachers_Result_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\InputDialog.cs" />
     <Compile Include="ViewModels\Dialogs_VM\ViewClasses_Result_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\ViewStudents_Result_VM.cs" />
@@ -175,6 +182,14 @@
     <Compile Include="Views\Teacher_View.xaml.cs">
       <DependentUpon>Teacher_View.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\Dialogs\Change_Teacher_Subjects_Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\GetAllTeachers_Result.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin_View.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

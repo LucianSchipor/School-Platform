@@ -9,7 +9,6 @@ namespace School_Platform.Helpers
 {
     public class BaseVM : INotifyPropertyChanged
     {
-        #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propertyName)
@@ -19,6 +18,5 @@ namespace School_Platform.Helpers
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        #endregion
     }
 }

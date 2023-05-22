@@ -261,6 +261,11 @@
           <Parameter Name="Username" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="Admin_CreateTeacher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="Admin_DeleteClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year_Of_Study" Type="int" Mode="In" />
           <Parameter Name="Class_Letter" Type="char" Mode="In" />
@@ -788,6 +793,11 @@
             <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
             <Parameter Name="Class_Letter" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Admin_CreateTeacher">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Admin_GetAllClasses_Result">
           <Property Type="Int32" Name="Class_ID" Nullable="false" />
@@ -1066,6 +1076,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_CreateClass" FunctionName="SchoolModel.Store.Admin_CreateClass" />
           <FunctionImportMapping FunctionImportName="Admin_DeleteClass" FunctionName="SchoolModel.Store.Admin_DeleteClass" />
+          <FunctionImportMapping FunctionImportName="Admin_CreateTeacher" FunctionName="SchoolModel.Store.Admin_CreateTeacher" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

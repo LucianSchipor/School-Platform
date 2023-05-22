@@ -545,5 +545,22 @@ namespace School_Platform.Models.DataAcces_Layer
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Admin_DeleteClass", year_Of_StudyParameter, class_LetterParameter);
         }
+    
+        public virtual int Admin_CreateTeacher(string name, string username, string password)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Admin_CreateTeacher", nameParameter, usernameParameter, passwordParameter);
+        }
     }
 }

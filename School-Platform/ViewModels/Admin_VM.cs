@@ -347,7 +347,12 @@ namespace School_Platform.ViewModels
         public void GetAllTeachers(Admin_GetAllTeachers_Result e)
         {
             var tr = new Teacher_Repository();
-            Teachers = tr.GetAllTeachers();
+            var window = new GetAllTeachers_Result();
+            var ctx = new GetAllTeachers_Result_VM();
+            ctx.TeachersList = tr.GetAllTeachers();
+
+            window.DataContext = ctx;
+            window.Show();
         }
     }
 }

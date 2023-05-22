@@ -1,6 +1,7 @@
 ﻿using School_Platform.Helpers;
 using School_Platform.Models;
 using School_Platform.Models.DataAcces_Layer;
+using School_Platform.Repositories;
 using School_Platform.Services;
 using School_Platform.Views.Dialogs;
 using System;
@@ -32,7 +33,7 @@ namespace School_Platform.ViewModels.Dialogs_VM
                 if (selectedClass != value)
                 {
                     selectedClass = value;
-                    NotifyPropertyChanged(nameof(selectedClass));
+                    NotifyPropertyChanged(nameof(SelectedClass));
                 }
             }
         }
@@ -143,9 +144,20 @@ namespace School_Platform.ViewModels.Dialogs_VM
 
         public void DeleteClass(Admin_GetAllClasses_Result e)
         {
-            var cs = new Class_Service();
-            cs.DeleteClass(SelectedClass.Year_Of_Study, selectedClass.Class_Name);
+
+            var cr = new Class_Repository();
+            cr.DeleteClass(SelectedClass.Year_Of_Study, SelectedClass.Class_Name);
+            SelectedClass = new Class();
+
+            Admin_GetAllClasses_Result ex = Classes[Classes.Count() - 1];
+            SelectedClass.Class_ID = ex.Class_ID;
+            SelectedClass.Class_Name = ex.Class_Name;
+            SelectedClass.Year_Of_Study = ex.Year_Of_Study;
+
+            Classes = cr.GetAllClasses();
+
         }
+
 
         private ICommand addClassCommand;
         public ICommand AddClassCommand
@@ -183,6 +195,18 @@ namespace School_Platform.ViewModels.Dialogs_VM
             try
             {
                 cs.AddClass(Year, Letter, Spec);
+                try
+                {
+                    Classes = cs.GetAllClasses();
+                }
+                catch(System.Data.Entity.Core.EntityCommandExecutionException)
+                {
+                    MessageBox.Show("Aceasta clasa exista deja.");
+                }
+                catch (System.NullReferenceException)
+                {
+                    MessageBox.Show("Aceasta clasa exista deja.");
+                }
 
             }
             catch(SqlException){

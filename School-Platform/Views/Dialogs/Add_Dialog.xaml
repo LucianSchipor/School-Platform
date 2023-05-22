@@ -34,7 +34,7 @@
                       behavior:CommandBehavior.Event ="SelectionChanged"
                       behavior:CommandBehavior.Command="{Binding SelectLetterCommand}"
                       behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=LetterBox}">
-                <ComboBoxItem Content="A"/>
+                <ComboBoxItem Content="A" />
                 <ComboBoxItem Content="B" />
                 <ComboBoxItem Content="C" />
                 <ComboBoxItem Content="D" />
