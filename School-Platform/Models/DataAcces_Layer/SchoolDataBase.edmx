@@ -796,6 +796,9 @@
         <ComplexType Name="Admin_GetAllStudents_Result">
           <Property Type="Int32" Name="User_ID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Class_ID" Nullable="true" />
+          <Property Type="Int32" Name="AbsencesCount" Nullable="true" />
         </ComplexType>
         <ComplexType Name="Admin_GetAllTeachers_Result">
           <Property Type="Int32" Name="Teacher_ID" Nullable="false" />
@@ -973,6 +976,9 @@
               <ComplexTypeMapping TypeName="SchoolModel.Admin_GetAllStudents_Result">
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="AbsencesCount" ColumnName="AbsencesCount" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

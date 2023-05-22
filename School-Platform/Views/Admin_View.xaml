@@ -110,8 +110,8 @@
                                 <TextBlock Text="{Binding Name}"/>
                                 <TextBlock Text=" Class: "/>
                                 <TextBlock Text="{Binding Class_ID}"/>
-                                <TextBlock Text=" Class: "/>
-                                <TextBlock Text="{Binding Class_ID}"/>
+                                <TextBlock Text=" Absences: "/>
+                                <TextBlock Text="{Binding AbsencesCount}"/>
 
                             </WrapPanel>
                         </DataTemplate>
