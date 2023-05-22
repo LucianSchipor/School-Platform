@@ -125,11 +125,9 @@ namespace School_Platform.ViewModels
             Users = new List<User>();
             class_Service = new Class_Service();
             selectedList = new List<List<string>>();
-
             selectedList.Add(new List<string>());
             selectedList.Add(new List<string>());
             selectedList.Add(new List<string>());
-
             selectedList[0].Add("new");
             selectedList[1].Add("new");
             selectedList[2].Add("new");
@@ -150,7 +148,7 @@ namespace School_Platform.ViewModels
 
         private void SelectYear(ComboBoxItem selected)
         {
-            selectedList[0][0] = selected.Content as string;
+            selectedList[0][0] = (selected.Content as string);
         }
 
         private ICommand selectSpecializationCommand;
@@ -168,7 +166,7 @@ namespace School_Platform.ViewModels
 
         private void SelectSpecialization(ComboBoxItem selected)
         {
-            selectedList[1][0] = selected.Content as string;
+            selectedList[1][0] = (selected.Content as string);
         }
 
         private ICommand selectIDCommand;
@@ -186,7 +184,7 @@ namespace School_Platform.ViewModels
 
         private void SelectID(ComboBoxItem selected)
         {
-            selectedList[2][0] = selected.Content as string;
+            selectedList[2][0] = (selected.Content as string);
         }
 
 
@@ -205,24 +203,32 @@ namespace School_Platform.ViewModels
 
         public void GetAllStudents(List<List<string>> informations)
         {
-            //informations = selectedList;
-            //var result = new ObservableCollection<Student>();
-            //Classes = class_Service.GetClasses(informations[0][0], informations[1][0], informations[2][0]);
-            //foreach (var index in Classes)
-            //{
-            //    foreach (var indexStudent in index.Students)
-            //    {
-            //        result.Add(indexStudent);
-            //    }
-            //}
-            //Students = result;
-
+            informations = selectedList;
             Student_Service ss = new Student_Service();
-            Students = ss.GetAllStudents();
+            int year = -1;
 
-            var window = new ViewStudents_Result();
-            (window.DataContext as ViewStudents_Result_VM).Students = Students;
-            window.Show();
+            try
+            {
+
+                try
+                {
+                    year = int.Parse(informations[0][0]);
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Nu ai selectat criteriul 'Year' ");
+                    return;
+                }
+                Students = ss.GetAllStudents(year, informations[2][0]);
+                var window = new ViewStudents_Result();
+                (window.DataContext as ViewStudents_Result_VM).Students = Students;
+                window.Show();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Nu ai selectat criterii de cautare.");
+                return;
+            }
         }
 
 
@@ -247,7 +253,7 @@ namespace School_Platform.ViewModels
             student_cast.Class_ID = item.Class_ID;
             student_cast.AbsencesCount = item.AbsencesCount;
 
-            if(item != null)
+            if (item != null)
             {
                 selectedStudent = student_cast;
                 IsButtonEnabled = true;

@@ -18,9 +18,9 @@ namespace School_Platform.Repositories
             schoolContext = new SchoolEntities();
         }
 
-        public List<Admin_GetAllStudents_Result> GetAllStudents()
+        public List<Admin_GetAllStudents_Result> GetAllStudents(Nullable<int> year_Of_Study, string class_Letter)
         {
-            return schoolContext.Admin_GetAllStudents().ToList();
+            return schoolContext.Admin_GetAllStudentsFromClass(year_Of_Study, class_Letter).ToList();
         }
     }
 

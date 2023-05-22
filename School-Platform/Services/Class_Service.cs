@@ -22,5 +22,10 @@ namespace School_Platform.Services
         {
            return classRepository.GetAllClasses();
         }
+
+        public void ChangeClassSpecialization(string Class_Letter, int Year_Of_Study, string Specialization)
+        {
+            classRepository.ChangeClassSpecialization(Class_Letter, Year_Of_Study, Specialization);
+        }
     }
 }

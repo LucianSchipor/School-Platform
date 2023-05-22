@@ -1,17 +1,21 @@
 ﻿using School_Platform.Helpers;
 using School_Platform.Models;
 using School_Platform.Models.DataAcces_Layer;
+using School_Platform.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace School_Platform.ViewModels.Dialogs_VM
 {
     public class ViewClasses_Result_VM: BaseVM
     {
+
+        public Class_Service classService { get; set; }
 
         private Class selectedClass;
         public Class SelectedClass
@@ -85,7 +89,40 @@ namespace School_Platform.ViewModels.Dialogs_VM
                 SelectedClass = Class;
                 IsButtonEnabled = true;
             }
+        }
 
+
+        private ICommand changeSpecializationCommand;
+        public ICommand ChangeSpecializationCommand
+        {
+            get
+            {
+                if (changeSpecializationCommand == null)
+                {
+                    changeSpecializationCommand = new RelayCommandGeneric<Window>(ChangeClassSpecialization);
+                }
+                return changeSpecializationCommand;
+            }
+
+        }
+
+        public void ChangeClassSpecialization(Window w)
+        {
+            var year = SelectedClass.Year_Of_Study;
+            string Spec = " ";
+            var Letter = SelectedClass.Class_Name;
+
+            var nameDialog = new InputDialog("Salut");
+            nameDialog.label.Content = "Specialization name: ";
+
+            if (nameDialog.ShowDialog() == true)
+            {
+                 Spec = nameDialog.Answer;
+                 NotifyPropertyChanged(nameof(SelectedClass));
+            }
+
+            classService = new Class_Service();
+            classService.ChangeClassSpecialization(Letter, year, Spec);
         }
     }
 }

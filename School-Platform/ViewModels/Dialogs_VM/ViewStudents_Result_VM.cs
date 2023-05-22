@@ -28,6 +28,8 @@ namespace School_Platform.ViewModels.Dialogs_VM
                 }
             }
         }
+
+        public int Class_ID;
         private bool _isButtonEnabled;
         public bool IsButtonEnabled
         {
@@ -56,6 +58,7 @@ namespace School_Platform.ViewModels.Dialogs_VM
         public ViewStudents_Result_VM() 
         {
             IsButtonEnabled = false;
+            Class_ID = 0;
         }
 
 
@@ -79,6 +82,7 @@ namespace School_Platform.ViewModels.Dialogs_VM
             Student.Student_ID = item.User_ID;
             Student.Class_ID = item.Class_ID;
             Student.AbsencesCount = item.AbsencesCount;
+
             if (item != null)
             {
                 SelectedStudent = Student;

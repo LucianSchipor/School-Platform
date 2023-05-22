@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Absences">
           <Key>
             <PropertyRef Name="Absence_ID" />
@@ -250,6 +250,10 @@
         <Function Name="Admin_GetAllClasses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllMasters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllStudents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Admin_GetAllStudentsFromClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year_Of_Study" Type="int" Mode="In" />
+          <Parameter Name="Class_Letter" Type="char" Mode="In" />
+        </Function>
         <Function Name="Admin_GetAllTeachers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetTeacherSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -361,8 +365,7 @@
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -678,7 +681,7 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Admin_DeleteStudent">
-            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Admin_GetAllClasses" ReturnType="Collection(SchoolModel.Admin_GetAllClasses_Result)" />
           <FunctionImport Name="Admin_GetAllMasters" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)" />
@@ -686,7 +689,7 @@
           <FunctionImport Name="Admin_GetAllTeachers" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)" />
           <FunctionImport Name="Admin_GetAllUsers" EntitySet="Users" ReturnType="Collection(SchoolModel.User)" />
           <FunctionImport Name="Admin_GetTeacherSubjects" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
-            <Parameter Name="Teacher_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Teacher_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Master_ViewClassHierarchyByGrade" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
             <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
@@ -697,16 +700,16 @@
             <Parameter Name="Class_Letter" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Master_ViewStudentGrades" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
-            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Student_ViewAbsences" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
-            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Student_ViewAverages" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
-            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Student_ViewGrades" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
-            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Teacher_AddAbsence" EntitySet="Specializations_Subjects" ReturnType="Collection(SchoolModel.Specializations_Subjects)">
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
@@ -740,6 +743,10 @@
           <FunctionImport Name="Teacher_ViewGrades" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Admin_GetAllStudentsFromClass" ReturnType="Collection(SchoolModel.Admin_GetAllStudents_Result)">
+            <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
+            <Parameter Name="Class_Letter" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Admin_GetAllClasses_Result">
@@ -814,6 +821,11 @@
         <ComplexType Name="Teacher_ViewGrades_Result">
           <Property Type="Double" Name="Grade_Value" Nullable="true" />
           <Property Type="DateTime" Name="Grade_Date" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Admin_GetAllStudentsFromClass_Result">
+          <Property Type="Int32" Name="Student_ID" Nullable="false" />
+          <Property Type="Int32" Name="Class_ID" Nullable="true" />
+          <Property Type="Int32" Name="AbsencesCount" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -978,6 +990,17 @@
           <FunctionImportMapping FunctionImportName="Teacher_ViewAbsences" FunctionName="SchoolModel.Store.Teacher_ViewAbsences">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Teacher_ViewGrades" FunctionName="SchoolModel.Store.Teacher_ViewGrades">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Admin_GetAllStudentsFromClass" FunctionName="SchoolModel.Store.Admin_GetAllStudentsFromClass">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.Admin_GetAllStudents_Result">
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="AbsencesCount" ColumnName="AbsencesCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>

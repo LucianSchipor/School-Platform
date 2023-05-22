@@ -22,5 +22,10 @@ namespace School_Platform.Repositories
         {
             return SchoolDataBase.Admin_GetAllClasses().ToList();
         }
+
+        public void ChangeClassSpecialization(string Class_Letter, int Year_Of_Study, string Specialization)
+        {
+            SchoolDataBase.Admin_ChangeClassSpecialization(Class_Letter, Year_Of_Study, Specialization);
+        }
     }
 }

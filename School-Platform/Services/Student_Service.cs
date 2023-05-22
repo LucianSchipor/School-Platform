@@ -20,10 +20,13 @@ namespace School_Platform.Services
                _studentRepository = new Student_Repository();
         }
 
-        public List<Admin_GetAllStudents_Result> GetAllStudents()
+        public List<Admin_GetAllStudents_Result> GetAllStudents(Nullable<int> year_Of_Study, string class_Letter)
         {
-
-            return _studentRepository.GetAllStudents();
+            if(class_Letter == "new")
+            {
+                throw new ArgumentOutOfRangeException(" ");
+            }
+            return _studentRepository.GetAllStudents(year_Of_Study, class_Letter);
         }
     }
 }

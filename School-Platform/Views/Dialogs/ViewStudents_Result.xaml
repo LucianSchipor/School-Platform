@@ -22,8 +22,8 @@
         </Grid.ColumnDefinitions>
         
             <Grid Grid.Column="0">
-                <TextBlock Text="Students" FontSize="30" HorizontalAlignment="Center"/>
-                <ListBox  ItemsSource="{Binding Students}"
+                <TextBlock Text="{Binding }" FontSize="20" HorizontalAlignment="Center"/>
+                <ListBox Margin="0,30,0,0"  ItemsSource="{Binding Students}"
                   x:Name="ListBoxStudents"
                          behavior:CommandBehavior.Command="{Binding SelectStudentCommand}" 
                          behavior:CommandBehavior.Event="SelectionChanged"

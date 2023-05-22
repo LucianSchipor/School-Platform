@@ -507,5 +507,18 @@ namespace School_Platform.Models.DataAcces_Layer
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student>("Teacher_ViewGrades", mergeOption, subject_NameParameter, student_IDParameter);
         }
+    
+        public virtual ObjectResult<Admin_GetAllStudents_Result> Admin_GetAllStudentsFromClass(Nullable<int> year_Of_Study, string class_Letter)
+        {
+            var year_Of_StudyParameter = year_Of_Study.HasValue ?
+                new ObjectParameter("Year_Of_Study", year_Of_Study) :
+                new ObjectParameter("Year_Of_Study", typeof(int));
+    
+            var class_LetterParameter = class_Letter != null ?
+                new ObjectParameter("Class_Letter", class_Letter) :
+                new ObjectParameter("Class_Letter", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetAllStudents_Result>("Admin_GetAllStudentsFromClass", year_Of_StudyParameter, class_LetterParameter);
+        }
     }
 }

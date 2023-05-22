@@ -127,6 +127,7 @@
     <Compile Include="Services\User_Service.cs" />
     <Compile Include="ViewModels\Admin_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\Associations_Student_VM.cs" />
+    <Compile Include="ViewModels\Dialogs_VM\InputDialog.cs" />
     <Compile Include="ViewModels\Dialogs_VM\ViewClasses_Result_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\ViewStudents_Result_VM.cs" />
     <Compile Include="ViewModels\LogIn_VM.cs" />
