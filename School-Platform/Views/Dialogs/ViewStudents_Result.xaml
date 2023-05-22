@@ -22,7 +22,7 @@
         </Grid.ColumnDefinitions>
         
             <Grid Grid.Column="0">
-                <TextBlock Text="{Binding }" FontSize="20" HorizontalAlignment="Center"/>
+                <TextBlock Text="Students" FontSize="20" HorizontalAlignment="Center"/>
                 <ListBox Margin="0,30,0,0"  ItemsSource="{Binding Students}"
                   x:Name="ListBoxStudents"
                          behavior:CommandBehavior.Command="{Binding SelectStudentCommand}" 
@@ -48,13 +48,11 @@
             </Grid>
             <Grid Grid.Column="1" Background="White">
                     <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,0">
-                        <Button Margin="0,0,0,0" Width="70" Height="40" Background="LightGreen" Content="Add" IsEnabled="True"/>
-                        <Button Margin="0,0,0,0" Width="70" Height="40" Background="LightGreen" Content="Change" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding AssociationsCommand}" CommandParameter="{Binding ElementName=Admin_Window}"/>
-                        <Button Margin="0,0,0,0" Width="70" Height="40" Background="LightGreen" Content="Delete" IsEnabled="{Binding IsButtonEnabled}" />
+                        <Button Margin="0,0,0,0" Width="100" Height="40" Background="LightGreen" Content="Add " IsEnabled="True" Command="{Binding AddStudentCommand}"/>
+                        <Button Margin="0,0,0,0" Width="100" Height="40" Background="LightGreen" Content="Change Class" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding ChangeStudentClassCommand}"/>
                     </WrapPanel>
 
                 <WrapPanel Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                    <Button Margin="0,0,0,0" Width="110" Height="40" Background="LightGreen" Content="Associations" IsEnabled="{Binding IsButtonEnabled}" />
                     <Button Margin="0,0,0,0" Width="110" Height="40" Background="LightGreen" Content="Remove from class" IsEnabled="{Binding IsButtonEnabled}" />
                 </WrapPanel>
             </Grid>

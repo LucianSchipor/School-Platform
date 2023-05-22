@@ -28,5 +28,15 @@ namespace School_Platform.Services
             }
             return _studentRepository.GetAllStudents(year_Of_Study, class_Letter);
         }
+
+        public void AddStudent(string Username, string Password, string Name, int Year_Of_Study, string Class_Letter, int Student_ID)
+        {
+            _studentRepository.AddStudent( Username, Password, Name, Year_Of_Study, Class_Letter, Student_ID);
+        }
+
+        public void ChangeStudentClass(int YearOfStudy, string CLassLetter, int StudentID)
+        {
+            _studentRepository.ChangeStudentClass(YearOfStudy, CLassLetter, StudentID);
+        }
     }
 }
