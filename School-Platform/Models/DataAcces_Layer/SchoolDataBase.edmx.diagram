@@ -26,6 +26,7 @@
         <AssociationConnector Association="SchoolModel.FK__Subject_T__Subje__6D0D32F4" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Teacher_S__Subje__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Teacher_S__Teach__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="SchoolModel.FK_Spec" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

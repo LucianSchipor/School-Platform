@@ -46,14 +46,12 @@
             </Grid>
             <Grid Grid.Column="1" Background="White">
                 <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,0">
-                    <Button Margin="0,0,0,0" Width="100" Height="40" Background="LightGreen" Content="Add" IsEnabled="True"/>
+                    <Button Margin="0,0,0,0" Width="100" Height="40" Background="LightGreen" Content="Add" IsEnabled="True" Command="{Binding AddClassCommand}"/>
                     <Button Margin="0,0,0,0" Width="100" Height="40" Background="LightGreen" Content="Change Specialization" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding ChangeSpecializationCommand}" CommandParameter="{Binding ElementName=Admin_Window}"/>
-                    <Button Margin="0,0,0,0" Width="100" Height="40" Background="LightGreen" Content="Delete" IsEnabled="{Binding IsButtonEnabled}" />
                 </WrapPanel>
 
                 <WrapPanel Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Center">
-                    <Button Margin="0,0,0,0" Width="110" Height="40" Background="LightGreen" Content="Associations" IsEnabled="{Binding IsButtonEnabled}" />
-                    <Button Margin="0,0,0,0" Width="110" Height="40" Background="LightGreen" Content="Remove class" IsEnabled="{Binding IsButtonEnabled}" />
+                    <Button Margin="0,0,0,0" Width="100" Height="40" Background="LightGreen" Content="Remove Class" IsEnabled="{Binding IsButtonEnabled}" Command="{Binding DeleteClassCommand}"/>
                 </WrapPanel>
 
             </Grid>

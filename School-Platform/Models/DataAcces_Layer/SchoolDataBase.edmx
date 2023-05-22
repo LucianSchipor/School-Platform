@@ -217,6 +217,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Spec">
+          <End Role="Specializations" Type="Self.Specializations" Multiplicity="0..1" />
+          <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specializations">
+              <PropertyRef Name="Specialization_Name" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="Specialization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="AdaugaDiriginte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProfesorID" Type="int" Mode="In" />
           <Parameter Name="ClasaID" Type="int" Mode="In" />
@@ -239,10 +251,19 @@
           <Parameter Name="Class_Letter" Type="nvarchar" Mode="In" />
           <Parameter Name="StudentID" Type="int" Mode="In" />
         </Function>
+        <Function Name="Admin_CreateClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year_Of_Study" Type="int" Mode="In" />
+          <Parameter Name="Class_Letter" Type="char" Mode="In" />
+          <Parameter Name="Specialization" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="Admin_CreateStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Name" Type="varchar" Mode="In" />
           <Parameter Name="Username" Type="varchar" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Admin_DeleteClass" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Year_Of_Study" Type="int" Mode="In" />
+          <Parameter Name="Class_Letter" Type="char" Mode="In" />
         </Function>
         <Function Name="Admin_DeleteStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Student_ID" Type="int" Mode="In" />
@@ -364,6 +385,10 @@
             <End Role="Classes" EntitySet="Classes" />
             <End Role="Teachers" EntitySet="Teachers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Spec" Association="Self.FK_Spec">
+            <End Role="Specializations" EntitySet="Specializations" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -391,6 +416,7 @@
           <Property Name="Year_Of_Study" Type="Int32" />
           <NavigationProperty Name="Students" Relationship="Self.FK__Students__Class___3E52440B" FromRole="Classes" ToRole="Students" />
           <NavigationProperty Name="Teachers" Relationship="Self.FK__Teachers__Master__3B75D760" FromRole="Classes" ToRole="Teachers" />
+          <NavigationProperty Name="Specialization1" Relationship="SchoolModel.FK_Spec" FromRole="Class" ToRole="Specialization" />
         </EntityType>
         <EntityType Name="Grade">
           <Key>
@@ -410,6 +436,7 @@
           </Key>
           <Property Name="Specialization_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Subjects_Theisis" Relationship="Self.FK__Subject_T__Speci__6E01572D" FromRole="Specializations" ToRole="Subjects_Theisis" />
+          <NavigationProperty Name="Classes" Relationship="SchoolModel.FK_Spec" FromRole="Specialization" ToRole="Class" />
         </EntityType>
         <EntityType Name="Specializations_Subjects">
           <Key>
@@ -748,6 +775,19 @@
             <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
             <Parameter Name="Class_Letter" Mode="In" Type="String" />
           </FunctionImport>
+          <AssociationSet Name="FK_Spec" Association="SchoolModel.FK_Spec">
+            <End Role="Specialization" EntitySet="Specializations" />
+            <End Role="Class" EntitySet="Classes" />
+          </AssociationSet>
+          <FunctionImport Name="Admin_CreateClass">
+            <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
+            <Parameter Name="Class_Letter" Mode="In" Type="String" />
+            <Parameter Name="Specialization" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Admin_DeleteClass">
+            <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
+            <Parameter Name="Class_Letter" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Admin_GetAllClasses_Result">
           <Property Type="Int32" Name="Class_ID" Nullable="false" />
@@ -827,6 +867,18 @@
           <Property Type="Int32" Name="Class_ID" Nullable="true" />
           <Property Type="Int32" Name="AbsencesCount" Nullable="true" />
         </ComplexType>
+        <Association Name="FK_Spec">
+          <End Type="SchoolModel.Specialization" Role="Specialization" Multiplicity="0..1" />
+          <End Type="SchoolModel.Class" Role="Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Specialization_Name" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="Specialization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1002,6 +1054,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Admin_CreateClass" FunctionName="SchoolModel.Store.Admin_CreateClass" />
+          <FunctionImportMapping FunctionImportName="Admin_DeleteClass" FunctionName="SchoolModel.Store.Admin_DeleteClass" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -126,6 +126,7 @@
     <Compile Include="Services\Student_Service.cs" />
     <Compile Include="Services\User_Service.cs" />
     <Compile Include="ViewModels\Admin_VM.cs" />
+    <Compile Include="ViewModels\Dialogs_VM\AddClass_Dialog_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\Associations_Student_VM.cs" />
     <Compile Include="ViewModels\Dialogs_VM\InputDialog.cs" />
     <Compile Include="ViewModels\Dialogs_VM\ViewClasses_Result_VM.cs" />
@@ -136,6 +137,9 @@
     </Compile>
     <Compile Include="Views\Associations_Student_View.xaml.cs">
       <DependentUpon>Associations_Student_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\Add_Dialog.xaml.cs">
+      <DependentUpon>Add_Dialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\ViewClasses_Result.xaml.cs">
       <DependentUpon>ViewClasses_Result.xaml</DependentUpon>
@@ -167,6 +171,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Associations_Student_View.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\Add_Dialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

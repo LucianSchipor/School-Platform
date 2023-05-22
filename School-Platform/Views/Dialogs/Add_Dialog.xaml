@@ -1,0 +1,65 @@
+﻿<Window x:Class="School_Platform.Views.Dialogs.Add_Dialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:behavior ="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:School_Platform.Views.Dialogs"
+        xmlns:context ="clr-namespace:School_Platform.ViewModels.Dialogs_VM"
+        mc:Ignorable="d"
+        Title="Add_Dialog" Height="450" Width="800">
+
+    <Window.DataContext>
+        <context:AddClass_Dialog_VM />
+    </Window.DataContext>
+    <WrapPanel Orientation="Vertical">
+        <WrapPanel>
+            <TextBlock FontSize="20" Text = "Year: "/>
+            <ComboBox Width="50" 
+                      x:Name="YearBox"
+                      behavior:CommandBehavior.Event ="SelectionChanged"
+                      behavior:CommandBehavior.Command="{Binding SelectYearCommand}"
+                      behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=YearBox}">
+                <ComboBoxItem Content="9"/>
+                <ComboBoxItem Content="10"/>
+                <ComboBoxItem Content="11"/>
+                <ComboBoxItem Content="12"/>
+            </ComboBox>
+        </WrapPanel>
+
+        <WrapPanel Margin="0,20,0,0">
+            <TextBlock FontSize="20" Text = "Letter: "/>
+            <ComboBox Width="50" 
+                      x:Name="LetterBox"
+                      behavior:CommandBehavior.Event ="SelectionChanged"
+                      behavior:CommandBehavior.Command="{Binding SelectLetterCommand}"
+                      behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=LetterBox}">
+                <ComboBoxItem Content="A"/>
+                <ComboBoxItem Content="B" />
+                <ComboBoxItem Content="C" />
+                <ComboBoxItem Content="D" />
+                <ComboBoxItem Content="E" />
+                <ComboBoxItem Content="F" />
+                <ComboBoxItem Content="G" />
+                <ComboBoxItem Content="H" />
+                <ComboBoxItem Content="I" />
+            </ComboBox>
+        </WrapPanel>
+
+        <WrapPanel Margin="0,20,0,0">
+            <TextBlock FontSize="20" Text ="Specialization: " />
+            <ComboBox Width="50"
+                      x:Name="SpecBox"
+                      behavior:CommandBehavior.Event ="SelectionChanged"
+                      behavior:CommandBehavior.Command="{Binding SelectSpecializationCommand}"
+                      behavior:CommandBehavior.CommandParameter="{Binding SelectedItem, ElementName=SpecBox}">
+                <ComboBoxItem Content="Mate-Info"/>
+                <ComboBoxItem Content="Stiinte ale naturii"/>
+                <ComboBoxItem Content="Stiinte sociale"/>
+                <ComboBoxItem Content="Filologie"/>
+            </ComboBox>
+        </WrapPanel>
+        <Button  Content="OK" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0" Click="Button_Click"/>
+
+    </WrapPanel>
+</Window>

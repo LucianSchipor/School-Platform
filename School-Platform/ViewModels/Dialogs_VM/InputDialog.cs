@@ -15,9 +15,10 @@ namespace School_Platform.ViewModels.Dialogs_VM
         public Label label = new Label();
         private readonly Button okButton = new Button { Content = "OK", FontSize = 10, Height = 20, Width = 50 };
         private readonly Button cancelButton = new Button { Content = "Cancel", FontSize = 10, Height = 20, Width = 50 };
-        private readonly ComboBox comboBox = new ComboBox();
+        public ComboBox comboBox = new ComboBox();
         public string Answer => comboBox.SelectedItem.ToString();
 
+        public StackPanel stackPanel;
         public InputDialog(string prompt)
         {
             Title = prompt;
@@ -30,7 +31,7 @@ namespace School_Platform.ViewModels.Dialogs_VM
             comboBox.Items.Add("Stiinte sociale");
             comboBox.Items.Add("Filologie");
 
-            var stackPanel = new StackPanel();
+            stackPanel = new StackPanel();
             stackPanel.Children.Add(comboBox);
             stackPanel.Children.Add(label);
             label.Content = "Choose name.";

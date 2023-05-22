@@ -27,5 +27,15 @@ namespace School_Platform.Repositories
         {
             SchoolDataBase.Admin_ChangeClassSpecialization(Class_Letter, Year_Of_Study, Specialization);
         }
+
+        public void AddClass(int Year_Of_Study, string Class_Letter, string Specialization)
+        {
+            SchoolDataBase.Admin_CreateClass(Year_Of_Study, Class_Letter, Specialization);
+        }
+
+        public void DeleteClass(int Year_Of_Study, string Class_Letter)
+        {
+            SchoolDataBase.Admin_DeleteClass(Year_Of_Study, Class_Letter);
+        }
     }
 }

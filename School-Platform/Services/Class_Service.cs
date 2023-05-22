@@ -27,5 +27,14 @@ namespace School_Platform.Services
         {
             classRepository.ChangeClassSpecialization(Class_Letter, Year_Of_Study, Specialization);
         }
+
+        public void AddClass(int Year_Of_Study, string Class_Letter, string Specialization)
+        {
+            classRepository.AddClass(Year_Of_Study, Class_Letter ,Specialization);
+        }
+        public void DeleteClass(int Year_Of_Study, string Class_Letter)
+        {
+            classRepository.DeleteClass(Year_Of_Study, Class_Letter);
+        }
     }
 }
