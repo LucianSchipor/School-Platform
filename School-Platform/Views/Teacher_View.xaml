@@ -26,7 +26,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
-                <TextBlock Text="PROFESSOR MENU" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
+                <TextBlock Text="TEACHER MENU" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
                 <TextBlock  HorizontalAlignment="Center" FontSize="6" Foreground="Gray" Text="You will only see the classes where you are a teacher"/>
                 <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
                     <TextBlock Text="Choose Year.">
@@ -85,10 +85,12 @@
                                 <TextBlock Text="{Binding Subject_Name}"/>
                             </WrapPanel>
                         </DataTemplate>
-                        <DataTemplate DataType="{x:Type types:Grade}">
+                        <DataTemplate DataType="{x:Type types:Student_ViewGrades_Result}">
                             <WrapPanel>
-                                <TextBlock Text="{Binding Grade_Value}"/>
-                                <TextBlock Text="{Binding Subject_Name}"/>
+                                <TextBlock Text="Subject: "  />
+                                <TextBlock Text="{Binding Subject_Name}"  />
+                                <TextBlock Text=" Value: "  />
+                                <TextBlock Text="{Binding Grade_Value}"  />
                             </WrapPanel>
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type types:Admin_GetAllStudents_Result}">
@@ -112,8 +114,8 @@
                     <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="View Absences" Command="{Binding ViewAbsencesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
                     <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Add Absence"/>
                     <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Justify Absence" />
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="View Grades" />
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Add Grade" />
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="View Grades" Command="{Binding ViewGradesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Add Grade"  Command="{Binding AddGradeCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
                     <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Remove Grade"/>
                     <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="Calculate average" IsEnabled="False"/>
                     <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="View materials" IsEnabled="False"/>

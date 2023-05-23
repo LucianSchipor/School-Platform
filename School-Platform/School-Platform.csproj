@@ -116,6 +116,7 @@
     <Compile Include="Models\DataAcces_Layer\Specialization.cs" />
     <Compile Include="Models\DataAcces_Layer\Specializations_Subjects.cs" />
     <Compile Include="Models\DataAcces_Layer\Student.cs" />
+    <Compile Include="Models\DataAcces_Layer\Student_ViewGrades_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\Subject.cs" />
     <Compile Include="Models\DataAcces_Layer\Subjects_Theisis.cs" />
     <Compile Include="Models\DataAcces_Layer\Teacher.cs" />

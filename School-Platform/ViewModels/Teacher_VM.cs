@@ -62,7 +62,7 @@ namespace School_Platform.ViewModels
         }
 
         //verific la comanda de view, pt ca de acolo stiu ce tip are lista
-      
+
         private List<Admin_GetTeacherClasses_Result> classes;
         public List<Admin_GetTeacherClasses_Result> Classes
         {
@@ -100,7 +100,7 @@ namespace School_Platform.ViewModels
             }
             set
             {
-                if(selectedClass != value)
+                if (selectedClass != value)
                 {
                     selectedClass = value;
                 }
@@ -158,8 +158,8 @@ namespace School_Platform.ViewModels
             }
         }
 
-        private List<Grade> grades;
-        public List<Grade> Grades
+        private List<Student_ViewGrades_Result> grades;
+        public List<Student_ViewGrades_Result> Grades
         {
             get { return grades; }
             set
@@ -201,11 +201,11 @@ namespace School_Platform.ViewModels
             IsButtonEnabled_Absences = false;
 
             SelectedClass = new Admin_GetTeacherClasses_Result();
-          
+
         }
 
         public Teacher_VM(User LoggedUser)
-            :base()
+            : base()
         {
             var tr = new Teacher_Repository();
             this.LoggedUser = LoggedUser;
@@ -233,25 +233,25 @@ namespace School_Platform.ViewModels
             }
         }
 
-       
+
         public void ViewAbsences(ListBox currentListBox)
         {
             var sr = new Student_Repository();
-            if(SelectedSubject != null)
+            if (SelectedSubject != null)
             {
-
-            try
-            {
-                Absences = sr.GetAbsences(SelectedStudent.User_ID, SelectedSubject.Subject_Name);
-                currentListBox.ItemsSource = Absences;
-                IsButtonEnabled_Absences = true;
-                IsButtonEnabled_Grades = false;
+                var name = currentListBox.Name;
+                try
+                {
+                    Absences = sr.GetAbsences(SelectedStudent.User_ID, SelectedSubject.Subject_Name);
+                    currentListBox.ItemsSource = Absences;
+                    IsButtonEnabled_Absences = true;
+                    IsButtonEnabled_Grades = false;
                     ListType = "Absence";
-            }
-            catch (System.NullReferenceException)
-            {
-                MessageBox.Show("O optiune nu a fost selectata.");
-            }
+                }
+                catch (System.NullReferenceException)
+                {
+                    MessageBox.Show("O optiune nu a fost selectata.");
+                }
             }
 
             else
@@ -272,11 +272,11 @@ namespace School_Platform.ViewModels
                 return importSubjectsCommand;
             }
         }
-        
+
         public void ImportSubjects(ListBox e)
         {
             var tsr = new Teacher_Subjects_Repository();
-           Subjects =  tsr.ImportSubjects(LoggedUser.User_ID);
+            Subjects = tsr.ImportSubjects(LoggedUser.User_ID);
         }
 
         private ICommand viewStudentsCommand;
@@ -318,6 +318,32 @@ namespace School_Platform.ViewModels
             currentListBox.ItemsSource = Students;
         }
 
+        private ICommand viewGradesCommand;
+        public ICommand ViewGradesCommand
+        {
+            get
+            {
+                if (viewGradesCommand == null)
+                {
+                    viewGradesCommand = new RelayCommandGeneric<ListBox>(GetGrades);
+                }
+                return viewGradesCommand;
+            }
+        }
+
+        public void GetGrades(ListBox currentListBox)
+        {
+            if(SelectedSubject == null)
+            {
+                MessageBox.Show("Nu ai selectat materia!.");
+                return;
+            }
+            var sr = new Student_Repository();
+            Grades = sr.GetStudentGrades(SelectedStudent.User_ID, SelectedSubject.Subject_Name);
+            ListType = "Grades";
+            currentListBox.ItemsSource = Grades;
+        }
+
         private ICommand selectItemCommand;
         public ICommand SelectItemCommand
         {
@@ -334,24 +360,68 @@ namespace School_Platform.ViewModels
         public void SelectItem(ListBox StudentListBox)
         {
             IsButtonEnabled_Absences = true;
-            if(ListType == "Student")
+            if (ListType == "Student")
             {
                 SelectedStudent = StudentListBox.SelectedItem as Admin_GetAllStudents_Result;
+                IsButtonEnabled_Grades = true;
             }
             else
             {
-                if(ListType == "Absences")
+                if (ListType == "Absences")
                 {
                     StudentListBox.ItemsSource = Absences;
+                    IsButtonEnabled_Absences = true;
+                    isButtonEnabled_Grades = false;
                 }
                 else
                 {
-                    if(ListType == "Grade")
+                    if (ListType == "Grades")
                     {
                         StudentListBox.ItemsSource = Grades;
+                        IsButtonEnabled_Absences = false;
+                        isButtonEnabled_Grades = true;
                     }
                 }
             }
+        }
+
+        private ICommand addGradeCommand;
+        public ICommand AddGradeCommand
+        {
+            get
+            {
+                if(addGradeCommand == null)
+                {
+                    addGradeCommand = new RelayCommandGeneric<ListBox>(AddGrade);
+                }
+                return addGradeCommand;
+            }
+        }
+        
+        public void AddGrade(ListBox current)
+        {
+            var sr = new Student_Repository();
+            int Value = 0;
+            var InputDIalog = new InputDialog(" ");
+            InputDIalog.comboBox.Items.Clear();
+            InputDIalog.comboBox.Items.Add("1");
+            InputDIalog.comboBox.Items.Add("2");
+            InputDIalog.comboBox.Items.Add("3");
+            InputDIalog.comboBox.Items.Add("4");
+            InputDIalog.comboBox.Items.Add("5");
+            InputDIalog.comboBox.Items.Add("6");
+            InputDIalog.comboBox.Items.Add("7");
+            InputDIalog.comboBox.Items.Add("8");
+            InputDIalog.comboBox.Items.Add("9");
+            InputDIalog.comboBox.Items.Add("10");
+            if(InputDIalog.ShowDialog() == true)
+            {
+                Value = int.Parse(InputDIalog.Answer);
+            }
+
+            sr.AddGradeForStudent(SelectedSubject.Subject_Name, SelectedStudent.User_ID, Value);
+            Grades = sr.GetStudentGrades(SelectedStudent.User_ID, SelectedSubject.Subject_Name);
+            current.ItemsSource = Grades;
         }
     }
 }

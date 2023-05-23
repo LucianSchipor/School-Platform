@@ -38,7 +38,16 @@ namespace School_Platform.Repositories
         {
             return schoolContext.Teacher_ViewAbsences(Student_ID, Subject_Name).ToList();
         }
-    }
 
+        public List<Student_ViewGrades_Result> GetStudentGrades(int Student_ID, string Subject_Name)
+        {
+            return schoolContext.Student_ViewGrades(Student_ID, Subject_Name).ToList();
+        }
+
+        public void AddGradeForStudent(string SubjectName, int Student_ID, double value)
+        {
+            schoolContext.Teacher_AddGrade(SubjectName, Student_ID, value);
+        }
+    }
 
 }
