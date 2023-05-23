@@ -48,6 +48,11 @@ namespace School_Platform.Repositories
         {
             schoolContext.Teacher_AddGrade(SubjectName, Student_ID, value);
         }
+
+        public List<Subject> ImportSubjects(int StudentID)
+        {
+            schoolContext.importSubjectsForStudent(StudentID);
+        }
     }
 
 }

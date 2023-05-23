@@ -8,7 +8,7 @@
         xmlns:types="clr-namespace:School_Platform.Models.DataAcces_Layer"
         xmlns:local="clr-namespace:School_Platform.Views"
         mc:Ignorable="d"
-        Title="Admin" Height="450" Width="800">
+        Title="Admin" Height="450" Width="1000">
     <Window.DataContext>
         <ctx:Teacher_VM />
     </Window.DataContext>
@@ -19,7 +19,7 @@
             <TextBlock Text="{Binding LoggedUser.Role}" FontWeight="Bold"/>
         </WrapPanel>
 
-        <Grid Background="White" Height="350" Width="600">
+        <Grid Background="White" Height="400" Width="900">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -64,11 +64,16 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                
                 </WrapPanel>
             </StackPanel>
+
             <Grid Grid.Column="1">
-                <ListBox Margin="0,160,0,0" x:Name="resultListBox" ItemsSource="{Binding Grades}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListBox Margin="0,0,0,0" x:Name="resultListBox" ItemsSource="{Binding Grades}" Grid.Column="1"
                          behavior:CommandBehavior.Event="SelectionChanged"
                          behavior:CommandBehavior.Command="{Binding SelectItemCommand}" 
                          behavior:CommandBehavior.CommandParameter="{Binding ElementName=resultListBox}">
@@ -110,16 +115,27 @@
                         </DataTemplate>
                     </ItemsControl.Resources>
                 </ListBox>
-                <WrapPanel>
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="View Absences" Command="{Binding ViewAbsencesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Add Absence"/>
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Justify Absence" />
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="View Grades" Command="{Binding ViewGradesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Add Grade"  Command="{Binding AddGradeCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
-                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Remove Grade"/>
-                    <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="Calculate average" IsEnabled="False"/>
-                    <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="View materials" IsEnabled="False"/>
-                    <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="Choose Student" Command="{Binding ViewStudentsCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                <TextBlock Text="Master options" Grid.Column="0" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+                <WrapPanel Grid.Column="0" Orientation="Horizontal">
+                    <WrapPanel Orientation="Horizontal">
+                        <Button Width="100" Height="40" Margin="0,0,0,0" IsEnabled ="true" VerticalAlignment="Bottom" Content="View Absences" Command="{Binding ViewAbsencesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"   IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Add Absence"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Justify Absence" />
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  IsEnabled ="True" VerticalAlignment="Bottom" Content="View Grades"  Command="{Binding ViewGradesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Add Grade"   Command="{Binding AddGradeCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Remove Grade"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  VerticalAlignment="Bottom" Content="Pick student"   IsEnabled = "True" Command="{Binding ViewStudentsCommand}" CommandParameter="{Binding ElementName=resultListBox}" />
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  VerticalAlignment="Bottom" Content="Calculate average"   />
+                    </WrapPanel>
+                    
+                    <WrapPanel Margin ="0,20,0,0" Orientation="Horizontal">
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  VerticalAlignment="Bottom" Content="Choose Student"       IsEnabled = "{Binding IsButtonEnabled_Master}" />
+                        <Button Width="100" Height="40" Margin ="0,40,0,0"  VerticalAlignment="Bottom" Content="View All Absences"  IsEnabled = "{Binding IsButtonEnabled_Master}"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  VerticalAlignment="Bottom" Content="Choose Student"       IsEnabled = "{Binding IsButtonEnabled_Master}"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  VerticalAlignment="Bottom" Content="Choose Student"       IsEnabled = "{Binding IsButtonEnabled_Master}"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  VerticalAlignment="Bottom" Content="Choose Student"       IsEnabled = "{Binding IsButtonEnabled_Master}"/>
+                        <Button Width="100" Height="40" Margin="0,0,0,0"  VerticalAlignment="Bottom" Content="Choose Student"       IsEnabled = "{Binding IsButtonEnabled_Master}"/>
+                    </WrapPanel>
                 </WrapPanel>
             </Grid>
         </Grid>

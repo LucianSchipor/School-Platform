@@ -271,6 +271,9 @@
         <Function Name="Admin_GetTeacherSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeacherID" Type="int" Mode="In" />
         </Function>
+        <Function Name="importSubjectsForStudent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Student_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Master_ViewClassHierarchyByGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year_Of_Study" Type="int" Mode="In" />
           <Parameter Name="Class_Letter" Type="char" Mode="In" />
@@ -650,7 +653,7 @@
           <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Admin_GetAllClasses" ReturnType="Collection(SchoolModel.Admin_GetAllClasses_Result)" />
-          <FunctionImport Name="Admin_GetAllMasters" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)" />
+          <FunctionImport Name="Admin_GetAllMasters" ReturnType="Collection(SchoolModel.Admin_GetAllMasters_Result)" />
           <FunctionImport Name="Admin_GetAllStudents" ReturnType="Collection(SchoolModel.Admin_GetAllStudents_Result)" />
           <FunctionImport Name="Admin_GetAllTeachers" ReturnType="Collection(SchoolModel.Admin_GetAllTeachers_Result)" />
           <FunctionImport Name="Admin_GetAllUsers" EntitySet="Users" ReturnType="Collection(SchoolModel.User)" />
@@ -743,6 +746,9 @@
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="importSubjectsForStudent" EntitySet="Subjects" ReturnType="Collection(SchoolModel.Subject)">
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Admin_GetAllClasses_Result">
           <Property Type="Int32" Name="Class_ID" Nullable="false" />
@@ -763,10 +769,8 @@
         </ComplexType>
         <ComplexType Name="Admin_GetAllTeachers_Result">
           <Property Type="Int32" Name="Mastered_Class_ID" Nullable="true" />
-          <Property Type="Int32" Name="User_ID" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="Username" Nullable="true" MaxLength="20" />
-        </ComplexType>
+          <Property Type="Int32" Name="Teacher_ID" Nullable="false" />
+          </ComplexType>
         <ComplexType Name="Admin_GetAllUsers_Result">
           <Property Type="Int32" Name="User_ID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="20" />
@@ -984,6 +988,12 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_GetAllMasters" FunctionName="SchoolModel.Store.Admin_GetAllMasters">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.Admin_GetAllMasters_Result">
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+                <ScalarProperty Name="Mastered_Class_ID" ColumnName="Mastered_Class_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_GetAllStudents" FunctionName="SchoolModel.Store.Admin_GetAllStudents">
             <ResultMapping>
@@ -1075,6 +1085,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="importSubjectsForStudent" FunctionName="SchoolModel.Store.importSubjectsForStudent" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

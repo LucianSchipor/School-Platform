@@ -94,7 +94,7 @@ namespace School_Platform.ViewModels
             //{
             LoggedUser.SetUsername("teacher1");
             LoggedUser.SetPassword("pass");
-            LoggedUser.Role = "Teacher";
+            LoggedUser.Role = "Admin";
             LoggedUser.User_ID = 73;
 
             if (LoggedUser.Role == "Admin")

@@ -9,11 +9,7 @@ namespace School_Platform.Models
     public class Subject
     {
 
-        public string Subject_Name { get; set; }
+        public String Subject_Name { get; set; }
 
-        public Subject() 
-        {
-            Subject_Name = "New Subject";
-        }
     }
 }

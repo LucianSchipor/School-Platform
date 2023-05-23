@@ -2,10 +2,18 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:ctx ="clr-namespace:School_Platform.ViewModels"
+        xmlns:behavior ="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:types ="clr-namespace:School_Platform.Models.DataAcces_Layer"
         xmlns:local="clr-namespace:School_Platform.Views"
         mc:Ignorable="d"
         Title="Admin" Height="450" Width="800">
+
+    <Window.DataContext>
+        <ctx:Student_VM />
+    </Window.DataContext>
+
     <Grid Background="CornflowerBlue" >
         <WrapPanel Orientation="Horizontal">
             <TextBlock Text="Your role is: "/>
@@ -22,28 +30,74 @@
                 <TextBlock Text="STUDENT MENU" HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,0"/>
                 <TextBlock  HorizontalAlignment="Center" FontSize="6" Foreground="Gray" Text="You will only see the classes where you are a teacher"/>
                 <WrapPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,20,0,0">
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock FontSize="20" Text="Choose Subject" Margin="0,0,0,0"/>
+                        <ComboBox 
+                            Width="50" Height="20" 
+                            Margin="0,0,0,0" 
+                            HorizontalAlignment="Left"
+                            SelectedItem ="{Binding SelectedSubject}"
+                            >
 
-                    <TextBlock Text="Choose Subject" Margin="0,20,0,0"/>
-                    <ComboBox Width="150" Margin="0,5,0,0"/>
+                        </ComboBox>
+                    </WrapPanel>
+                    <Button Content="View your grades" Margin="0,0,0,0"/>
 
-                    <TextBlock Text="Choose Action" Margin="0,20,0,0"/>
-                    <ComboBox Width="150" Margin="0,5,0,0">
-                        <ComboBoxItem Content="Absences"/>
-                        <ComboBoxItem Content="Materials"/>
-                        <ComboBoxItem Content="Grades"/>
-                        <ComboBoxItem Content="Average"/>
+                    <TextBlock FontSize="20" Margin="0,20,0,0" Text="View your absences"/>
+                    <ComboBox Width="100" Margin="0,5,0,0" HorizontalAlignment="Left">
+
                     </ComboBox>
+                    <Button Content="View Absences"/>
+
+                    <TextBlock FontSize="20" Margin="0,20,0,0" Text="View your averages"/>
+                    <ComboBox Width="100" Margin="0,5,0,0" HorizontalAlignment="Left">
+
+                    </ComboBox>
+                    <Button Content="View Averages"/>
                 </WrapPanel>
             </StackPanel>
-            <Grid Grid.Column="1">
-                <ListBox Grid.Column="1">
-                    <ListBoxItem Content="Toti elevii rezultati in functie de (selectie + permisiuni)"/>
-                </ListBox>
-                <WrapPanel VerticalAlignment="Bottom">
-                    <Button Width="75" Height="20" VerticalAlignment="Bottom" Content="View"/>
-                </WrapPanel>
-            </Grid>
+                <ListBox Margin="0,0,0,0" x:Name="resultListBox" ItemsSource="{Binding Students}" Grid.Column="1"
+                         behavior:CommandBehavior.Event="SelectionChanged"
+                         behavior:CommandBehavior.Command="{Binding SelectItemCommand}" 
+                         behavior:CommandBehavior.CommandParameter="{Binding ElementName=resultListBox}">
+                    <ItemsControl.Resources>
+                        <DataTemplate DataType="{x:Type types:Teacher_ViewAbsences_Result}">
+                            <WrapPanel>
+                                <TextBlock Text="Student_ID: "/>
+                                <TextBlock Text="{Binding Student_ID}"/>
+                                <TextBlock Text=" Absence Date: "/>
+                                <TextBlock Text="{Binding Absence_Date}"/>
+                                <TextBlock Text=" Motivated: "/>
+                                <TextBlock Text="{Binding Is_Motivated}"/>
+                                <TextBlock Text=" Subject Name: "/>
+                                <TextBlock Text="{Binding Subject_Name}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type types:Student_ViewGrades_Result}">
+                            <WrapPanel>
+                                <TextBlock Text="Subject: "  />
+                                <TextBlock Text="{Binding Subject_Name}"  />
+                                <TextBlock Text=" Value: "  />
+                                <TextBlock Text="{Binding Grade_Value}"  />
+                            </WrapPanel>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type types:Admin_GetAllStudents_Result}">
+                            <WrapPanel>
+                                <TextBlock Text="ID: "/>
+                                <TextBlock Text="{Binding User_ID}"/>
+                                <TextBlock Text=" Name: "/>
 
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text=" Username: "/>
+
+                                <TextBlock Text="{Binding Username}"/>
+                                <TextBlock Text=" Absences: "/>
+
+                                <TextBlock Text="{Binding AbsencesCount}"/>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+                </ListBox>
         </Grid>
     </Grid>
 </Window>

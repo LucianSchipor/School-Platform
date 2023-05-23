@@ -20,6 +20,20 @@ namespace School_Platform.ViewModels
     {
 
 
+        private bool isButtonEnabled_Master;
+        public bool IsButtonEnabled_Master
+        {
+            get
+            {
+                return isButtonEnabled_Master;
+            }
+            set
+            {
+                isButtonEnabled_Master = value;
+                NotifyPropertyChanged(nameof(isButtonEnabled_Master));
+            }
+        }
+
         private string listType;
         public string ListType
         {
@@ -199,6 +213,7 @@ namespace School_Platform.ViewModels
         {
             IsButtonEnabled_Grades = false;
             IsButtonEnabled_Absences = false;
+            IsButtonEnabled_Master = false;
 
             SelectedClass = new Admin_GetTeacherClasses_Result();
 
@@ -217,6 +232,13 @@ namespace School_Platform.ViewModels
             {
                 MessageBox.Show("Niciun user logat. ");
             }
+
+            var listMasters = tr.GetAllMasters();
+            if (listMasters.Select(x => x.Teacher_ID == LoggedUser.User_ID && x.Mastered_Class_ID != 1).FirstOrDefault() == true)
+            {
+                IsButtonEnabled_Master = true;
+            }
+            LoggedUser.Role = "Master";
         }
 
 
@@ -240,6 +262,9 @@ namespace School_Platform.ViewModels
             if (SelectedSubject != null)
             {
                 var name = currentListBox.Name;
+                if(SelectedStudent != null)
+                {
+
                 try
                 {
                     Absences = sr.GetAbsences(SelectedStudent.User_ID, SelectedSubject.Subject_Name);
@@ -252,6 +277,12 @@ namespace School_Platform.ViewModels
                 {
                     MessageBox.Show("O optiune nu a fost selectata.");
                 }
+                }
+                else
+                {
+                    MessageBox.Show("Selecteaza un student inainte");
+                }
+
             }
 
             else

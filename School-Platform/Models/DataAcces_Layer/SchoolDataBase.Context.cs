@@ -143,14 +143,9 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetAllClasses_Result>("Admin_GetAllClasses");
         }
     
-        public virtual ObjectResult<Absence> Admin_GetAllMasters()
+        public virtual ObjectResult<Admin_GetAllMasters_Result> Admin_GetAllMasters()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllMasters");
-        }
-    
-        public virtual ObjectResult<Absence> Admin_GetAllMasters(MergeOption mergeOption)
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Admin_GetAllMasters", mergeOption);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetAllMasters_Result>("Admin_GetAllMasters");
         }
     
         public virtual ObjectResult<Admin_GetAllStudents_Result> Admin_GetAllStudents()
@@ -548,6 +543,24 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Subject_Name", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Student_ViewGrades_Result>("Student_ViewGrades", student_IDParameter, subject_NameParameter);
+        }
+    
+        public virtual ObjectResult<Subject> importSubjectsForStudent(Nullable<int> student_ID)
+        {
+            var student_IDParameter = student_ID.HasValue ?
+                new ObjectParameter("Student_ID", student_ID) :
+                new ObjectParameter("Student_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Subject>("importSubjectsForStudent", student_IDParameter);
+        }
+    
+        public virtual ObjectResult<Subject> importSubjectsForStudent(Nullable<int> student_ID, MergeOption mergeOption)
+        {
+            var student_IDParameter = student_ID.HasValue ?
+                new ObjectParameter("Student_ID", student_ID) :
+                new ObjectParameter("Student_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Subject>("importSubjectsForStudent", mergeOption, student_IDParameter);
         }
     }
 }

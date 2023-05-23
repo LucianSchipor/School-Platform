@@ -21,5 +21,6 @@ namespace School_Platform.Repositories
         {
             return SchoolDataBase.Admin_GetTeacherSubjects(teacher_ID).ToList();
         }
+
     }
 }

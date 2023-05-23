@@ -1,4 +1,5 @@
-﻿using School_Platform.Models.DataAcces_Layer;
+﻿using School_Platform.Models;
+using School_Platform.Models.DataAcces_Layer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,11 @@ namespace School_Platform.Repositories
         public List<Admin_GetTeacherClasses_Result> GetTeacherClasses(int Teacher_ID)
         {
            return SchoolDataBase.Admin_GetTeacherClasses(Teacher_ID).ToList();
+        }
+
+        public List<Admin_GetAllMasters_Result> GetAllMasters()
+        {
+            return SchoolDataBase.Admin_GetAllMasters().ToList();
         }
     }
 }

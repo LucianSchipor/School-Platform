@@ -8,6 +8,9 @@ namespace School_Platform.Models
 {
     public class Teacher
     {
+        public Int32 Teacher_ID { get; set; }
+
+        public Int32 Mastered_Class_ID { get; set; }
 
     }
 }
