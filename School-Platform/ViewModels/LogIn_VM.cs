@@ -1,6 +1,8 @@
 ﻿using School_Platform.Commands;
 using School_Platform.Helpers;
 using School_Platform.Models;
+using School_Platform.Models.DataAcces_Layer;
+using School_Platform.Repositories;
 using School_Platform.Services;
 using School_Platform.Views;
 using System;
@@ -20,8 +22,19 @@ namespace School_Platform.ViewModels
 {
     public class LogIN_VM : BaseVM
     {
-
-        User userToLogIn;
+        private User loggedUser;
+        public User LoggedUser
+        {
+            get
+            {
+                return loggedUser;
+            }
+            set
+            {
+                loggedUser = value;
+                NotifyPropertyChanged(nameof(loggedUser));
+            }
+        }
         User_Service users_service;
 
         private string username;
@@ -54,9 +67,9 @@ namespace School_Platform.ViewModels
 
         public LogIN_VM()
         {
-            userToLogIn = new User();
+            LoggedUser = new User();
             users_service = new User_Service();
-            
+
         }
 
         private ICommand logInCommand;
@@ -73,21 +86,44 @@ namespace School_Platform.ViewModels
         }
         public void LogInVerification(Window window)
         {
-            var view1 = new Admin_View();
-            var service = users_service;
-            (view1.DataContext as Admin_VM).user_service = service;
-            view1.Show();
-            window.Close();
-            if (Username != null && Password != null)
+            var ur = new User_Repository();
+            var list = ur.GetAllUsers();
+
+            //User user = list.Where(x => x.Username == Username && x.Password == Password).FirstOrDefault();
+            //if(user != null)
+            //{
+            LoggedUser.SetUsername("teacher1");
+            LoggedUser.SetPassword("pass");
+            LoggedUser.Role = "Teacher";
+            LoggedUser.User_ID = 73;
+
+            if (LoggedUser.Role == "Admin")
             {
-                userToLogIn.SetUsername(Username);
-                userToLogIn.SetPassword(Password.ToString());
+                var newWindow = new Admin_View();
+                var context = (newWindow.DataContext as Admin_VM);
+                context.LoggedUser = LoggedUser;
+                newWindow.DataContext = context;
+                newWindow.Show();
+                window.Close();
             }
             else
             {
-                MessageBox.Show("Trebuie sa introduci valorile pentru username si password.");
-            }
+                if (LoggedUser.Role == "Teacher")
+                {
+                    var newWindow = new Teacher_View();
+                    var context = new Teacher_VM();
+                    context.LoggedUser = LoggedUser;
+                    newWindow.DataContext = context;
 
+                    newWindow.Show();
+                    window.Close();
+                }
+                else
+                {
+                    //student
+                }
+            }
         }
+        //}
     }
 }

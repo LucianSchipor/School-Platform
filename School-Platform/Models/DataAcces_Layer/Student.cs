@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace School_Platform.Models
+namespace School_Platform.Models.DataAcces_Layer
 {
     public partial class Student : User
     {

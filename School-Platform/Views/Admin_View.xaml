@@ -46,7 +46,7 @@
     <Grid Background="CornflowerBlue" >
         <WrapPanel Orientation="Horizontal">
             <TextBlock Text="Your role is: "/>
-            <TextBlock Text="{Binding}" FontWeight="Bold"/>
+            <TextBlock Text="{Binding LoggedUser.Username}" FontWeight="Bold"/>
         </WrapPanel>
 
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" Height="400" Width="500">

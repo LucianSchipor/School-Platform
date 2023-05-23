@@ -94,6 +94,7 @@
     <Compile Include="Models\DataAcces_Layer\Absence.cs" />
     <Compile Include="Models\DataAcces_Layer\Admin.cs" />
     <Compile Include="Models\DataAcces_Layer\Admin_GetAllTeachers_Result.cs" />
+    <Compile Include="Models\DataAcces_Layer\Admin_GetTeacherSubjects_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\Class.cs" />
     <Compile Include="Models\DataAcces_Layer\Grade.cs" />
     <Compile Include="Models\DataAcces_Layer\SchoolDataBase.Context.cs">
@@ -119,11 +120,10 @@
     <Compile Include="Models\DataAcces_Layer\Teacher.cs" />
     <Compile Include="Models\DataAcces_Layer\Teacher_Subjects.cs" />
     <Compile Include="Models\DataAcces_Layer\User.cs" />
-    <Compile Include="Models\Interfaces\ITeacher.cs" />
-    <Compile Include="Models\ListHelper.cs" />
     <Compile Include="Repositories\Class_Repository.cs" />
     <Compile Include="Repositories\Student_Repository.cs" />
     <Compile Include="Repositories\Teacher_Repository.cs" />
+    <Compile Include="Repositories\Teacher_Subjects_Repository.cs" />
     <Compile Include="Repositories\User_Repository.cs" />
     <Compile Include="Services\Class_Service.cs" />
     <Compile Include="Services\Student_Service.cs" />
@@ -275,9 +275,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Helpers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>

@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="SchoolModel.Student" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.Subject" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.Subjects_Theisis" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.Teacher_Subjects" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.Teacher" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.User" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SchoolModel.FK__Absences__Studen__412EB0B6" ManuallyRouted="false" />
@@ -24,9 +23,8 @@
         <AssociationConnector Association="SchoolModel.FK__Grades__Subject___6383C8BA" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Subject_T__Speci__6E01572D" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK__Subject_T__Subje__6D0D32F4" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.FK__Teacher_S__Subje__5165187F" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.FK__Teacher_S__Teach__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_Spec" />
+        <EntityTypeShape EntityType="SchoolModel.Teacher_Subjects" Width="1.5" PointX="8.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

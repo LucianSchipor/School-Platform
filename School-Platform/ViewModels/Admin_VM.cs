@@ -38,6 +38,7 @@ namespace School_Platform.ViewModels
         }
         public List<List<string>> selectedList { get; set; }
         Class_Service class_Service { get; set; }
+
         private List<Admin_GetAllClasses_Result> classes;
         public List<Admin_GetAllClasses_Result> Classes
         {
@@ -73,6 +74,21 @@ namespace School_Platform.ViewModels
             }
         }
 
+        private User loggedUser;
+        public User LoggedUser
+        {
+            get
+            {
+                return loggedUser;
+            }
+            set
+            {
+                loggedUser = value;
+                NotifyPropertyChanged(nameof(loggedUser));
+            }
+        }
+
+      
         private List<Admin_GetAllTeachers_Result> teachers;
         public List<Admin_GetAllTeachers_Result> Teachers
         {
@@ -340,7 +356,7 @@ namespace School_Platform.ViewModels
                 {
                     viewTeachersCommand = new RelayCommandGeneric<Admin_GetAllTeachers_Result>(GetAllTeachers);
                 }
-                return viewTeachersCommand  ;
+                return viewTeachersCommand;
             }
         }
 

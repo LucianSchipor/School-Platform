@@ -8,5 +8,6 @@ namespace School_Platform.Models
 {
     public class Teacher
     {
+
     }
 }

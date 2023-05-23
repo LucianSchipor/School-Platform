@@ -20,7 +20,7 @@ namespace School_Platform.Repositories
 
         public List<Admin_GetAllStudents_Result> GetAllStudents(Nullable<int> year_Of_Study, string class_Letter)
         {
-            return schoolContext.Admin_GetAllStudentsFromClass(year_Of_Study, class_Letter).ToList();
+          /*!!!!!!!!*/  return schoolContext.Admin_GetAllStudentsFromClass(year_Of_Study, class_Letter).ToList();
         }
 
         public void AddStudent(string Username, string Password, string Name, int Year_Of_Study, string Class_Letter, int Student_ID)
@@ -33,5 +33,12 @@ namespace School_Platform.Repositories
         {
             schoolContext.Admin_ChangeStudentClass(Year_Of_Study, Class_Letter, Student_ID);
         }
+
+        public List<Absence> GetAbsences(int Student_ID, string Subject_Name)
+        {
+            return schoolContext.Teacher_ViewAbsences(Student_ID, Subject_Name).ToList();
+        }
     }
+
+
 }

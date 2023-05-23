@@ -74,11 +74,13 @@
         </EntityType>
         <EntityType Name="Teacher_Subjects">
           <Key>
-            <PropertyRef Name="Teacher_Subject_ID" />
+            <PropertyRef Name="Teacher_ID" />
+            <PropertyRef Name="Subject_Name" />
+            <PropertyRef Name="Class_ID" />
           </Key>
-          <Property Name="Teacher_Subject_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Teacher_ID" Type="int" />
-          <Property Name="Subject_Name" Type="varchar" MaxLength="15" />
+          <Property Name="Teacher_ID" Type="int" Nullable="false" />
+          <Property Name="Subject_Name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Class_ID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Teachers">
           <Key>
@@ -181,30 +183,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_S__Subje__5165187F">
-          <End Role="Subjects" Type="Self.Subjects" Multiplicity="0..1" />
-          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="Subject_Name" />
-            </Principal>
-            <Dependent Role="Teacher_Subjects">
-              <PropertyRef Name="Subject_Name" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Teacher_S__Teach__5070F446">
-          <End Role="Teachers" Type="Self.Teachers" Multiplicity="0..1" />
-          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teachers">
-              <PropertyRef Name="Teacher_ID" />
-            </Principal>
-            <Dependent Role="Teacher_Subjects">
-              <PropertyRef Name="Teacher_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Teachers__Master__3B75D760">
           <End Role="Classes" Type="Self.Classes" Multiplicity="0..1" />
           <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
@@ -240,6 +218,11 @@
         <Function Name="Admin_AddSubjectToTeacher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeacherID" Type="int" Mode="In" />
           <Parameter Name="SubjectName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Admin_AddTeacherToTeachSubject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Teacher_Id" Type="int" Mode="In" />
+          <Parameter Name="Subject_Name" Type="varchar" Mode="In" />
+          <Parameter Name="Class_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="Admin_ChangeClassSpecialization" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Class_Name" Type="char" Mode="In" />
@@ -280,10 +263,10 @@
           <Parameter Name="Year_Of_Study" Type="int" Mode="In" />
           <Parameter Name="Class_Letter" Type="char" Mode="In" />
         </Function>
-        <Function Name="Admin_GetAllTeachers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Admin_GetAllSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetTeacherSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Teacher_ID" Type="int" Mode="In" />
+          <Parameter Name="TeacherID" Type="int" Mode="In" />
         </Function>
         <Function Name="Master_ViewClassHierarchyByGrade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Year_Of_Study" Type="int" Mode="In" />
@@ -332,7 +315,7 @@
         </Function>
         <Function Name="Teacher_ViewAbsences" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Student_ID" Type="int" Mode="In" />
-          <Parameter Name="Subject_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Subject_Name" Type="varchar" Mode="In" />
         </Function>
         <Function Name="Teacher_ViewGrades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Subject_Name" Type="varchar" Mode="In" />
@@ -377,14 +360,6 @@
           <AssociationSet Name="FK__Subject_T__Subje__6D0D32F4" Association="Self.FK__Subject_T__Subje__6D0D32F4">
             <End Role="Subjects" EntitySet="Subjects" />
             <End Role="Subjects_Theisis" EntitySet="Subjects_Theisis" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher_S__Subje__5165187F" Association="Self.FK__Teacher_S__Subje__5165187F">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher_S__Teach__5070F446" Association="Self.FK__Teacher_S__Teach__5070F446">
-            <End Role="Teachers" EntitySet="Teachers" />
-            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
           </AssociationSet>
           <AssociationSet Name="FK__Teachers__Master__3B75D760" Association="Self.FK__Teachers__Master__3B75D760">
             <End Role="Classes" EntitySet="Classes" />
@@ -472,7 +447,6 @@
           <NavigationProperty Name="Absences" Relationship="Self.FK__Absences__Subjec__5FB337D6" FromRole="Subjects" ToRole="Absences" />
           <NavigationProperty Name="Grades" Relationship="Self.FK__Grades__Subject___6383C8BA" FromRole="Subjects" ToRole="Grades" />
           <NavigationProperty Name="Subjects_Theisis" Relationship="Self.FK__Subject_T__Subje__6D0D32F4" FromRole="Subjects" ToRole="Subjects_Theisis" />
-          <NavigationProperty Name="Teacher_Subjects" Relationship="Self.FK__Teacher_S__Subje__5165187F" FromRole="Subjects" ToRole="Teacher_Subjects" />
         </EntityType>
         <EntityType Name="Subjects_Theisis">
           <Key>
@@ -484,16 +458,6 @@
           <NavigationProperty Name="Specialization" Relationship="Self.FK__Subject_T__Speci__6E01572D" FromRole="Subjects_Theisis" ToRole="Specializations" />
           <NavigationProperty Name="Subject" Relationship="Self.FK__Subject_T__Subje__6D0D32F4" FromRole="Subjects_Theisis" ToRole="Subjects" />
         </EntityType>
-        <EntityType Name="Teacher_Subjects">
-          <Key>
-            <PropertyRef Name="Teacher_Subject_ID" />
-          </Key>
-          <Property Name="Teacher_Subject_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Teacher_ID" Type="Int32" />
-          <Property Name="Subject_Name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK__Teacher_S__Subje__5165187F" FromRole="Teacher_Subjects" ToRole="Subjects" />
-          <NavigationProperty Name="Teacher" Relationship="Self.FK__Teacher_S__Teach__5070F446" FromRole="Teacher_Subjects" ToRole="Teachers" />
-        </EntityType>
         <EntityType Name="Teacher">
           <Key>
             <PropertyRef Name="Teacher_ID" />
@@ -501,7 +465,6 @@
           <Property Name="Teacher_ID" Type="Int32" Nullable="false" />
           <Property Name="Mastered_Class_ID" Type="Int32" />
           <NavigationProperty Name="Class" Relationship="Self.FK__Teachers__Master__3B75D760" FromRole="Teachers" ToRole="Classes" />
-          <NavigationProperty Name="Teacher_Subjects" Relationship="Self.FK__Teacher_S__Teach__5070F446" FromRole="Teachers" ToRole="Teacher_Subjects" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -609,30 +572,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Teacher_S__Subje__5165187F">
-          <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
-          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subjects">
-              <PropertyRef Name="Subject_Name" />
-            </Principal>
-            <Dependent Role="Teacher_Subjects">
-              <PropertyRef Name="Subject_Name" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Teacher_S__Teach__5070F446">
-          <End Role="Teachers" Type="Self.Teacher" Multiplicity="0..1" />
-          <End Role="Teacher_Subjects" Type="Self.Teacher_Subjects" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teachers">
-              <PropertyRef Name="Teacher_ID" />
-            </Principal>
-            <Dependent Role="Teacher_Subjects">
-              <PropertyRef Name="Teacher_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Absences" EntityType="Self.Absence" />
           <EntitySet Name="Classes" EntityType="Self.Class" />
@@ -642,7 +581,6 @@
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Subjects" EntityType="Self.Subject" />
           <EntitySet Name="Subjects_Theisis" EntityType="Self.Subjects_Theisis" />
-          <EntitySet Name="Teacher_Subjects" EntityType="Self.Teacher_Subjects" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK__Absences__Studen__412EB0B6" Association="Self.FK__Absences__Studen__412EB0B6">
@@ -676,14 +614,6 @@
           <AssociationSet Name="FK__Subject_T__Subje__6D0D32F4" Association="Self.FK__Subject_T__Subje__6D0D32F4">
             <End Role="Subjects" EntitySet="Subjects" />
             <End Role="Subjects_Theisis" EntitySet="Subjects_Theisis" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher_S__Subje__5165187F" Association="Self.FK__Teacher_S__Subje__5165187F">
-            <End Role="Subjects" EntitySet="Subjects" />
-            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Teacher_S__Teach__5070F446" Association="Self.FK__Teacher_S__Teach__5070F446">
-            <End Role="Teachers" EntitySet="Teachers" />
-            <End Role="Teacher_Subjects" EntitySet="Teacher_Subjects" />
           </AssociationSet>
           <FunctionImport Name="AdaugaDiriginte">
             <Parameter Name="ProfesorID" Mode="In" Type="Int32" />
@@ -720,8 +650,8 @@
           <FunctionImport Name="Admin_GetAllStudents" ReturnType="Collection(SchoolModel.Admin_GetAllStudents_Result)" />
           <FunctionImport Name="Admin_GetAllTeachers" ReturnType="Collection(SchoolModel.Admin_GetAllTeachers_Result)" />
           <FunctionImport Name="Admin_GetAllUsers" EntitySet="Users" ReturnType="Collection(SchoolModel.User)" />
-          <FunctionImport Name="Admin_GetTeacherSubjects" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
-          <Parameter Name="Teacher_ID" Mode="In" Type="Int32" />
+          <FunctionImport Name="Admin_GetTeacherSubjects" ReturnType="Collection(SchoolModel.Admin_GetTeacherSubjects_Result)">
+          <Parameter Name="TeacherID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Master_ViewClassHierarchyByGrade" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
             <Parameter Name="Year_Of_Study" Mode="In" Type="Int32" />
@@ -734,7 +664,7 @@
           <FunctionImport Name="Master_ViewStudentGrades" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
           <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Student_ViewAbsences" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
+          <FunctionImport Name="Student_ViewAbsences" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
           <Parameter Name="Student_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Student_ViewAverages" EntitySet="Classes" ReturnType="Collection(SchoolModel.Class)">
@@ -768,7 +698,7 @@
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Absence_Date" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="Teacher_ViewAbsences" EntitySet="Grades" ReturnType="Collection(SchoolModel.Grade)">
+          <FunctionImport Name="Teacher_ViewAbsences" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
           </FunctionImport>
@@ -797,6 +727,13 @@
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Admin_GetAllSubjects" ReturnType="Collection(String)" />
+          <EntitySet Name="Teacher_Subjects" EntityType="SchoolModel.Teacher_Subjects" />
+          <FunctionImport Name="Admin_AddTeacherToTeachSubject">
+            <Parameter Name="Teacher_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Subject_Name" Mode="In" Type="String" />
+            <Parameter Name="Class_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Admin_GetAllClasses_Result">
@@ -891,6 +828,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Teacher_Subjects">
+          <Key>
+            <PropertyRef Name="Teacher_ID" />
+            <PropertyRef Name="Subject_Name" />
+            <PropertyRef Name="Class_ID" />
+          </Key>
+          <Property Name="Teacher_ID" Type="Int32" Nullable="false" />
+          <Property Name="Subject_Name" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Class_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="Admin_GetTeacherSubjects_Result">
+          <Property Type="String" Name="Subject_Name" Nullable="false" MaxLength="15" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -970,15 +920,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Teacher_Subjects">
-            <EntityTypeMapping TypeName="SchoolModel.Teacher_Subjects">
-              <MappingFragment StoreEntitySet="Teacher_Subjects">
-                <ScalarProperty Name="Teacher_Subject_ID" ColumnName="Teacher_Subject_ID" />
-                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
-                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Teachers">
             <EntityTypeMapping TypeName="SchoolModel.Teacher">
               <MappingFragment StoreEntitySet="Teachers">
@@ -1028,19 +969,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Admin_GetAllTeachers" FunctionName="SchoolModel.Store.Admin_GetAllTeachers">
+          <FunctionImportMapping FunctionImportName="Admin_GetAllUsers" FunctionName="SchoolModel.Store.Admin_GetAllUsers">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Admin_GetTeacherSubjects" FunctionName="SchoolModel.Store.Admin_GetTeacherSubjects" >
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SchoolModel.Admin_GetAllTeachers_Result">
-                <ScalarProperty Name="Mastered_Class_ID" ColumnName="Mastered_Class_ID" />
-                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
+              <ComplexTypeMapping TypeName="SchoolModel.Admin_GetTeacherSubjects_Result">
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Admin_GetAllUsers" FunctionName="SchoolModel.Store.Admin_GetAllUsers">
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Admin_GetTeacherSubjects" FunctionName="SchoolModel.Store.Admin_GetTeacherSubjects" />
           <FunctionImportMapping FunctionImportName="Master_ViewClassHierarchyByGrade" FunctionName="SchoolModel.Store.Master_ViewClassHierarchyByGrade">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Master_ViewSpecialCases" FunctionName="SchoolModel.Store.Master_ViewSpecialCases">
@@ -1077,6 +1014,17 @@
           <FunctionImportMapping FunctionImportName="Admin_CreateClass" FunctionName="SchoolModel.Store.Admin_CreateClass" />
           <FunctionImportMapping FunctionImportName="Admin_DeleteClass" FunctionName="SchoolModel.Store.Admin_DeleteClass" />
           <FunctionImportMapping FunctionImportName="Admin_CreateTeacher" FunctionName="SchoolModel.Store.Admin_CreateTeacher" />
+          <FunctionImportMapping FunctionImportName="Admin_GetAllSubjects" FunctionName="SchoolModel.Store.Admin_GetAllSubjects" />
+          <EntitySetMapping Name="Teacher_Subjects">
+            <EntityTypeMapping TypeName="SchoolModel.Teacher_Subjects">
+              <MappingFragment StoreEntitySet="Teacher_Subjects">
+                <ScalarProperty Name="Class_ID" ColumnName="Class_ID" />
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+                <ScalarProperty Name="Teacher_ID" ColumnName="Teacher_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Admin_AddTeacherToTeachSubject" FunctionName="SchoolModel.Store.Admin_AddTeacherToTeachSubject" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
