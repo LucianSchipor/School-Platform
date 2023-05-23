@@ -26,5 +26,10 @@ namespace School_Platform.Repositories
         {
             SchoolDataBase.Admin_CreateTeacher(name, username, password);
         }
+
+        public List<Admin_GetTeacherClasses_Result> GetTeacherClasses(int Teacher_ID)
+        {
+           return SchoolDataBase.Admin_GetTeacherClasses(Teacher_ID).ToList();
+        }
     }
 }

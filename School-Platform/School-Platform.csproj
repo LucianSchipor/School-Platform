@@ -94,6 +94,7 @@
     <Compile Include="Models\DataAcces_Layer\Absence.cs" />
     <Compile Include="Models\DataAcces_Layer\Admin.cs" />
     <Compile Include="Models\DataAcces_Layer\Admin_GetAllTeachers_Result.cs" />
+    <Compile Include="Models\DataAcces_Layer\Admin_GetTeacherClasses_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\Admin_GetTeacherSubjects_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\Class.cs" />
     <Compile Include="Models\DataAcces_Layer\Grade.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Models\DataAcces_Layer\Subjects_Theisis.cs" />
     <Compile Include="Models\DataAcces_Layer\Teacher.cs" />
     <Compile Include="Models\DataAcces_Layer\Teacher_Subjects.cs" />
+    <Compile Include="Models\DataAcces_Layer\Teacher_ViewAbsences_Result.cs" />
     <Compile Include="Models\DataAcces_Layer\User.cs" />
     <Compile Include="Repositories\Class_Repository.cs" />
     <Compile Include="Repositories\Student_Repository.cs" />

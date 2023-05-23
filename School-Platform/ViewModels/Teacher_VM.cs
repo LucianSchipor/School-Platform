@@ -19,6 +19,21 @@ namespace School_Platform.ViewModels
     public class Teacher_VM : BaseVM
     {
 
+
+        private string listType;
+        public string ListType
+        {
+            get
+            {
+                return listType;
+            }
+            set
+            {
+                listType = value;
+                NotifyPropertyChanged(nameof(listType));
+            }
+        }
+
         private User loggedUser;
         public User LoggedUser
         {
@@ -48,8 +63,8 @@ namespace School_Platform.ViewModels
 
         //verific la comanda de view, pt ca de acolo stiu ce tip are lista
       
-        private List<Admin_GetAllClasses_Result> classes;
-        public List<Admin_GetAllClasses_Result> Classes
+        private List<Admin_GetTeacherClasses_Result> classes;
+        public List<Admin_GetTeacherClasses_Result> Classes
         {
             get
             {
@@ -76,8 +91,8 @@ namespace School_Platform.ViewModels
             }
         }
 
-        private Admin_GetAllClasses_Result selectedClass;
-        public Admin_GetAllClasses_Result SelectedClass
+        private Admin_GetTeacherClasses_Result selectedClass;
+        public Admin_GetTeacherClasses_Result SelectedClass
         {
             get
             {
@@ -110,8 +125,8 @@ namespace School_Platform.ViewModels
             }
         }
 
-        private List<Absence> absences;
-        public List<Absence> Absences
+        private List<Teacher_ViewAbsences_Result> absences;
+        public List<Teacher_ViewAbsences_Result> Absences
         {
             get { return absences; }
             set
@@ -182,13 +197,26 @@ namespace School_Platform.ViewModels
         }
         public Teacher_VM()
         {
-            IsButtonEnabled_Grades = true;
+            IsButtonEnabled_Grades = false;
             IsButtonEnabled_Absences = false;
 
-            var cr = new Class_Repository();
-            SelectedClass = new Admin_GetAllClasses_Result();
-            Classes = cr.GetAllClasses();
+            SelectedClass = new Admin_GetTeacherClasses_Result();
+          
+        }
 
+        public Teacher_VM(User LoggedUser)
+            :base()
+        {
+            var tr = new Teacher_Repository();
+            this.LoggedUser = LoggedUser;
+            try
+            {
+                Classes = tr.GetTeacherClasses(LoggedUser.User_ID);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Niciun user logat. ");
+            }
         }
 
 
@@ -209,12 +237,27 @@ namespace School_Platform.ViewModels
         public void ViewAbsences(ListBox currentListBox)
         {
             var sr = new Student_Repository();
+            if(SelectedSubject != null)
+            {
 
-            Absences = sr.GetAbsences(SelectedStudent.User_ID, SelectedSubject.Subject_Name);
+            try
+            {
+                Absences = sr.GetAbsences(SelectedStudent.User_ID, SelectedSubject.Subject_Name);
+                currentListBox.ItemsSource = Absences;
+                IsButtonEnabled_Absences = true;
+                IsButtonEnabled_Grades = false;
+                    ListType = "Absence";
+            }
+            catch (System.NullReferenceException)
+            {
+                MessageBox.Show("O optiune nu a fost selectata.");
+            }
+            }
 
-            currentListBox.ItemsSource = Absences;
-            IsButtonEnabled_Absences = true;
-            IsButtonEnabled_Grades = false;
+            else
+            {
+                MessageBox.Show("Selecteaza materia la care vrei sa-i vezi absentele.");
+            }
         }
 
         private ICommand importSubjectsCommand;
@@ -267,10 +310,48 @@ namespace School_Platform.ViewModels
                 {
                     int a = int.Parse(SelectedYear.Content.ToString());
                     Students = sr.GetAllStudents(a, SelectedClass.Class_Name);
+                    ListType = "Student";
+                    currentListBox.ItemsSource = Students;
                 }
+
             }
             currentListBox.ItemsSource = Students;
         }
 
+        private ICommand selectItemCommand;
+        public ICommand SelectItemCommand
+        {
+            get
+            {
+                if (selectItemCommand == null)
+                {
+                    selectItemCommand = new RelayCommandGeneric<ListBox>(SelectItem);
+                }
+                return selectItemCommand;
+            }
+        }
+
+        public void SelectItem(ListBox StudentListBox)
+        {
+            IsButtonEnabled_Absences = true;
+            if(ListType == "Student")
+            {
+                SelectedStudent = StudentListBox.SelectedItem as Admin_GetAllStudents_Result;
+            }
+            else
+            {
+                if(ListType == "Absences")
+                {
+                    StudentListBox.ItemsSource = Absences;
+                }
+                else
+                {
+                    if(ListType == "Grade")
+                    {
+                        StudentListBox.ItemsSource = Grades;
+                    }
+                }
+            }
+        }
     }
 }

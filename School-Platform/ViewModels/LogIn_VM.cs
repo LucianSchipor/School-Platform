@@ -111,7 +111,7 @@ namespace School_Platform.ViewModels
                 if (LoggedUser.Role == "Teacher")
                 {
                     var newWindow = new Teacher_View();
-                    var context = new Teacher_VM();
+                    var context = new Teacher_VM(LoggedUser);
                     context.LoggedUser = LoggedUser;
                     newWindow.DataContext = context;
 

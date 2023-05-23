@@ -16,7 +16,7 @@
     <Grid Background="CornflowerBlue" >
         <WrapPanel Orientation="Horizontal">
             <TextBlock Text="Your role is: "/>
-            <TextBlock Text=" HIS ROLE" FontWeight="Bold"/>
+            <TextBlock Text="{Binding LoggedUser.Role}" FontWeight="Bold"/>
         </WrapPanel>
 
         <Grid Background="White" Height="350" Width="600">
@@ -32,6 +32,7 @@
                     <TextBlock Text="Choose Year.">
                     </TextBlock>
                     <ComboBox Width="150" Margin="0,5,0,0" SelectedItem="{Binding SelectedYear}">
+                        <ComboBoxItem Content="0" />
                         <ComboBoxItem Content="9" />
                         <ComboBoxItem Content="10" />
                         <ComboBoxItem Content="11" />
@@ -42,9 +43,7 @@
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <WrapPanel>
-                                    <TextBlock  Text="ID: "/>
-                                    <TextBlock  Text="{Binding Class_ID}"/>
-                                    <TextBlock  Text=" class: "/>
+                                    <TextBlock  Text=" Class: "/>
                                     <TextBlock  Text="{Binding Year_Of_Study}"/>
                                     <TextBlock  Text="{Binding Class_Name}"/>
                                 </WrapPanel>
@@ -52,8 +51,7 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
 
-                    <Button Content="Import Subjects" Margin="0,20,0,0" Command="{Binding ImportSubjectsCommand}"/>
-                    <TextBlock Text="Choose Subject" />
+                    <TextBlock Text="Choose Subject" Margin="0,20,0,0"/>
                     <ComboBox Width="150" Margin="0,5,0,0" x:Name="comboboximport" ItemsSource="{Binding Subjects}"
                               behavior:CommandBehavior.Command="{Binding ImportSubjectsCommand}"
                               behavior:CommandBehavior.Event="DropDownOpened"
@@ -70,18 +68,21 @@
                 </WrapPanel>
             </StackPanel>
             <Grid Grid.Column="1">
-                <ListBox Margin="0,80,0,0" x:Name="resultListBox" ItemsSource="{Binding Grades}"
+                <ListBox Margin="0,160,0,0" x:Name="resultListBox" ItemsSource="{Binding Grades}"
                          behavior:CommandBehavior.Event="SelectionChanged"
-                         behavior:CommandBehavior.Command="{Binding SelectItem}"
-                         
-                         >
+                         behavior:CommandBehavior.Command="{Binding SelectItemCommand}" 
+                         behavior:CommandBehavior.CommandParameter="{Binding ElementName=resultListBox}">
                     <ItemsControl.Resources>
-                        <DataTemplate DataType="{x:Type types:Absence}">
+                        <DataTemplate DataType="{x:Type types:Teacher_ViewAbsences_Result}">
                             <WrapPanel>
+                                <TextBlock Text="Student_ID: "/>
                                 <TextBlock Text="{Binding Student_ID}"/>
+                                <TextBlock Text=" Absence Date: "/>
                                 <TextBlock Text="{Binding Absence_Date}"/>
-                                <TextBlock Text="{Binding Teacher_ID}"/>
-                                <TextBlock Text="{Binding isMotivated}"/>
+                                <TextBlock Text=" Motivated: "/>
+                                <TextBlock Text="{Binding Is_Motivated}"/>
+                                <TextBlock Text=" Subject Name: "/>
+                                <TextBlock Text="{Binding Subject_Name}"/>
                             </WrapPanel>
                         </DataTemplate>
                         <DataTemplate DataType="{x:Type types:Grade}">
@@ -93,7 +94,7 @@
                         <DataTemplate DataType="{x:Type types:Admin_GetAllStudents_Result}">
                             <WrapPanel>
                                 <TextBlock Text="ID: "/>
-                                <TextBlock Text="{Binding Student_ID}"/>
+                                <TextBlock Text="{Binding User_ID}"/>
                                 <TextBlock Text=" Name: "/>
 
                                 <TextBlock Text="{Binding Name}"/>
@@ -108,15 +109,15 @@
                     </ItemsControl.Resources>
                 </ListBox>
                 <WrapPanel>
-                    <Button Width="100" Height="20"  VerticalAlignment="Bottom" Content="View Absences" Command="{Binding ViewAbsencesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
-                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Add Absence"/>
-                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Justify Absence" />
-                    <Button Width="100" Height="20"  VerticalAlignment="Bottom" Content="View Grades" />
-                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Add Grade" />
-                    <Button Width="100" Height="20" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Remove Grade"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="Calculate average" IsEnabled="False"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="View materials" IsEnabled="False"/>
-                    <Button Width="100" Height="20" VerticalAlignment="Bottom" Content="Choose Student" Command="{Binding ViewStudentsCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="View Absences" Command="{Binding ViewAbsencesCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Add Absence"/>
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Absences}" VerticalAlignment="Bottom" Content="Justify Absence" />
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="View Grades" />
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Add Grade" />
+                    <Button Width="100" Height="50" IsEnabled ="{Binding IsButtonEnabled_Grades}" VerticalAlignment="Bottom" Content="Remove Grade"/>
+                    <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="Calculate average" IsEnabled="False"/>
+                    <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="View materials" IsEnabled="False"/>
+                    <Button Width="100" Height="50" VerticalAlignment="Bottom" Content="Choose Student" Command="{Binding ViewStudentsCommand}" CommandParameter="{Binding ElementName=resultListBox}"/>
                 </WrapPanel>
             </Grid>
         </Grid>

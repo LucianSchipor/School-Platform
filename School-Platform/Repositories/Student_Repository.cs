@@ -34,7 +34,7 @@ namespace School_Platform.Repositories
             schoolContext.Admin_ChangeStudentClass(Year_Of_Study, Class_Letter, Student_ID);
         }
 
-        public List<Absence> GetAbsences(int Student_ID, string Subject_Name)
+        public List<Teacher_ViewAbsences_Result> GetAbsences(int Student_ID, string Subject_Name)
         {
             return schoolContext.Teacher_ViewAbsences(Student_ID, Subject_Name).ToList();
         }

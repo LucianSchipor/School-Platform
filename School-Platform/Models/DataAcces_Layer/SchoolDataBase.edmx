@@ -265,6 +265,9 @@
         </Function>
         <Function Name="Admin_GetAllSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Admin_GetAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Admin_GetTeacherClasses" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Teacher_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Admin_GetTeacherSubjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="TeacherID" Type="int" Mode="In" />
         </Function>
@@ -698,10 +701,6 @@
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Absence_Date" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="Teacher_ViewAbsences" EntitySet="Absences" ReturnType="Collection(SchoolModel.Absence)">
-            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
-            <Parameter Name="Subject_Name" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="Teacher_ViewGrades" EntitySet="Students" ReturnType="Collection(SchoolModel.Student)">
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Student_ID" Mode="In" Type="Int32" />
@@ -734,6 +733,13 @@
             <Parameter Name="Teacher_Id" Mode="In" Type="Int32" />
             <Parameter Name="Subject_Name" Mode="In" Type="String" />
             <Parameter Name="Class_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Teacher_ViewAbsences" ReturnType="Collection(SchoolModel.Teacher_ViewAbsences_Result)">
+            <Parameter Name="Student_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Subject_Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Admin_GetTeacherClasses" ReturnType="Collection(SchoolModel.Admin_GetTeacherClasses_Result)">
+            <Parameter Name="Teacher_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Admin_GetAllClasses_Result">
@@ -840,6 +846,17 @@
         </EntityType>
         <ComplexType Name="Admin_GetTeacherSubjects_Result">
           <Property Type="String" Name="Subject_Name" Nullable="false" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="Teacher_ViewAbsences_Result1">
+          <Property Type="Int32" Name="Absence_ID" Nullable="false" />
+          <Property Type="Int32" Name="Student_ID" Nullable="true" />
+          <Property Type="String" Name="Is_Motivated" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Subject_Name" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="Absence_Date" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Admin_GetTeacherClasses_Result">
+          <Property Type="Int32" Name="Year_Of_Study" Nullable="true" />
+          <Property Type="String" Name="Class_Name" Nullable="true" MaxLength="5" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -996,8 +1013,6 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Teacher_DeleteGrade" FunctionName="SchoolModel.Store.Teacher_DeleteGrade" />
           <FunctionImportMapping FunctionImportName="Teacher_JustifyAbsence" FunctionName="SchoolModel.Store.Teacher_JustifyAbsence" />
-          <FunctionImportMapping FunctionImportName="Teacher_ViewAbsences" FunctionName="SchoolModel.Store.Teacher_ViewAbsences">
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Teacher_ViewGrades" FunctionName="SchoolModel.Store.Teacher_ViewGrades">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Admin_GetAllStudentsFromClass" FunctionName="SchoolModel.Store.Admin_GetAllStudentsFromClass">
@@ -1025,6 +1040,25 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Admin_AddTeacherToTeachSubject" FunctionName="SchoolModel.Store.Admin_AddTeacherToTeachSubject" />
+          <FunctionImportMapping FunctionImportName="Teacher_ViewAbsences" FunctionName="SchoolModel.Store.Teacher_ViewAbsences" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.Teacher_ViewAbsences_Result">
+                <ScalarProperty Name="Absence_ID" ColumnName="Absence_ID" />
+                <ScalarProperty Name="Student_ID" ColumnName="Student_ID" />
+                <ScalarProperty Name="Is_Motivated" ColumnName="Is_Motivated" />
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+                <ScalarProperty Name="Absence_Date" ColumnName="Absence_Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Admin_GetTeacherClasses" FunctionName="SchoolModel.Store.Admin_GetTeacherClasses">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchoolModel.Admin_GetTeacherClasses_Result">
+                <ScalarProperty Name="Year_Of_Study" ColumnName="Year_Of_Study" />
+                <ScalarProperty Name="Class_Name" ColumnName="Class_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

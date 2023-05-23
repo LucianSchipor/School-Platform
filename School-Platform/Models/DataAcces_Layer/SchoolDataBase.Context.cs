@@ -442,32 +442,6 @@ namespace School_Platform.Models.DataAcces_Layer
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Teacher_JustifyAbsence", student_IDParameter, subject_NameParameter, absence_DateParameter);
         }
     
-        public virtual ObjectResult<Absence> Teacher_ViewAbsences(Nullable<int> student_ID, string subject_Name)
-        {
-            var student_IDParameter = student_ID.HasValue ?
-                new ObjectParameter("Student_ID", student_ID) :
-                new ObjectParameter("Student_ID", typeof(int));
-    
-            var subject_NameParameter = subject_Name != null ?
-                new ObjectParameter("Subject_Name", subject_Name) :
-                new ObjectParameter("Subject_Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Teacher_ViewAbsences", student_IDParameter, subject_NameParameter);
-        }
-    
-        public virtual ObjectResult<Absence> Teacher_ViewAbsences(Nullable<int> student_ID, string subject_Name, MergeOption mergeOption)
-        {
-            var student_IDParameter = student_ID.HasValue ?
-                new ObjectParameter("Student_ID", student_ID) :
-                new ObjectParameter("Student_ID", typeof(int));
-    
-            var subject_NameParameter = subject_Name != null ?
-                new ObjectParameter("Subject_Name", subject_Name) :
-                new ObjectParameter("Subject_Name", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Absence>("Teacher_ViewAbsences", mergeOption, student_IDParameter, subject_NameParameter);
-        }
-    
         public virtual ObjectResult<Student> Teacher_ViewGrades(string subject_Name, Nullable<int> student_ID)
         {
             var subject_NameParameter = subject_Name != null ?
@@ -574,6 +548,28 @@ namespace School_Platform.Models.DataAcces_Layer
                 new ObjectParameter("Class_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Admin_AddTeacherToTeachSubject", teacher_IdParameter, subject_NameParameter, class_IDParameter);
+        }
+    
+        public virtual ObjectResult<Teacher_ViewAbsences_Result> Teacher_ViewAbsences(Nullable<int> student_ID, string subject_Name)
+        {
+            var student_IDParameter = student_ID.HasValue ?
+                new ObjectParameter("Student_ID", student_ID) :
+                new ObjectParameter("Student_ID", typeof(int));
+    
+            var subject_NameParameter = subject_Name != null ?
+                new ObjectParameter("Subject_Name", subject_Name) :
+                new ObjectParameter("Subject_Name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Teacher_ViewAbsences_Result>("Teacher_ViewAbsences", student_IDParameter, subject_NameParameter);
+        }
+    
+        public virtual ObjectResult<Admin_GetTeacherClasses_Result> Admin_GetTeacherClasses(Nullable<int> teacher_ID)
+        {
+            var teacher_IDParameter = teacher_ID.HasValue ?
+                new ObjectParameter("Teacher_ID", teacher_ID) :
+                new ObjectParameter("Teacher_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_GetTeacherClasses_Result>("Admin_GetTeacherClasses", teacher_IDParameter);
         }
     }
 }

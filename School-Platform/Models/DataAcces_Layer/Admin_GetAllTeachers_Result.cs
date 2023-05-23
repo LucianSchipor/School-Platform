@@ -10,7 +10,7 @@ namespace School_Platform.Models.DataAcces_Layer
     {
 
         public int User_ID { get; set; }
-        public string Name{ get; set; }
+        public string Name { get; set; }
         public string Username { get; set;}
         public int Mastered_Class_ID { get; set; }
     }
